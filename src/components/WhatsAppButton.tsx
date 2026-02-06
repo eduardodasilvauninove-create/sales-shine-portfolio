@@ -16,10 +16,7 @@ export const WhatsAppButton = () => {
       transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full bg-whatsapp text-whatsapp-foreground font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300 animate-pulse-glow"
-      style={{ 
-        boxShadow: '0 0 20px hsl(142 70% 45% / 0.4)'
-      }}
+      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full bg-whatsapp text-whatsapp-foreground font-semibold shadow-md hover:shadow-lg transition-shadow duration-300"
     >
       <MessageCircle className="w-6 h-6" />
       <span className="hidden sm:inline">Fale Conosco</span>
