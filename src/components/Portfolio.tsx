@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import {
   Carousel,
   CarouselContent,
@@ -39,14 +40,30 @@ const portfolioItems = [
 ];
 
 export const Portfolio = () => {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
   return (
-    <section id="portfolio" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section id="portfolio" ref={sectionRef} className="py-24 relative overflow-hidden">
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-primary/5 blur-3xl"
+      />
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          ref={headerRef}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -59,10 +76,10 @@ export const Portfolio = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
           <Carousel
             opts={{
@@ -74,23 +91,33 @@ export const Portfolio = () => {
             <CarouselContent className="-ml-4">
               {portfolioItems.map((item, index) => (
                 <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/2">
-                  <div className="group relative overflow-hidden rounded-2xl glass">
+                  <motion.div 
+                    className="group relative overflow-hidden rounded-2xl glass"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="aspect-video overflow-hidden">
-                      <img
+                      <motion.img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
                       />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <motion.div 
+                      className="absolute bottom-0 left-0 right-0 p-6"
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                    >
                       <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary mb-2">
                         {item.category}
                       </span>
                       <h3 className="text-xl font-bold mb-1">{item.title}</h3>
                       <p className="text-sm text-muted-foreground">{item.description}</p>
-                    </div>
-                  </div>
+                    </motion.div>
+                  </motion.div>
                 </CarouselItem>
               ))}
             </CarouselContent>

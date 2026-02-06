@@ -1,8 +1,19 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export const Hero = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+
   const scrollToContact = () => {
     document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -12,21 +23,43 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
-      {/* Background glow effect */}
-      <div className="absolute inset-0 bg-glow opacity-50" />
+    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
+      {/* Parallax background elements */}
+      <motion.div 
+        style={{ y }}
+        className="absolute inset-0 bg-glow opacity-50" 
+      />
       
-      {/* Animated grid background */}
-      <div 
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
-                           linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px'
-        }}
+      {/* Animated grid background with parallax */}
+      <motion.div 
+        style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "30%"]) }}
+        className="absolute inset-0 opacity-[0.07]"
+      >
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
+                             linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
+          }}
+        />
+      </motion.div>
+
+      {/* Floating orbs with parallax */}
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]) }}
+        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary/5 blur-3xl animate-float"
+      />
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "70%"]) }}
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl animate-float"
+        initial={{ animationDelay: "2s" }}
       />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <motion.div 
+        style={{ opacity, scale }}
+        className="container mx-auto px-4 relative z-10"
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,14 +129,20 @@ export const Hero = () => {
               { value: "98%", label: "Clientes Satisfeitos" },
               { value: "24h", label: "Suporte Rápido" },
             ].map((stat, index) => (
-              <div key={index} className="text-center">
+              <motion.div 
+                key={index} 
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 + index * 0.1 }}
+              >
                 <div className="text-2xl md:text-3xl font-bold text-gradient">{stat.value}</div>
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />

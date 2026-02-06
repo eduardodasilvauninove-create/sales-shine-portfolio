@@ -1,5 +1,6 @@
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,11 +26,21 @@ export const ContactForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
+  
+  const sectionRef = useRef(null);
+  const formRef = useRef(null);
+  const isFormInView = useInView(formRef, { once: true, margin: "-50px" });
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user types
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -41,9 +52,8 @@ export const ContactForm = () => {
     setErrors({});
 
     try {
-      const validatedData = contactSchema.parse(formData);
+      contactSchema.parse(formData);
       
-      // Simulate form submission
       await new Promise((resolve) => setTimeout(resolve, 1500));
       
       setIsSubmitted(true);
@@ -52,7 +62,6 @@ export const ContactForm = () => {
         description: "Entraremos em contato em breve.",
       });
       
-      // Reset form after delay
       setTimeout(() => {
         setFormData({ name: "", email: "", phone: "", message: "" });
         setIsSubmitted(false);
@@ -73,16 +82,23 @@ export const ContactForm = () => {
   };
 
   return (
-    <section id="contato" className="py-24 relative">
-      <div className="absolute inset-0 bg-glow opacity-20" />
+    <section id="contato" ref={sectionRef} className="py-24 relative overflow-hidden">
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="absolute inset-0 bg-glow opacity-20" 
+      />
+      <motion.div 
+        style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "50%"]) }}
+        className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl"
+      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -95,10 +111,10 @@ export const ContactForm = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            ref={formRef}
+            initial={{ opacity: 0, y: 60, scale: 0.95 }}
+            animate={isFormInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="glass rounded-2xl p-8 md:p-12"
           >
             {isSubmitted ? (
@@ -107,7 +123,13 @@ export const ContactForm = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-12"
               >
-                <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                >
+                  <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
+                </motion.div>
                 <h3 className="text-2xl font-bold mb-2">Mensagem Enviada!</h3>
                 <p className="text-muted-foreground">
                   Obrigado pelo contato. Retornaremos em breve!
@@ -116,7 +138,11 @@ export const ContactForm = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isFormInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.2 }}
+                  >
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Nome Completo
                     </label>
@@ -129,8 +155,12 @@ export const ContactForm = () => {
                       className={`bg-secondary/50 border-border focus:border-primary ${errors.name ? 'border-destructive' : ''}`}
                     />
                     {errors.name && <p className="text-destructive text-sm mt-1">{errors.name}</p>}
-                  </div>
-                  <div>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={isFormInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.3 }}
+                  >
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
                       E-mail
                     </label>
@@ -144,9 +174,13 @@ export const ContactForm = () => {
                       className={`bg-secondary/50 border-border focus:border-primary ${errors.email ? 'border-destructive' : ''}`}
                     />
                     {errors.email && <p className="text-destructive text-sm mt-1">{errors.email}</p>}
-                  </div>
+                  </motion.div>
                 </div>
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isFormInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.4 }}
+                >
                   <label htmlFor="phone" className="block text-sm font-medium mb-2">
                     WhatsApp / Telefone
                   </label>
@@ -159,8 +193,12 @@ export const ContactForm = () => {
                     className={`bg-secondary/50 border-border focus:border-primary ${errors.phone ? 'border-destructive' : ''}`}
                   />
                   {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone}</p>}
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isFormInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.5 }}
+                >
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Sua Mensagem
                   </label>
@@ -174,23 +212,29 @@ export const ContactForm = () => {
                     className={`bg-secondary/50 border-border focus:border-primary resize-none ${errors.message ? 'border-destructive' : ''}`}
                   />
                   {errors.message && <p className="text-destructive text-sm mt-1">{errors.message}</p>}
-                </div>
-                <Button
-                  type="submit"
-                  variant="hero"
-                  size="lg"
-                  className="w-full"
-                  disabled={isSubmitting}
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isFormInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.6 }}
                 >
-                  {isSubmitting ? (
-                    "Enviando..."
-                  ) : (
-                    <>
-                      Enviar Mensagem
-                      <Send className="w-5 h-5" />
-                    </>
-                  )}
-                </Button>
+                  <Button
+                    type="submit"
+                    variant="hero"
+                    size="lg"
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      "Enviando..."
+                    ) : (
+                      <>
+                        Enviar Mensagem
+                        <Send className="w-5 h-5" />
+                      </>
+                    )}
+                  </Button>
+                </motion.div>
               </form>
             )}
           </motion.div>

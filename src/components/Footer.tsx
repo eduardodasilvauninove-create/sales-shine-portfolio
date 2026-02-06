@@ -20,13 +20,19 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Links Rápidos</h4>
             <ul className="space-y-2">
-              {["Início", "Serviços", "Portfólio", "Contato"].map((link) => (
-                <li key={link}>
+              {[
+                { label: "Início", href: "#" },
+                { label: "Serviços", href: "#servicos" },
+                { label: "Portfólio", href: "#portfolio" },
+                { label: "Depoimentos", href: "#depoimentos" },
+                { label: "Contato", href: "#contato" },
+              ].map((link) => (
+                <li key={link.label}>
                   <a
-                    href={`#${link.toLowerCase()}`}
+                    href={link.href}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}

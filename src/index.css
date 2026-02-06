@@ -2,10 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Tech-forward dark design system */
+/* Tech-forward design system with light/dark modes */
 
 @layer base {
   :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 185 85% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 94%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 185 85% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 85%;
+    --input: 214 32% 85%;
+    --ring: 185 85% 40%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens - Light mode */
+    --gradient-primary: linear-gradient(135deg, hsl(185 85% 40%) 0%, hsl(200 90% 35%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(210 40% 98%) 0%, hsl(210 40% 95%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(185 85% 40% / 0.08) 0%, transparent 70%);
+    
+    --shadow-glow: 0 0 30px hsl(185 85% 40% / 0.15);
+    --shadow-card: 0 8px 32px hsl(222 47% 11% / 0.08);
+    --shadow-button: 0 4px 16px hsl(185 85% 40% / 0.2);
+
+    --glass-bg: hsl(0 0% 100% / 0.8);
+    --glass-border: hsl(185 85% 40% / 0.15);
+
+    --sidebar-background: 210 40% 98%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 185 85% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 94%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 85%;
+    --sidebar-ring: 185 85% 40%;
+
+    /* WhatsApp green */
+    --whatsapp: 142 70% 45%;
+    --whatsapp-foreground: 0 0% 100%;
+  }
+
+  .dark {
     --background: 222 47% 6%;
     --foreground: 210 40% 98%;
 
@@ -34,17 +92,15 @@
     --input: 222 30% 18%;
     --ring: 185 85% 50%;
 
-    --radius: 0.75rem;
-
-    /* Custom tokens */
+    /* Custom tokens - Dark mode */
     --gradient-primary: linear-gradient(135deg, hsl(185 85% 50%) 0%, hsl(200 90% 45%) 100%);
     --gradient-hero: linear-gradient(180deg, hsl(222 47% 6%) 0%, hsl(222 47% 10%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(222 47% 10%) 0%, hsl(222 47% 8%) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(185 85% 50% / 0.15) 0%, transparent 70%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(185 85% 50% / 0.1) 0%, transparent 70%);
     
-    --shadow-glow: 0 0 40px hsl(185 85% 50% / 0.3);
+    --shadow-glow: 0 0 30px hsl(185 85% 50% / 0.2);
     --shadow-card: 0 8px 32px hsl(222 47% 3% / 0.5);
-    --shadow-button: 0 4px 20px hsl(185 85% 50% / 0.4);
+    --shadow-button: 0 4px 16px hsl(185 85% 50% / 0.25);
 
     --glass-bg: hsl(222 47% 10% / 0.6);
     --glass-border: hsl(185 85% 50% / 0.1);
@@ -57,21 +113,16 @@
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 222 30% 18%;
     --sidebar-ring: 185 85% 50%;
-
-    /* WhatsApp green */
-    --whatsapp: 142 70% 45%;
-    --whatsapp-foreground: 0 0% 100%;
-  }
-
-  .dark {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
@@ -132,6 +183,15 @@
     background-size: 200% 200%;
     animation: gradient-shift 8s ease infinite;
   }
+
+  /* Parallax utilities */
+  .parallax-slow {
+    transform: translateZ(-2px) scale(3);
+  }
+
+  .parallax-medium {
+    transform: translateZ(-1px) scale(2);
+  }
 }
 
 @keyframes float {
@@ -145,10 +205,10 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px hsl(185 85% 50% / 0.3);
+    box-shadow: 0 0 15px hsl(142 70% 45% / 0.25);
   }
   50% {
-    box-shadow: 0 0 40px hsl(185 85% 50% / 0.6);
+    box-shadow: 0 0 25px hsl(142 70% 45% / 0.4);
   }
 }
 
@@ -161,5 +221,27 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes scroll-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
