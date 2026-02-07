@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { FloatingParticles } from "./FloatingParticles";
 
 export const Hero = () => {
   const ref = useRef<HTMLElement>(null);
@@ -24,10 +25,13 @@ export const Hero = () => {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
+      {/* Floating particles */}
+      <FloatingParticles />
+      
       {/* Parallax background elements */}
       <motion.div 
         style={{ y }}
-        className="absolute inset-0 bg-glow opacity-50" 
+        className="absolute inset-0 bg-glow opacity-50"
       />
       
       {/* Animated grid background with parallax */}
