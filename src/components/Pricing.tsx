@@ -14,7 +14,7 @@ import {
 const plans = [
   {
     name: "Básico",
-    price: "999",
+    price: "R$999",
     priceNote: "pagamento único",
     description: "Perfeito para quem está começando",
     icon: Zap,
@@ -33,7 +33,7 @@ const plans = [
   },
   {
     name: "Profissional",
-    price: "1.999",
+    price: "Até R$1999",
     priceNote: "pagamento parcelado",
     description: "Para empresas que querem mais credibilidade e funcionalidades",
     icon: Sparkles,
@@ -54,8 +54,8 @@ const plans = [
   },
   {
     name: "Premium",
-    price: "2.999",
-    priceNote: "a partir de • parcelado",
+    price: "A partir de R$2999",
+    priceNote: "pagamento parcelado",
     description: "Para quem quer performance, marketing e recursos avançados",
     icon: Crown,
     features: [
@@ -144,7 +144,7 @@ export const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={`relative rounded-2xl p-8 ${
+              className={`relative rounded-2xl p-8 flex flex-col ${
                 plan.popular
                   ? "glass-strong border-primary/50 scale-105"
                   : "glass border-border/50"
@@ -172,13 +172,12 @@ export const Pricing = () => {
                 <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                 <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-sm text-muted-foreground">R$</span>
                   <span className="text-4xl font-bold text-gradient">{plan.price}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">{plan.priceNote}</p>
               </div>
 
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-6 flex-grow">
                 {plan.features.map((feature, i) => (
                   <motion.li
                     key={i}
@@ -194,21 +193,23 @@ export const Pricing = () => {
                 ))}
               </ul>
 
-              <div className="bg-muted/50 rounded-lg p-3 mb-6">
-                <p className="text-xs text-muted-foreground">
-                  <span className="font-semibold text-foreground">👉 Indicado para:</span>{" "}
-                  {plan.indication}
-                </p>
-              </div>
+              <div className="mt-auto">
+                <div className="bg-muted/50 rounded-lg p-3 mb-6">
+                  <p className="text-xs text-muted-foreground">
+                    <span className="font-semibold text-foreground">👉 Indicado para:</span>{" "}
+                    {plan.indication}
+                  </p>
+                </div>
 
-              <Button
-                variant={plan.popular ? "hero" : "outline"}
-                className="w-full"
-                size="lg"
-                onClick={scrollToContact}
-              >
-                Escolher Plano
-              </Button>
+                <Button
+                  variant={plan.popular ? "hero" : "outline"}
+                  className="w-full"
+                  size="lg"
+                  onClick={scrollToContact}
+                >
+                  Escolher Plano
+                </Button>
+              </div>
             </motion.div>
           ))}
         </div>
