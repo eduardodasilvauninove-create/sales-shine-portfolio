@@ -144,10 +144,8 @@ export const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={`relative rounded-2xl p-8 flex flex-col ${
-                plan.popular
-                  ? "glass-strong border-primary/50 scale-105"
-                  : "glass border-border/50"
+              className={`relative rounded-2xl p-8 flex flex-col glass border-border/50 ${
+                plan.popular ? "scale-105" : ""
               }`}
             >
               {plan.popular && (
@@ -160,11 +158,7 @@ export const Pricing = () => {
 
               <div className="text-center mb-8">
                 <motion.div
-                  className={`inline-flex items-center justify-center w-14 h-14 rounded-xl mb-4 ${
-                    plan.popular
-                      ? "bg-primary/20 text-primary"
-                      : "bg-muted text-muted-foreground"
-                  }`}
+                  className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-4 bg-muted text-muted-foreground"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   <plan.icon className="w-7 h-7" />
@@ -237,9 +231,9 @@ export const Pricing = () => {
                       <span>Básico</span>
                     </div>
                   </TableHead>
-                  <TableHead className="text-center text-foreground font-semibold bg-primary/10">
+                  <TableHead className="text-center text-foreground font-semibold">
                     <div className="flex flex-col items-center gap-1">
-                      <Sparkles className="w-5 h-5 text-primary" />
+                      <Sparkles className="w-5 h-5 text-muted-foreground" />
                       <span>Profissional</span>
                     </div>
                   </TableHead>
@@ -263,7 +257,7 @@ export const Pricing = () => {
                     <TableCell className="text-center">
                       {renderComparisonValue(item.basic)}
                     </TableCell>
-                    <TableCell className="text-center bg-primary/5">
+                    <TableCell className="text-center">
                       {renderComparisonValue(item.pro)}
                     </TableCell>
                     <TableCell className="text-center">
