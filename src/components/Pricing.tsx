@@ -16,7 +16,7 @@ const plans = [
     name: "Básico",
     price: "R$999",
     priceNote: "pagamento único",
-    description: "Perfeito para quem está começando",
+    description: "Perfeito para quem está começando sua imagem online",
     icon: Zap,
     features: [
       "Site institucional simples (1 a 3 páginas)",
@@ -54,7 +54,7 @@ const plans = [
   },
   {
     name: "Premium",
-    price: "A partir de R$2999",
+    price: "R$2999*",
     priceNote: "pagamento parcelado",
     description: "Para quem quer performance, marketing e recursos avançados",
     icon: Crown,
