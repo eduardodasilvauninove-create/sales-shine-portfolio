@@ -59,7 +59,7 @@ const plans = [
     description: "Para quem quer performance, marketing e recursos avançados",
     icon: Crown,
     features: [
-      "Site totalmente personalizado ou sistema web",
+      "*Valores de acordo com o projeto solicitado",
       "Páginas sob demanda",
       "Design exclusivo (UX/UI profissional)",
       "Área administrativa ou painel do cliente",
