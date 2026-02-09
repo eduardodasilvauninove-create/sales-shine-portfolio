@@ -26,7 +26,7 @@ const faqItems = [
   {
     question: "Está incluso a hospedagem do site?",
     answer:
-      "Sim! Todos os planos incluem hospedagem por pelo menos 1 ano. Após esse período, você pode renovar conosco ou migrar para qualquer hospedagem de sua preferência.",
+      "Não, nós deixamos o controle da hospedagem e domínio para o cliente. Deverá ser assinado os serviços de registro de domínio e hospedagem e prestaremos todo o suporte necessário para as assinaturas destes serviços.",
   },
   {
     question: "Posso fazer alterações no site depois de pronto?",
