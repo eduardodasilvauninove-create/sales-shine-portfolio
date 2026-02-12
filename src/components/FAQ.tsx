@@ -24,9 +24,9 @@ const faqItems = [
       "Absolutamente! Todos os nossos sites são desenvolvidos com design responsivo, garantindo uma experiência perfeita em qualquer dispositivo - computadores, tablets e smartphones.",
   },
   {
-    question: "Está incluso a hospedagem do site?",
+    question: "Está incluso a hospedagem e domínio do site?",
     answer:
-      "Não, nós deixamos o controle da hospedagem e domínio para o cliente. Deverá ser assinado os serviços de registro de domínio e hospedagem e prestaremos todo o suporte necessário para as assinaturas destes serviços.",
+      "Não, nós deixamos o controle da hospedagem e domínio para o cliente. Os serviços de domínio e hospedagem deverão ser assinados de acordo com as opções que serão demonstradas pelo nosso suporte, que prestará todo o auxílio necessário para a assinatura destes serviços.",
   },
   {
     question: "Posso fazer alterações no site depois de pronto?",
@@ -41,7 +41,7 @@ const faqItems = [
   {
     question: "Como funciona o pagamento?",
     answer:
-      "Trabalhamos com 50% de entrada para iniciar o projeto e 50% na entrega final. Aceitamos PIX, transferência bancária e cartão de crédito em até 3x sem juros.",
+      "Trabalhamos com 50% de entrada para iniciar o projeto e 50% na entrega final. Aceitamos PIX e transferência bancária.",
   },
   {
     question: "E se eu não gostar do resultado?",
