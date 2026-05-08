@@ -101,12 +101,13 @@ export const ContactForm = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Pronto para <span className="text-gradient">começar?</span>
+            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Contato</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
+              Vamos <span className="text-gradient">conversar?</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Entre em contato conosco e receba um orçamento personalizado 
-              para o site dos seus sonhos.
+              Conte-nos sobre seus desafios em segurança, privacidade e compliance.
+              Nosso time entrará em contato em breve.
             </p>
           </motion.div>
 

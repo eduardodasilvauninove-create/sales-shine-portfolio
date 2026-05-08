@@ -9,68 +9,67 @@ import {
 
 const faqItems = [
   {
-    question: "Quanto tempo leva para criar meu site?",
+    question: "O que é Governança, Riscos e Compliance (GRC)?",
     answer:
-      "O prazo varia de acordo com o plano escolhido e a complexidade do projeto. Sites básicos são entregues em até 7 dias úteis, enquanto projetos mais elaborados podem levar de 15 a 30 dias. Sempre mantemos você informado sobre o progresso.",
+      "GRC é a abordagem integrada para alinhar a gestão da governança corporativa, dos riscos e da conformidade às leis e normas. Aplicado à segurança da informação, garante que a organização atue de forma segura, ética e em conformidade com regulamentações como a LGPD e normas como a ISO 27001.",
   },
   {
-    question: "Preciso fornecer o conteúdo do site?",
+    question: "Como funciona um diagnóstico de adequação à LGPD?",
     answer:
-      "Sim, você precisará fornecer textos, logotipo e imagens do seu negócio. Caso não tenha imagens profissionais, podemos utilizar bancos de imagens de alta qualidade. Também oferecemos serviço de redação de textos por um valor adicional.",
+      "Realizamos um mapeamento dos tratamentos de dados pessoais, análise de gaps frente à LGPD, avaliação de processos, contratos e controles existentes. Ao final, entregamos um relatório com riscos identificados e um plano de ação priorizado para adequação.",
   },
   {
-    question: "O site será responsivo (adaptado para celular)?",
+    question: "Quais portes de empresa a 365s atende?",
     answer:
-      "Absolutamente! Todos os nossos sites são desenvolvidos com design responsivo, garantindo uma experiência perfeita em qualquer dispositivo - computadores, tablets e smartphones.",
+      "Atendemos organizações de diferentes portes e setores. Nossas soluções são personalizadas conforme a maturidade, contexto e necessidades de cada cliente — de pequenas empresas iniciando sua jornada de conformidade a grandes corporações com programas avançados de SGSI/SGPI.",
   },
   {
-    question: "Está incluso a hospedagem e domínio do site?",
+    question: "Quanto tempo leva um projeto de adequação?",
     answer:
-      "Não, nós deixamos o controle da hospedagem e domínio para o cliente. Os serviços de domínio e hospedagem deverão ser assinados de acordo com as opções que serão demonstradas pelo nosso suporte, que prestará todo o auxílio necessário para a assinatura destes serviços.",
+      "O prazo depende do escopo, complexidade e maturidade atual da organização. Projetos de diagnóstico inicial podem ser concluídos em poucas semanas, enquanto programas completos de implementação de SGSI ou adequação à LGPD costumam variar entre 3 e 12 meses.",
   },
   {
-    question: "Posso fazer alterações no site depois de pronto?",
+    question: "A 365s realiza certificação ISO 27001?",
     answer:
-      "Claro! Oferecemos um período de 30 dias para pequenas alterações após a entrega. Para alterações maiores ou contínuas, temos planos de manutenção mensal que garantem suporte dedicado.",
+      "Não emitimos certificações — esse papel cabe a organismos certificadores acreditados. Nós preparamos sua organização para a certificação, estruturando o SGSI, políticas, controles e evidências necessárias para uma auditoria bem-sucedida.",
   },
   {
-    question: "O site terá boa posição no Google?",
+    question: "Como é feita a gestão de riscos de terceiros?",
     answer:
-      "Sim! Todos os sites são desenvolvidos seguindo as melhores práticas de SEO (otimização para buscadores). Isso inclui estrutura otimizada, velocidade de carregamento, meta tags e muito mais. Planos superiores incluem estratégias avançadas de SEO.",
+      "Avaliamos fornecedores e parceiros críticos por meio de questionários, due diligence, análise de controles e monitoramento contínuo. O objetivo é reduzir a exposição da sua organização a incidentes originados na cadeia de suprimentos.",
   },
   {
-    question: "Como funciona o pagamento?",
+    question: "Vocês oferecem treinamentos para nossas equipes?",
     answer:
-      "Trabalhamos com 50% de entrada para iniciar o projeto e 50% na entrega final. Aceitamos PIX e transferência bancária.",
+      "Sim. Realizamos treinamentos especializados em segurança da informação, LGPD, ISO 27001, gestão de riscos e programas de conscientização organizacional, adaptados ao público e à realidade de cada empresa.",
   },
   {
-    question: "E se eu não gostar do resultado?",
+    question: "Como iniciar um projeto com a 365s?",
     answer:
-      "Trabalhamos com aprovação por etapas, então você acompanha todo o processo. Oferecemos até 3 rodadas de revisão em cada etapa para garantir sua satisfação. Nosso objetivo é entregar exatamente o que você imagina!",
+      "Basta entrar em contato pelo formulário ou WhatsApp. Agendamos uma conversa inicial sem compromisso para entender seus desafios e propor o caminho mais adequado para sua organização.",
   },
 ];
 
 export const FAQ = () => {
-  const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="faq" ref={sectionRef} className="py-24 relative overflow-hidden">
+    <section id="faq" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 40 }}
           animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">FAQ</span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
             Perguntas <span className="text-gradient">Frequentes</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Tire suas dúvidas sobre nossos serviços. Não encontrou o que procura?
-            Entre em contato conosco!
+            Tire suas dúvidas sobre nossos serviços. Não encontrou o que procura? Fale conosco.
           </p>
         </motion.div>
 
@@ -88,7 +87,7 @@ export const FAQ = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05 }}
               >
                 <AccordionItem
                   value={`item-${index}`}
