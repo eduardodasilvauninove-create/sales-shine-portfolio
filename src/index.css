@@ -61,6 +61,9 @@
     /* WhatsApp green */
     --whatsapp: 142 70% 45%;
     --whatsapp-foreground: 0 0% 100%;
+
+    /* 365s brand check accent */
+    --brand-check: 142 76% 45%;
   }
 
   .dark {
