@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Users, ShieldCheck, Activity } from "lucide-react";
+import { ArrowRight, Landmark, AlertTriangle, ClipboardCheck, FileSearch } from "lucide-react";
 import { FloatingParticles } from "./FloatingParticles";
+import bannerImg from "@/assets/365s-linkedin-banner.png";
 
 export const Hero = () => {
   const ref = useRef<HTMLElement>(null);
@@ -60,7 +61,7 @@ export const Hero = () => {
               transition={{ delay: 0.2 }}
               className="inline-block text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-4"
             >
-              Governança · Riscos · Compliance
+              Consultoria especializada em GRC, Auditoria e Segurança da Informação
             </motion.span>
 
             <motion.h1
@@ -69,8 +70,9 @@ export const Hero = () => {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
             >
-              Segurança da Informação como{" "}
-              <span className="text-gradient">Vantagem Estratégica</span>
+              Mais que segurança:{" "}
+              <span className="text-gradient">governança, risco e conformidade</span>{" "}
+              <span className="whitespace-nowrap">365 dias.</span>
             </motion.h1>
 
             <motion.p
@@ -80,29 +82,26 @@ export const Hero = () => {
               className="text-lg text-muted-foreground mb-8 max-w-xl"
             >
               Apoiamos organizações na evolução contínua da segurança da informação,
-              governança, riscos e proteção de dados.
+              governança, riscos e proteção de dados — todos os dias do ano.
             </motion.p>
 
-            {/* Mini stats */}
+            {/* Quatro pilares — espelham o banner do LinkedIn */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="grid grid-cols-3 gap-4 mb-8 max-w-lg"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-xl"
             >
               {[
-                { icon: Calendar, value: "365", label: "dias/ano" },
-                { icon: Users, value: "5+", label: "frentes de atuação" },
-                { icon: ShieldCheck, value: "ISO", label: "27001 / 27K" },
-              ].map((s, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <s.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-xl font-bold">{s.value}</div>
-                    <div className="text-xs text-muted-foreground">{s.label}</div>
-                  </div>
+                { icon: Landmark, label: "GOVERNANÇA", desc: "Estratégia e políticas que geram valor." },
+                { icon: AlertTriangle, label: "RISCOS", desc: "Identificação, avaliação e mitigação contínua." },
+                { icon: ClipboardCheck, label: "COMPLIANCE", desc: "Conformidade, normas e regulamentações." },
+                { icon: FileSearch, label: "AUDITORIA", desc: "Transparência, controles e melhoria contínua." },
+              ].map((p, i) => (
+                <div key={i} className="glass rounded-lg p-3">
+                  <p.icon className="w-5 h-5 text-primary mb-2" />
+                  <div className="text-[11px] font-bold tracking-wider">{p.label}</div>
+                  <div className="text-[10px] text-muted-foreground leading-tight mt-1">{p.desc}</div>
                 </div>
               ))}
             </motion.div>
@@ -123,40 +122,38 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Visual lado direito */}
+          {/* Visual lado direito — banner oficial */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             className="relative hidden lg:flex items-center justify-center"
           >
-            <div className="relative w-full aspect-square max-w-lg">
-              {/* Círculos concêntricos */}
-              <div className="absolute inset-0 rounded-full border border-primary/20 animate-pulse" />
-              <div className="absolute inset-8 rounded-full border border-primary/30" />
-              <div className="absolute inset-16 rounded-full border border-primary/40" />
-              <div className="absolute inset-24 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 backdrop-blur-xl flex items-center justify-center">
-                <ShieldCheck className="w-32 h-32 text-primary" strokeWidth={1.2} />
-              </div>
-              {/* Ícones flutuantes */}
-              {[
-                { icon: Activity, pos: "top-0 left-1/2 -translate-x-1/2" },
-                { icon: Users, pos: "top-1/2 right-0 -translate-y-1/2" },
-                { icon: Calendar, pos: "bottom-0 left-1/2 -translate-x-1/2" },
-                { icon: ShieldCheck, pos: "top-1/2 left-0 -translate-y-1/2" },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
-                  className={`absolute ${item.pos} w-14 h-14 rounded-xl glass flex items-center justify-center`}
-                >
-                  <item.icon className="w-6 h-6 text-primary" />
-                </motion.div>
-              ))}
+            <div className="relative w-full max-w-xl rounded-2xl overflow-hidden glass shadow-glow">
+              <img
+                src={bannerImg}
+                alt="365s · Governança, Riscos, Compliance e Auditoria"
+                className="w-full h-auto"
+                loading="eager"
+              />
             </div>
           </motion.div>
         </div>
+
+        {/* Faixa de valores — espelha o rodapé do banner */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9, duration: 0.8 }}
+          className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground"
+        >
+          {["Estratégia", "Inovação", "Confiança", "Continuidade"].map((w, i, arr) => (
+            <span key={w} className="flex items-center gap-6">
+              <span>{w}</span>
+              {i < arr.length - 1 && <span className="text-primary">·</span>}
+            </span>
+          ))}
+        </motion.div>
       </motion.div>
 
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
