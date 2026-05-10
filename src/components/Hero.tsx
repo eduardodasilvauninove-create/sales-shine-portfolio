@@ -90,7 +90,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-xl"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-2xl mx-auto"
             >
               {[
                 { icon: Landmark, label: "GOVERNANÇA", desc: "Estratégia e políticas que geram valor." },
@@ -98,7 +98,7 @@ export const Hero = () => {
                 { icon: ClipboardCheck, label: "COMPLIANCE", desc: "Conformidade, normas e regulamentações." },
                 { icon: FileSearch, label: "AUDITORIA", desc: "Transparência, controles e melhoria contínua." },
               ].map((p, i) => (
-                <div key={i} className="glass rounded-lg p-3">
+                <div key={i} className="glass rounded-lg p-3 text-left">
                   <p.icon className="w-5 h-5 text-primary mb-2" />
                   <div className="text-[11px] font-bold tracking-wider">{p.label}</div>
                   <div className="text-[10px] text-muted-foreground leading-tight mt-1">{p.desc}</div>
@@ -110,7 +110,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button variant="hero" size="xl" onClick={() => scrollTo("contato")}>
                 Falar com Especialista
@@ -120,23 +120,6 @@ export const Hero = () => {
                 Conhecer Serviços
               </Button>
             </motion.div>
-          </motion.div>
-
-          {/* Visual lado direito — banner oficial */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative hidden lg:flex items-center justify-center"
-          >
-            <div className="relative w-full max-w-xl rounded-2xl overflow-hidden glass shadow-glow">
-              <img
-                src={bannerImg}
-                alt="365s · Governança, Riscos, Compliance e Auditoria"
-                className="w-full h-auto"
-                loading="eager"
-              />
-            </div>
           </motion.div>
         </div>
 
