@@ -87,26 +87,27 @@ export const Hero = () => {
             {/* Divisor vertical decorativo (md+) */}
             <div className="hidden md:block w-px h-32 bg-gradient-to-b from-transparent via-primary/40 to-transparent" />
 
-            {/* Wordmark + tagline */}
+            {/* Wordmark + headline + subheadline */}
             <div className="text-center md:text-left">
               <motion.h1
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="font-extrabold tracking-tight leading-none text-6xl md:text-7xl lg:text-8xl text-foreground"
+                className="font-extrabold tracking-tight leading-[1.05] text-4xl md:text-5xl lg:text-6xl text-foreground"
               >
-                365<span className="italic text-gradient font-black">s</span>
+                Mais que segurança:<br />
+                governança, risco e conformidade{" "}
+                <span className="text-gradient">365 dias</span>.
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.35, duration: 0.8 }}
-                className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl"
+                className="mt-5 text-base md:text-lg text-muted-foreground max-w-xl"
               >
-                <span className="font-semibold text-foreground">Mais que segurança:</span>{" "}
-                governança, risco e conformidade{" "}
-                <span className="text-primary font-semibold">365 dias.</span>
+                Ajudamos empresas a fortalecer sua segurança da informação,
+                privacidade, compliance e gestão de riscos.
               </motion.p>
             </div>
           </div>
@@ -131,7 +132,7 @@ export const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center mt-8"
           >
             <Button variant="hero" size="xl" onClick={() => scrollTo("contato")}>
-              Falar com Especialista
+              Solicitar Diagnóstico
               <ArrowRight className="w-5 h-5" />
             </Button>
             <Button variant="outline" size="xl" onClick={() => scrollTo("servicos")}>
