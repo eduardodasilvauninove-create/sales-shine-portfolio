@@ -5,11 +5,10 @@ import { Menu, X, MessageCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navLinks = [
-  { label: "Home", href: "#" },
-  { label: "Quem Somos", href: "#quem-somos" },
+  { label: "Início", href: "#" },
   { label: "Serviços", href: "#servicos" },
-  { label: "Diferenciais", href: "#diferenciais" },
-  { label: "Normas", href: "#normas" },
+  { label: "Sobre", href: "#quem-somos" },
+  { label: "Compliance", href: "#normas" },
   { label: "Contato", href: "#contato" },
 ];
 
