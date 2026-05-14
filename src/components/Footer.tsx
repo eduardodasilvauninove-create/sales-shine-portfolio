@@ -21,7 +21,9 @@ export const Footer = () => {
             </p>
             <div className="flex gap-3 mt-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 className="w-9 h-9 rounded-lg glass flex items-center justify-center hover:border-primary/40 transition-colors"
               >

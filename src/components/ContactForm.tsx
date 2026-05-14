@@ -8,11 +8,28 @@ import { Send, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
+// Schema com validação estrita (defesa contra injeção/XSS em qualquer integração futura)
 const contactSchema = z.object({
-  name: z.string().trim().min(2, "Nome deve ter pelo menos 2 caracteres").max(100),
-  email: z.string().trim().email("Email inválido").max(255),
-  phone: z.string().trim().min(10, "Telefone deve ter pelo menos 10 dígitos").max(20),
-  message: z.string().trim().min(10, "Mensagem deve ter pelo menos 10 caracteres").max(1000),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Nome deve ter pelo menos 2 caracteres")
+    .max(100, "Nome muito longo")
+    .regex(/^[\p{L}\s'.-]+$/u, "Nome contém caracteres inválidos"),
+  email: z.string().trim().toLowerCase().email("Email inválido").max(255),
+  phone: z
+    .string()
+    .trim()
+    .min(10, "Telefone deve ter pelo menos 10 dígitos")
+    .max(20, "Telefone muito longo")
+    .regex(/^[+()\d\s-]+$/, "Telefone contém caracteres inválidos"),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Mensagem deve ter pelo menos 10 caracteres")
+    .max(1000, "Mensagem muito longa")
+    // bloqueia tags HTML / scripts copiados/colados (mitigação extra de XSS)
+    .refine((v) => !/<\/?[a-z][\s\S]*>/i.test(v), "A mensagem não pode conter código HTML"),
 });
 
 export const ContactForm = () => {
@@ -153,6 +170,8 @@ export const ContactForm = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Seu nome"
+                      maxLength={100}
+                      autoComplete="name"
                       className={`bg-secondary/50 border-border focus:border-primary ${errors.name ? 'border-destructive' : ''}`}
                     />
                     {errors.name && <p className="text-destructive text-sm mt-1">{errors.name}</p>}
@@ -172,6 +191,9 @@ export const ContactForm = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="seu@email.com"
+                      maxLength={255}
+                      autoComplete="email"
+                      inputMode="email"
                       className={`bg-secondary/50 border-border focus:border-primary ${errors.email ? 'border-destructive' : ''}`}
                     />
                     {errors.email && <p className="text-destructive text-sm mt-1">{errors.email}</p>}
@@ -188,9 +210,13 @@ export const ContactForm = () => {
                   <Input
                     id="phone"
                     name="phone"
+                    type="tel"
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="(00) 00000-0000"
+                    maxLength={20}
+                    autoComplete="tel"
+                    inputMode="tel"
                     className={`bg-secondary/50 border-border focus:border-primary ${errors.phone ? 'border-destructive' : ''}`}
                   />
                   {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone}</p>}
@@ -210,6 +236,7 @@ export const ContactForm = () => {
                     onChange={handleChange}
                     placeholder="Descreva o projeto que você tem em mente..."
                     rows={5}
+                    maxLength={1000}
                     className={`bg-secondary/50 border-border focus:border-primary resize-none ${errors.message ? 'border-destructive' : ''}`}
                   />
                   {errors.message && <p className="text-destructive text-sm mt-1">{errors.message}</p>}
