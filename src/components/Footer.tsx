@@ -6,7 +6,7 @@ export const Footer = () => {
   return (
     <footer className="py-12 border-t border-border/50">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-5 gap-8 mb-8">
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-baseline gap-2 mb-4">
@@ -58,6 +58,23 @@ export const Footer = () => {
                   </a>
                 </li>
               ))}
+            </ul>
+          </div>
+
+        {/* Links Úteis */}
+          <div>
+            <h4 className="font-semibold mb-4">Links Úteis</h4>
+            <ul className="space-y-2">
+              <li>
+                <a href="/politica-de-seguranca" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Política de Segurança
+                </a>
+              </li>
+              <li>
+                <a href="/politica-de-privacidade" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Política de Privacidade
+                </a>
+              </li>
             </ul>
           </div>
 
