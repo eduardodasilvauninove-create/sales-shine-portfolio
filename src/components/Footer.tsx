@@ -61,6 +61,23 @@ export const Footer = () => {
             </ul>
           </div>
 
+        {/* Links Úteis */}
+          <div>
+            <h4 className="font-semibold mb-4">Links Úteis</h4>
+            <ul className="space-y-2">
+              <li>
+                <a href="/politica-de-seguranca" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Política de Segurança
+                </a>
+              </li>
+              <li>
+                <a href="/politica-de-privacidade" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Política de Privacidade
+                </a>
+              </li>
+            </ul>
+          </div>
+
           {/* Contato */}
           <div>
             <h4 className="font-semibold mb-4">Contato</h4>
