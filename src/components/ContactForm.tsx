@@ -170,6 +170,8 @@ export const ContactForm = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Seu nome"
+                      maxLength={100}
+                      autoComplete="name"
                       className={`bg-secondary/50 border-border focus:border-primary ${errors.name ? 'border-destructive' : ''}`}
                     />
                     {errors.name && <p className="text-destructive text-sm mt-1">{errors.name}</p>}
@@ -189,6 +191,9 @@ export const ContactForm = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="seu@email.com"
+                      maxLength={255}
+                      autoComplete="email"
+                      inputMode="email"
                       className={`bg-secondary/50 border-border focus:border-primary ${errors.email ? 'border-destructive' : ''}`}
                     />
                     {errors.email && <p className="text-destructive text-sm mt-1">{errors.email}</p>}
@@ -205,9 +210,13 @@ export const ContactForm = () => {
                   <Input
                     id="phone"
                     name="phone"
+                    type="tel"
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="(00) 00000-0000"
+                    maxLength={20}
+                    autoComplete="tel"
+                    inputMode="tel"
                     className={`bg-secondary/50 border-border focus:border-primary ${errors.phone ? 'border-destructive' : ''}`}
                   />
                   {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone}</p>}
@@ -227,6 +236,7 @@ export const ContactForm = () => {
                     onChange={handleChange}
                     placeholder="Descreva o projeto que você tem em mente..."
                     rows={5}
+                    maxLength={1000}
                     className={`bg-secondary/50 border-border focus:border-primary resize-none ${errors.message ? 'border-destructive' : ''}`}
                   />
                   {errors.message && <p className="text-destructive text-sm mt-1">{errors.message}</p>}
