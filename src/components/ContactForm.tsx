@@ -8,11 +8,28 @@ import { Send, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
+// Schema com validação estrita (defesa contra injeção/XSS em qualquer integração futura)
 const contactSchema = z.object({
-  name: z.string().trim().min(2, "Nome deve ter pelo menos 2 caracteres").max(100),
-  email: z.string().trim().email("Email inválido").max(255),
-  phone: z.string().trim().min(10, "Telefone deve ter pelo menos 10 dígitos").max(20),
-  message: z.string().trim().min(10, "Mensagem deve ter pelo menos 10 caracteres").max(1000),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Nome deve ter pelo menos 2 caracteres")
+    .max(100, "Nome muito longo")
+    .regex(/^[\p{L}\s'.-]+$/u, "Nome contém caracteres inválidos"),
+  email: z.string().trim().toLowerCase().email("Email inválido").max(255),
+  phone: z
+    .string()
+    .trim()
+    .min(10, "Telefone deve ter pelo menos 10 dígitos")
+    .max(20, "Telefone muito longo")
+    .regex(/^[+()\d\s-]+$/, "Telefone contém caracteres inválidos"),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Mensagem deve ter pelo menos 10 caracteres")
+    .max(1000, "Mensagem muito longa")
+    // bloqueia tags HTML / scripts copiados/colados (mitigação extra de XSS)
+    .refine((v) => !/<\/?[a-z][\s\S]*>/i.test(v), "A mensagem não pode conter código HTML"),
 });
 
 export const ContactForm = () => {
