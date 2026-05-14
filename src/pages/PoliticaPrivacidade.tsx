@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { motion } from "framer-motion";
-import { Eye, Database, Share2, Trash2, FileText, Scale } from "lucide-react";
+import { Eye, Database, Share2, Trash2, FileText, Scale, Lock } from "lucide-react";
 
 const sections = [
   {
