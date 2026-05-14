@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
 export const WhatsAppButton = () => {
-  const phoneNumber = "5500000000000"; // Replace with actual phone number
+  const phoneNumber = "5511969369888";
   const message = encodeURIComponent("Olá! Gostaria de conhecer os serviços da 365s em Governança, Riscos e Compliance.");
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
