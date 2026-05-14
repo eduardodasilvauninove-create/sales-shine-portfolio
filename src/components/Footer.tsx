@@ -99,7 +99,7 @@ export const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between gap-3 text-sm text-muted-foreground">
-          <p>© {currentYear} 365s. Todos os direitos reservados.</p>
+          <p>© {currentYear} 365s. Todos os direitos reservados. · CNPJ: 65.714.655/0001-77</p>
           <p>365s.com.br · Governança · Riscos · Compliance</p>
         </div>
       </div>
