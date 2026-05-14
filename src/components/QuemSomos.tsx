@@ -44,7 +44,7 @@ export const QuemSomos = () => {
               {
                 icon: Target,
                 title: "Missão",
-                text: "Apoiar organizações na evolução contínua da segurança da informação e proteção de dados.",
+                text: "Apoiar organizações na evolução contínua da maturidade em segurança da informação e proteção de dados.",
               },
               {
                 icon: Eye,
