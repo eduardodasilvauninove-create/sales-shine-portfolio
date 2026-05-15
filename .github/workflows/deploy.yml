@@ -12,20 +12,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: 18
+          bun-version: latest
 
       - name: Install dependencies
-        run: npm install   # ou bun install, se preferir usar Bun
+        run: bun install
 
       - name: Build
-        run: npm run build # ou bun run build
+        run: bun run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-
