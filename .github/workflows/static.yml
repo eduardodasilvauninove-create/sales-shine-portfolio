@@ -1,6 +1,0 @@
-Desativar workflow antigo
-
-on:
-  workflow_dispatch: false
-
-
