@@ -2,7 +2,7 @@ name: Deploy Vite to GitHub Pages
 
 on:
   push:
-    branches: [principal]   # ou main, se esse for o nome da sua branch
+    branches: [principal]  # ou main, se esse for o nome da sua branch
   workflow_dispatch:
 
 jobs:
@@ -29,3 +29,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
