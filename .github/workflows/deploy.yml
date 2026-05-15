@@ -2,15 +2,16 @@ name: Deploy Vite to GitHub Pages
 
 on:
   push:
-    branches: [ principal ]   # ou main, se esse for o nome da sua branch
+    branches: [principal]  # ou main, se esse for o nome da sua branch
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
@@ -20,11 +21,12 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build
+      - name: Build project
         run: bun run build
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
