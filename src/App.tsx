@@ -18,15 +18,17 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        
+        {/* ✅ CORREÇÃO AQUI */}
+        <BrowserRouter basename="/sales-shine-portfolio/">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/politica-de-seguranca" element={<PoliticaSeguranca />} />
             <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+
         <CookieConsent />
       </TooltipProvider>
     </ThemeProvider>
