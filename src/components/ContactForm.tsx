@@ -61,7 +61,7 @@ export const ContactForm = () => {
       // ✅ ENVIO REAL DE EMAIL
       await emailjs.send(
         'service_9y0tnhz',           // ✅ seu service ID
-        ''template_469id9u'',           // 🔴 COLOQUE SEU TEMPLATE ID AQUI
+        'template_469id9u',           // 🔴 COLOQUE SEU TEMPLATE ID AQUI
         {
           name: formData.name,
           email: formData.email,
