@@ -20,7 +20,7 @@ const App = () => (
         <Sonner />
         
         {/* ✅ CORREÇÃO AQUI */}
-        <BrowserRouter basename="/sales-shine-portfolio/">
+        <BrowserRouter basename="/">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/politica-de-seguranca" element={<PoliticaSeguranca />} />
