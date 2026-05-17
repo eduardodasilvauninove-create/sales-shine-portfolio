@@ -25,6 +25,7 @@ const Index = () => {
       </main>
       <Footer />
       <WhatsAppButton />
+      <WhatsAppPopup />
     </div>
   );
 };
