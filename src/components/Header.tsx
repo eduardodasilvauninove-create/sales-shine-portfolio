@@ -3,13 +3,14 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { openWhatsApp } from "@/lib/whatsapp";
 
 const navLinks = [
   { label: "Início", href: "#" },
   { label: "Serviços", href: "#servicos" },
   { label: "Sobre", href: "#quem-somos" },
   { label: "Compliance", href: "#normas" },
-  { label: "Contato", href: "#contato" },
+  { label: "Contato", href: "whatsapp" },
 ];
 
 export const Header = () => {
@@ -24,6 +25,10 @@ export const Header = () => {
 
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false);
+    if (href === "whatsapp") {
+      openWhatsApp();
+      return;
+    }
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -67,7 +72,7 @@ export const Header = () => {
               </a>
             ))}
             <ThemeToggle />
-            <Button variant="hero" size="sm" onClick={() => scrollToSection("#contato")}>
+            <Button variant="hero" size="sm" onClick={openWhatsApp}>
               <MessageCircle className="w-4 h-4" />
               Falar com Especialista
             </Button>
@@ -99,7 +104,7 @@ export const Header = () => {
                   {link.label}
                 </a>
               ))}
-              <Button variant="hero" size="sm" onClick={() => scrollToSection("#contato")} className="w-fit">
+              <Button variant="hero" size="sm" onClick={openWhatsApp} className="w-fit">
                 Falar com Especialista
               </Button>
             </div>
