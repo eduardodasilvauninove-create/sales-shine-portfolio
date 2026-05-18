@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, FileText, BarChart3, Cloud, Users, Building2 } from "lucide-react";
+import { openWhatsApp } from "@/lib/whatsapp";
 
 export const Hero = () => {
   const ref = useRef<HTMLElement>(null);
@@ -152,7 +153,7 @@ export const Hero = () => {
             >
               <Button
                 size="lg"
-                onClick={() => scrollTo("contato")}
+                onClick={openWhatsApp}
                 className="text-white font-semibold border-0"
                 style={{
                   background: "linear-gradient(135deg, #2F5BFF 0%, #1E3A8A 100%)",

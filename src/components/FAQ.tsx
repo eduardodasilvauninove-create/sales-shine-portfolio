@@ -46,7 +46,7 @@ const faqItems = [
   {
     question: "Como iniciar um projeto com a 365s?",
     answer:
-      "Basta entrar em contato pelo formulário ou WhatsApp. Agendamos uma conversa inicial sem compromisso para entender seus desafios e propor o caminho mais adequado para sua organização.",
+      "Basta entrar em contato pelo WhatsApp. Agendamos uma conversa inicial sem compromisso para entender seus desafios e propor o caminho mais adequado para sua organização.",
   },
 ];
 

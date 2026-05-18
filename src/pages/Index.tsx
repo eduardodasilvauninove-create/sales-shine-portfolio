@@ -5,7 +5,6 @@ import { Services } from "@/components/Services";
 import { Diferenciais } from "@/components/Diferenciais";
 import { Normas } from "@/components/Normas";
 import { FAQ } from "@/components/FAQ";
-import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { WhatsAppPopup } from "@/components/WhatsAppPopup";
@@ -21,7 +20,6 @@ const Index = () => {
         <Diferenciais />
         <Normas />
         <FAQ />
-        <ContactForm />
       </main>
       <Footer />
       <WhatsAppButton />

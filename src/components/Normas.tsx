@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, BadgeCheck } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 
 const normas = [
   { code: "ISO 27001", label: "Sistema de Gestão de Segurança da Informação" },
@@ -12,13 +11,10 @@ const normas = [
 ];
 
 export const Normas = () => {
-  const scrollToContact = () =>
-    document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
-
   return (
     <section id="normas" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Normas */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -57,30 +53,6 @@ export const Normas = () => {
             </div>
           </motion.div>
 
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="glass rounded-2xl p-10 relative overflow-hidden"
-          >
-            <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
-            <div className="relative">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                Pronto para elevar sua segurança ao{" "}
-                <span className="text-gradient">próximo nível?</span>
-              </h3>
-              <p className="text-muted-foreground mb-8">
-                Agende uma conversa e descubra como a 365s pode transformar a
-                maturidade de segurança da sua organização.
-              </p>
-              <Button variant="hero" size="lg" onClick={scrollToContact}>
-                Falar com Especialista
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

@@ -49,17 +49,22 @@ export const Footer = () => {
                 { label: "Serviços", href: "#servicos" },
                 { label: "Diferenciais", href: "#diferenciais" },
                 { label: "Normas", href: "#normas" },
-                { label: "Contato", href: "#contato" },
-              ].map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+                { label: "Contato", href: "https://wa.me/5511969369888?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." },
+              ].map((link) => {
+                const isExternal = link.href.startsWith("http");
+                return (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
