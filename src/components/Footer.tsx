@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { openPreferences } from "@/lib/cookieConsent";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -81,6 +82,15 @@ export const Footer = () => {
                 <a href="/politica-de-privacidade" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Política de Privacidade
                 </a>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={openPreferences}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
+                >
+                  Gerenciar cookies
+                </button>
               </li>
             </ul>
           </div>
