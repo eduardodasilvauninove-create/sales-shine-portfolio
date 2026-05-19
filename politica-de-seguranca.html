@@ -2,24 +2,86 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Política de Segurança da Informação</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Segurança da Informação | 365s</title>
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #0b0f14;
       color: #e5e7eb;
-      margin: 0;
-      padding: 0;
       line-height: 1.6;
+      padding-top: 100px;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 20px;
     }
 
+    /* ✅ HEADER */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #0b1f3a, #0a2c5a);
+      padding: 15px 30px;
+      z-index: 999;
+    }
+
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-main {
+      font-size: 30px;
+      font-weight: bold;
+      color: #3fa9ff;
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      color: #ccc;
+      margin-left: 8px;
+      line-height: 1.2;
+    }
+
+    .nav a {
+      color: #cbd5f1;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 14px;
+    }
+
+    .nav a:hover {
+      color: white;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #3fa9ff, #00d4ff);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* CONTEÚDO */
     h1 {
       font-size: 32px;
       text-align: center;
@@ -44,8 +106,8 @@
     }
 
     .card h2 {
-      margin-top: 0;
       color: #ffffff;
+      margin-bottom: 10px;
     }
 
     .card p {
@@ -59,79 +121,126 @@
       color: #9ca3af;
     }
 
-    a {
-      color: #3b82f6;
+    /* BOTÃO WHATSAPP */
+    .whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: #25d366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
       text-decoration: none;
+      color: white;
     }
 
-    a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
 
-  <h1>Política de <span>Segurança da Informação</span></h1>
+      <a href="/" class="logo">
+        <span class="logo-main">365s</span>
+        <span class="logo-sub">
+          Governança · Riscos<br>Compliance
+        </span>
+      </a>
 
-  <p class="subtitle">
-    Conheça os princípios e práticas que guiam a 365s na proteção das informações que nos são confiadas.
-  </p>
+      <nav class="nav">
+        <a href="/">Início</a>
+        <a href="/#servicos">Serviços</a>
+        <a href="/#quem-somos">Sobre</a>
+        <a href="/#normas">Compliance</a>
+        <a href="#" onclick="openWhatsApp()">Contato</a>
+      </nav>
 
-  <div class="card">
-    <h2>🔐 Compromisso com a Segurança</h2>
-    <p>
-      A 365s reconhece que a segurança da informação é fundamental para a continuidade dos negócios dos nossos clientes e para a manutenção da confiança depositada em nós. Adotamos uma postura proativa na identificação, tratamento e mitigação de riscos relacionados à informação.
+      <button class="btn" onclick="openWhatsApp()">
+        💬 Falar com Especialista
+      </button>
+
+    </div>
+  </header>
+
+  <!-- CONTEÚDO -->
+  <div class="container">
+
+    <h1>Política de <span>Segurança da Informação</span></h1>
+
+    <p class="subtitle">
+      Conheça os princípios e práticas que guiam a 365s na proteção das informações.
     </p>
+
+    <div class="card">
+      <h2>🔐 Compromisso com a Segurança</h2>
+      <p>
+        A 365s adota uma postura proativa na identificação e mitigação de riscos relacionados à informação.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>🔒 Confidencialidade</h2>
+      <p>
+        Informações são tratadas como confidenciais com uso de criptografia e controle de acesso.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>✅ Integridade dos Dados</h2>
+      <p>
+        Garantimos precisão e completude por meio de validações e auditorias.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>🖥️ Disponibilidade</h2>
+      <p>
+        Infraestrutura com redundância e monitoramento contínuo.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>👥 Conscientização</h2>
+      <p>
+        Equipe treinada continuamente em segurança da informação.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>🔄 Melhoria Contínua</h2>
+      <p>
+        Revisão constante baseada em auditorias e evolução das ameaças.
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>
+        Contato:
+        <br>
+        <a href="mailto:contato@365s.com.br">contato@365s.com.br</a>
+      </p>
+      <p>Última atualização: maio de 2026.</p>
+    </div>
+
   </div>
 
-  <div class="card">
-    <h2>🔒 Confidencialidade</h2>
-    <p>
-      Todas as informações recebidas ou geradas durante nossos trabalhos são tratadas como estritamente confidenciais. Utilizamos criptografia em trânsito (TLS 1.2+) e em repouso, além de controles de acesso baseados em necessidade de conhecimento (need-to-know).
-    </p>
-  </div>
+  <!-- BOTÃO WHATSAPP -->
+  <a href="#" class="whatsapp" onclick="openWhatsApp()">💬</a>
 
-  <div class="card">
-    <h2>✅ Integridade dos Dados</h2>
-    <p>
-      Implementamos controles técnicos e processuais para garantir a precisão e completude das informações. Realizamos backups regulares, validações de consistência e mantemos logs de auditoria de todas as operações críticas.
-    </p>
-  </div>
-
-  <div class="card">
-    <h2>🖥️ Disponibilidade</h2>
-    <p>
-      Nossos sistemas e infraestrutura são projetados com redundância e planos de recuperação de desastres. Monitoramos continuamente a disponibilidade dos serviços e temos SLAs claros com nossos fornecedores de infraestrutura.
-    </p>
-  </div>
-
-  <div class="card">
-    <h2>👥 Conscientização e Treinamento</h2>
-    <p>
-      Nossos colaboradores recebem treinamento contínuo em segurança da informação, incluindo conscientização sobre phishing, engenharia social, boas práticas de senhas e manipulação segura de dados sensíveis.
-    </p>
-  </div>
-
-  <div class="card">
-    <h2>🔄 Melhoria Contínua</h2>
-    <p>
-      A política de segurança da informação da 365s é revisada periodicamente e aprimorada com base em auditorias internas, feedbacks de incidentes e evolução das ameaças. Estamos sempre em busca de elevar nosso nível de maturidade.
-    </p>
-  </div>
-
-  <div class="footer">
-    <p>
-      Para dúvidas ou solicitações relacionadas à segurança da informação, entre em contato pelo e-mail:
-      <br>
-      contato@365s.com.brcontato@365s.com.br</a>
-    </p>
-    <p>Última atualização: maio de 2026.</p>
-  </div>
-
-</div>
+  <!-- SCRIPT -->
+  <script>
+    function openWhatsApp() {
+      window.open("https://wa.me/5511969369888", "_blank");
+    }
+  </script>
 
 </body>
 </html>
+``
