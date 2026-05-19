@@ -83,6 +83,15 @@ export const Footer = () => {
                   Política de Privacidade
                 </a>
               </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={openPreferences}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
+                >
+                  Gerenciar cookies
+                </button>
+              </li>
             </ul>
           </div>
 
