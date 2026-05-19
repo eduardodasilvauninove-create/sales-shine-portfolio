@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { openPreferences } from "@/lib/cookieConsent";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
