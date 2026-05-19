@@ -18,6 +18,7 @@
       color: #ffffff;
       line-height: 1.6;
       overflow-x: hidden;
+      padding-top: 100px;
     }
 
     .container {
@@ -26,33 +27,70 @@
       margin: 0 auto;
     }
 
-    header {
-      padding: 25px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
-      position: sticky;
+    /* ✅ HEADER NOVO */
+    .header {
+      position: fixed;
       top: 0;
-      background: rgba(15, 23, 42, 0.85);
-      z-index: 1000;
+      width: 100%;
+      background: linear-gradient(90deg, #0b1f3a, #0a2c5a);
+      padding: 15px 30px;
+      z-index: 999;
+    }
+
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .logo {
-      font-size: 28px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-main {
+      font-size: 30px;
       font-weight: bold;
-      color: #38bdf8;
+      color: #3fa9ff;
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      color: #ccc;
+      margin-left: 8px;
+      line-height: 1.2;
+    }
+
+    .nav a {
+      color: #cbd5f1;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 14px;
+    }
+
+    .nav a:hover {
+      color: white;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #3fa9ff, #00d4ff);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     /* HERO */
-
     .hero {
-      padding: 100px 0 60px;
+      padding: 60px 0;
       text-align: center;
     }
 
     .hero h1 {
-      font-size: 52px;
-      margin-bottom: 25px;
-      line-height: 1.2;
+      font-size: 42px;
+      margin-bottom: 20px;
     }
 
     .gradient {
@@ -62,14 +100,11 @@
     }
 
     .hero p {
-      max-width: 800px;
-      margin: 0 auto;
       color: #cbd5e1;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     /* CONTENT */
-
     .content {
       padding: 40px 0 100px;
     }
@@ -77,111 +112,71 @@
     .card {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 22px;
-      padding: 35px;
-      margin-bottom: 25px;
-      backdrop-filter: blur(12px);
-      transition: 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(56,189,248,0.4);
-    }
-
-    .card-top {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .icon {
-      min-width: 50px;
-      height: 50px;
-      border-radius: 14px;
-      background: rgba(56,189,248,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
     }
 
     .card h2 {
-      font-size: 24px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .card p {
       color: #cbd5e1;
-      font-size: 16px;
-    }
-
-    /* FOOTER */
-
-    .footer-note {
-      text-align: center;
-      color: #94a3b8;
-      margin-top: 50px;
-      font-size: 14px;
     }
 
     footer {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 30px 0;
       text-align: center;
       color: #94a3b8;
-      font-size: 14px;
+      padding: 30px;
     }
-
-    /* WHATSAPP BUTTON */
 
     .whatsapp {
       position: fixed;
       right: 20px;
       bottom: 20px;
-      width: 60px;
-      height: 60px;
+      width: 55px;
+      height: 55px;
       border-radius: 50%;
       background: #25d366;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      font-size: 24px;
       text-decoration: none;
-      font-size: 28px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-      transition: 0.3s;
-      z-index: 999;
-    }
-
-    .whatsapp:hover {
-      transform: scale(1.08);
-    }
-
-    /* RESPONSIVO */
-
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .card {
-        padding: 25px;
-      }
-
-      .card-top {
-        flex-direction: column;
-      }
+      color: white;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
+  <!-- ✅ HEADER -->
+  <header class="header">
     <div class="container">
-      <div class="logo">365s</div>
+
+      <!-- Logo -->
+      <a href="/" class="logo">
+        <span class="logo-main">365s</span>
+        <span class="logo-sub">
+          Governança · Riscos<br>Compliance
+        </span>
+      </a>
+
+      <!-- Menu -->
+      <nav class="nav">
+        <a href="/">Início</a>
+        <a href="/#servicos">Serviços</a>
+        <a href="/#quem-somos">Sobre</a>
+        <a href="/#normas">Compliance</a>
+        <a href="#" onclick="openWhatsApp()">Contato</a>
+      </nav>
+
+      <!-- Botão -->
+      <button class="btn" onclick="openWhatsApp()">
+        💬 Falar com Especialista
+      </button>
+
     </div>
   </header>
 
@@ -194,154 +189,52 @@
       </h1>
 
       <p>
-        Entenda como a 365s respeita sua privacidade e protege seus dados pessoais,
-        em conformidade com a LGPD.
+        Entenda como a 365s respeita sua privacidade e protege seus dados pessoais.
       </p>
     </div>
   </section>
 
-  <!-- CONTENT -->
+  <!-- CONTEÚDO -->
   <section class="content">
     <div class="container">
 
       <div class="card">
-        <div class="card-top">
-          <div class="icon">📄</div>
-
-          <div>
-            <h2>Introdução e Compromisso</h2>
-
-            <p>
-              A 365s está comprometida com a proteção da privacidade e dos dados pessoais
-              de todos os indivíduos com quem interagimos. Esta política descreve como
-              coletamos, usamos, armazenamos e protegemos seus dados pessoais,
-              em conformidade com a Lei Geral de Proteção de Dados (LGPD).
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="icon">🗂️</div>
-
-          <div>
-            <h2>Dados Coletados e Finalidade</h2>
-
-            <p>
-              Coletamos apenas os dados pessoais necessários para a prestação de nossos
-              serviços: nome, e-mail, telefone, dados profissionais e informações
-              fornecidas voluntariamente em formulários de contato.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="icon">👁️</div>
-
-          <div>
-            <h2>Transparência e Direitos do Titular</h2>
-
-            <p>
-              Respeitamos integralmente os direitos dos titulares previstos na LGPD:
-              acesso, correção, anonimização, portabilidade, eliminação e revogação
-              de consentimento.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="icon">🔒</div>
-
-          <div>
-            <h2>Segurança no Tratamento</h2>
-
-            <p>
-              Adotamos medidas técnicas e administrativas adequadas para proteger seus
-              dados pessoais contra acessos não autorizados, vazamentos, alterações
-              indevidas e destruição.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="icon">🔄</div>
-
-          <div>
-            <h2>Compartilhamento de Dados</h2>
-
-            <p>
-              Não vendemos, alugamos ou comercializamos dados pessoais. O compartilhamento
-              ocorre apenas quando necessário para a execução dos serviços contratados.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="icon">🗑️</div>
-
-          <div>
-            <h2>Retenção e Exclusão</h2>
-
-            <p>
-              Mantemos seus dados pessoais apenas pelo tempo necessário para cumprir
-              a finalidade do tratamento ou atender obrigações legais e regulatórias.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="icon">⚖️</div>
-
-          <div>
-            <h2>Encarregado de Dados (DPO)</h2>
-
-            <p>
-              A 365s possui um encarregado de dados pessoais responsável por orientar
-              a organização e interagir com titulares e a ANPD.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- FOOTER NOTE -->
-      <div class="footer-note">
+        <h2>Introdução</h2>
         <p>
-          Esta política pode ser atualizada periodicamente para refletir mudanças
-          em nossas práticas ou na legislação.
+          A 365s está comprometida com a proteção de dados e privacidade conforme a LGPD.
         </p>
+      </div>
 
-        <p style="margin-top: 10px;">
-          Última atualização: maio de 2026.
+      <div class="card">
+        <h2>Dados Coletados</h2>
+        <p>
+          Coletamos apenas informações necessárias para prestação de serviços.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Segurança</h2>
+        <p>
+          Utilizamos medidas técnicas para garantir proteção contra acessos indevidos.
         </p>
       </div>
 
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     © 2026 365s - Todos os direitos reservados.
   </footer>
 
-  <!-- WHATSAPP BUTTON -->
-  <a
-    href="https://wa.me/5511999999999"
-    class="whatsapp"
-    target="_blank"
-  >
-    💬
-  </a>
+  <!-- BOTÃO WhatsApp -->
+  <a href="#" class="whatsapp" onclick="openWhatsApp()">💬</a>
+
+  <!-- SCRIPT -->
+  <script>
+    function openWhatsApp() {
+      window.open("https://wa.me/5511969369888", "_blank");
+    }
+  </script>
 
 </body>
 </html>
