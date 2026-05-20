@@ -1,169 +1,402 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Política de Privacidade | 365s</title>
 
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0f172a;
-      color: #ffffff;
-      line-height: 1.6;
-      overflow-x: hidden;
-      padding-top: 100px;
+    html{
+      scroll-behavior:smooth;
     }
 
-    .container {
-      width: 90%;
-      max-width: 1100px;
-      margin: 0 auto;
+    body{
+      font-family:'Inter',sans-serif;
+      background:#050b16;
+      color:#ffffff;
+      overflow-x:hidden;
+      line-height:1.7;
+      padding-top:95px;
     }
 
-    /* ✅ HEADER NOVO */
-    .header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: linear-gradient(90deg, #0b1f3a, #0a2c5a);
-      padding: 15px 30px;
-      z-index: 999;
+    a{
+      text-decoration:none;
     }
 
-    .header .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .container{
+      width:100%;
+      max-width:1200px;
+      margin:auto;
+      padding:0 24px;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header{
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:999;
+      backdrop-filter:blur(18px);
+      background:rgba(5,11,22,0.75);
+      border-bottom:1px solid rgba(255,255,255,0.06);
     }
 
-    .logo-main {
-      font-size: 30px;
-      font-weight: bold;
-      color: #3fa9ff;
+    .header .container{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 24px;
     }
 
-    .logo-sub {
-      font-size: 10px;
-      color: #ccc;
-      margin-left: 8px;
-      line-height: 1.2;
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
 
-    .nav a {
-      color: #cbd5f1;
-      text-decoration: none;
-      margin: 0 12px;
-      font-size: 14px;
+    .logo-main{
+      font-size:34px;
+      font-weight:800;
+      color:#3b82f6;
+      letter-spacing:-1px;
     }
 
-    .nav a:hover {
-      color: white;
+    .logo-sub{
+      font-size:10px;
+      color:#94a3b8;
+      line-height:1.3;
+      text-transform:uppercase;
+      letter-spacing:1px;
     }
 
-    .btn {
-      background: linear-gradient(90deg, #3fa9ff, #00d4ff);
-      border: none;
-      padding: 10px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:26px;
     }
 
-    /* HERO */
-    .hero {
-      padding: 60px 0;
-      text-align: center;
+    .nav a{
+      color:#cbd5e1;
+      font-size:15px;
+      transition:.3s;
+      font-weight:500;
     }
 
-    .hero h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
+    .nav a:hover{
+      color:#ffffff;
     }
 
-    .gradient {
-      background: linear-gradient(90deg, #38bdf8, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .btn{
+      background:linear-gradient(90deg,#2563eb,#3b82f6);
+      color:white;
+      border:none;
+      padding:13px 22px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:14px;
+      transition:.3s;
+      box-shadow:0 0 30px rgba(59,130,246,.25);
     }
 
-    .hero p {
-      color: #cbd5e1;
-      font-size: 16px;
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 0 35px rgba(59,130,246,.45);
     }
 
-    /* CONTENT */
-    .content {
-      padding: 40px 0 100px;
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:90px 0 70px;
+      position:relative;
+      overflow:hidden;
     }
 
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 20px;
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:700px;
+      height:700px;
+      background:radial-gradient(circle, rgba(59,130,246,.18), transparent 70%);
+      top:-250px;
+      left:-150px;
+      z-index:0;
     }
 
-    .card h2 {
-      margin-bottom: 10px;
+    .hero-content{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      max-width:980px;
+      margin:auto;
     }
 
-    .card p {
-      color: #cbd5e1;
+    .hero h1{
+      font-size:68px;
+      line-height:1.05;
+      margin-bottom:28px;
+      font-weight:800;
+      letter-spacing:-3px;
     }
 
-    footer {
-      text-align: center;
-      color: #94a3b8;
-      padding: 30px;
+    .gradient{
+      background:linear-gradient(90deg,#3b82f6,#60a5fa);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
-    .whatsapp {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      background: #25d366;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      text-decoration: none;
-      color: white;
+    .subtitle{
+      font-size:22px;
+      color:#94a3b8;
+      max-width:760px;
+      margin:auto;
     }
+
+    /* =========================
+       CARDS
+    ========================== */
+
+    .cards{
+      max-width:1000px;
+      margin:20px auto 80px;
+      display:flex;
+      flex-direction:column;
+      gap:24px;
+    }
+
+    .card{
+      background:linear-gradient(
+        180deg,
+        rgba(15,23,42,.9),
+        rgba(8,15,30,.95)
+      );
+
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:28px;
+      padding:34px;
+      transition:.35s;
+      backdrop-filter:blur(16px);
+
+      box-shadow:
+        0 10px 40px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.03);
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      border-color:rgba(59,130,246,.4);
+
+      box-shadow:
+        0 20px 50px rgba(0,0,0,.45),
+        0 0 35px rgba(59,130,246,.12);
+    }
+
+    .card-content{
+      display:flex;
+      align-items:flex-start;
+      gap:24px;
+    }
+
+    .icon-box{
+      width:78px;
+      height:78px;
+      border-radius:22px;
+      background:rgba(59,130,246,.08);
+      border:1px solid rgba(59,130,246,.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+
+    .icon-box i{
+      font-size:34px;
+      color:#3b82f6;
+    }
+
+    .card h2{
+      font-size:30px;
+      margin-bottom:14px;
+      font-weight:700;
+      letter-spacing:-1px;
+    }
+
+    .card p{
+      color:#cbd5e1;
+      font-size:18px;
+      line-height:1.9;
+    }
+
+    .card a{
+      color:#3b82f6;
+    }
+
+    .card a:hover{
+      text-decoration:underline;
+    }
+
+    /* =========================
+       FINAL INFO
+    ========================== */
+
+    .footer-info{
+      text-align:center;
+      padding-bottom:90px;
+      color:#94a3b8;
+      font-size:15px;
+      max-width:850px;
+      margin:auto;
+    }
+
+    .footer-info p{
+      margin-top:10px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.06);
+      padding:25px;
+      text-align:center;
+      color:#64748b;
+      font-size:14px;
+    }
+
+    /* =========================
+       WHATSAPP
+    ========================== */
+
+    .whatsapp{
+      position:fixed;
+      right:25px;
+      bottom:25px;
+      width:68px;
+      height:68px;
+      border-radius:50%;
+      background:#25d366;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:30px;
+      z-index:999;
+      box-shadow:0 10px 30px rgba(37,211,102,.4);
+      transition:.3s;
+    }
+
+    .whatsapp:hover{
+      transform:scale(1.08);
+    }
+
+    /* =========================
+       RESPONSIVO
+    ========================== */
+
+    @media(max-width:980px){
+
+      .nav{
+        display:none;
+      }
+
+      .hero h1{
+        font-size:50px;
+      }
+
+      .subtitle{
+        font-size:18px;
+      }
+
+      .card h2{
+        font-size:26px;
+      }
+
+      .card p{
+        font-size:16px;
+      }
+    }
+
+    @media(max-width:768px){
+
+      .hero{
+        padding-top:70px;
+      }
+
+      .hero h1{
+        font-size:40px;
+      }
+
+      .card{
+        padding:26px;
+      }
+
+      .card-content{
+        flex-direction:column;
+      }
+
+      .icon-box{
+        width:64px;
+        height:64px;
+      }
+
+      .icon-box i{
+        font-size:28px;
+      }
+
+      .btn{
+        display:none;
+      }
+    }
+
   </style>
+
 </head>
 
 <body>
 
-  <!-- ✅ HEADER -->
+  <!-- HEADER -->
   <header class="header">
+
     <div class="container">
 
-      <!-- Logo -->
       <a href="/" class="logo">
+
         <span class="logo-main">365s</span>
+
         <span class="logo-sub">
-          Governança · Riscos<br>Compliance
+          Governança · Riscos<br>
+          Compliance
         </span>
+
       </a>
 
-      <!-- Menu -->
       <nav class="nav">
         <a href="/">Início</a>
         <a href="/#servicos">Serviços</a>
@@ -172,68 +405,284 @@
         <a href="#" onclick="openWhatsApp()">Contato</a>
       </nav>
 
-      <!-- Botão -->
       <button class="btn" onclick="openWhatsApp()">
-        💬 Falar com Especialista
+        Fale Conosco
       </button>
 
     </div>
+
   </header>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container">
-      <h1>
-        Política de
-        <span class="gradient">Privacidade e Proteção de Dados</span>
-      </h1>
 
-      <p>
-        Entenda como a 365s respeita sua privacidade e protege seus dados pessoais.
-      </p>
-    </div>
-  </section>
-
-  <!-- CONTEÚDO -->
-  <section class="content">
     <div class="container">
 
-      <div class="card">
-        <h2>Introdução</h2>
-        <p>
-          A 365s está comprometida com a proteção de dados e privacidade conforme a LGPD.
-        </p>
-      </div>
+      <div class="hero-content">
 
-      <div class="card">
-        <h2>Dados Coletados</h2>
-        <p>
-          Coletamos apenas informações necessárias para prestação de serviços.
-        </p>
-      </div>
+        <h1>
+          Política de
+          <span class="gradient">
+            Privacidade e Proteção de Dados
+          </span>
+        </h1>
 
-      <div class="card">
-        <h2>Segurança</h2>
-        <p>
-          Utilizamos medidas técnicas para garantir proteção contra acessos indevidos.
+        <p class="subtitle">
+          Entenda como a 365s respeita sua privacidade e protege seus
+          dados pessoais, em conformidade com a LGPD.
         </p>
+
       </div>
 
     </div>
+
   </section>
 
+  <!-- CARDS -->
+  <section>
+
+    <div class="container">
+
+      <div class="cards">
+
+        <!-- CARD -->
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="icon-box">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+
+            <div>
+
+              <h2>Introdução e Compromisso</h2>
+
+              <p>
+                A 365s está comprometida com a proteção da privacidade e dos
+                dados pessoais de todos os indivíduos com quem interagimos.
+                Esta política descreve como coletamos, usamos, armazenamos e
+                protegemos seus dados pessoais, em conformidade com a Lei
+                Geral de Proteção de Dados (LGPD) – Lei nº 13.709/2018.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="icon-box">
+              <i class="fa-solid fa-database"></i>
+            </div>
+
+            <div>
+
+              <h2>Dados Coletados e Finalidade</h2>
+
+              <p>
+                Coletamos apenas os dados pessoais necessários para a
+                prestação de nossos serviços: nome, e-mail, telefone,
+                dados profissionais e informações fornecidas voluntariamente
+                em formulários de contato.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="icon-box">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+
+            <div>
+
+              <h2>Transparência e Direitos do Titular</h2>
+
+              <p>
+                Respeitamos integralmente os direitos dos titulares previstos
+                na LGPD: acesso, correção, anonimização, portabilidade,
+                eliminação e revogação de consentimento.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="icon-box">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <div>
+
+              <h2>Segurança no Tratamento</h2>
+
+              <p>
+                Adotamos medidas técnicas e administrativas adequadas para
+                proteger seus dados pessoais contra acessos não autorizados,
+                vazamentos, alterações indevidas e destruição.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="icon-box">
+              <i class="fa-solid fa-share-nodes"></i>
+            </div>
+
+            <div>
+
+              <h2>Compartilhamento de Dados</h2>
+
+              <p>
+                Não vendemos, alugamos ou comercializamos dados pessoais.
+                O compartilhamento ocorre apenas quando necessário para a
+                execução dos serviços contratados.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="icon-box">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+
+            <div>
+
+              <h2>Retenção e Exclusão</h2>
+
+              <p>
+                Mantemos seus dados pessoais apenas pelo tempo necessário
+                para cumprir a finalidade do tratamento ou atender obrigações
+                legais e regulatórias.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- CARD DPO -->
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="icon-box">
+              <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+
+            <div>
+
+              <h2>Encarregado de Dados (DPO)</h2>
+
+              <p>
+                A 365s possui um encarregado (DPO) responsável por orientar
+                a organização quanto à proteção de dados pessoais e interação
+                com titulares e a ANPD.
+              </p>
+
+              <br>
+
+              <p>
+                Para temas relacionados à LGPD, você pode entrar em contato
+                com o encarregado (DPO) utilizando o canal:
+                <a href="mailto:contato@365.com.br">
+                  contato@365.com.br
+                </a>
+              </p>
+
+              <br>
+
+              <p>
+                <strong style="color:#ffffff;">
+                  Identificação do DPO:
+                </strong>
+                Eduardo Francisco
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- FINAL -->
+      <div class="footer-info">
+
+        <p>
+          Esta política pode ser atualizada periodicamente para refletir
+          mudanças em nossas práticas ou na legislação.
+          Recomendamos consultar esta página regularmente.
+        </p>
+
+        <p>
+          Última atualização: maio de 2026.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    © 2026 365s - Todos os direitos reservados.
+    © 2026 - 365s. Todos os direitos reservados.
   </footer>
 
-  <!-- BOTÃO WhatsApp -->
-  <a href="#" class="whatsapp" onclick="openWhatsApp()">💬</a>
+  <!-- WHATSAPP -->
+  <a href="#" class="whatsapp" onclick="openWhatsApp()">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
   <!-- SCRIPT -->
   <script>
-    function openWhatsApp() {
-      window.open("https://wa.me/5511969369888", "_blank");
+
+    function openWhatsApp(){
+      window.open(
+        "https://wa.me/5511969369888",
+        "_blank"
+      );
     }
+
   </script>
 
 </body>
