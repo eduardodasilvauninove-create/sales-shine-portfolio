@@ -116,7 +116,10 @@ export const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between gap-3 text-sm text-muted-foreground">
-          <p>© {currentYear} 365s. Todos os direitos reservados. · CNPJ: 65.714.655/0001-77</p>
+          <div className="flex flex-col gap-1">
+            <p>© {currentYear} 365s. Todos os direitos reservados. · CNPJ: 65.714.655/0001-77</p>
+            <p>Av. Padre Oswaldo Vieira de Andrade 1185 · Americana SP · CEP 13468-881</p>
+          </div>
           <p>365s.com.br · Governança · Riscos · Compliance</p>
         </div>
       </div>
