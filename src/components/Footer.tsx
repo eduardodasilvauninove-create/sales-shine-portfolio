@@ -22,7 +22,7 @@ export const Footer = () => {
             </p>
             <div className="flex gap-3 mt-4">
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/company/365s"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
