@@ -47,11 +47,6 @@ const services = [
     title: "Cultura e Conscientização",
     items: [
       "Treinamentos especializados em segurança",
-  {
-    icon: GraduationCap,
-    title: "Cultura e Conscientização",
-    items: [
-      "Treinamentos especializados em segurança",
       "Programas de conscientização organizacional",
       "Fortalecimento da cultura de segurança",
     ],
@@ -59,7 +54,7 @@ const services = [
   {
     icon: ClipboardCheck,
     title: "Auditoria Independente ISO 27001",
-    badge: "exemplar-global",
+    badge: "exemplar-global" as const,
     items: [
       "Auditores Líderes certificados",
       "Acreditação Exemplar Global",
@@ -67,7 +62,11 @@ const services = [
       "Relatórios técnicos detalhados",
     ],
   },
+];
 
+const ServiceCard = ({ service, index }: { service: typeof services[0] & { badge?: string }; index: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <motion.div
@@ -85,7 +84,7 @@ const services = [
         <service.icon className="w-7 h-7 text-primary" />
       </motion.div>
       <h3 className="text-lg font-semibold mb-4 leading-snug">{service.title}</h3>
-      <ul className="space-y-2 text-sm text-muted-foreground">
+      <ul className="space-y-2 text-sm text-muted-foreground flex-1">
         {service.items.map((item, i) => (
           <li key={i} className="flex items-start gap-2">
             <span className="text-primary mt-1">›</span>
@@ -93,9 +92,23 @@ const services = [
           </li>
         ))}
       </ul>
+      {(service as { badge?: string }).badge === "exemplar-global" && (
+        <div className="mt-5 pt-5 border-t border-primary/15 flex items-center gap-3">
+          <img
+            src={exemplarGlobalLogo}
+            alt="Exemplar Global - Acreditação"
+            loading="lazy"
+            className="h-12 w-auto opacity-90"
+          />
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+            Acreditação<br />Exemplar Global
+          </span>
+        </div>
+      )}
     </motion.div>
   );
 };
+
 
 export const Services = () => {
   const ref = useRef(null);
