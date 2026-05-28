@@ -47,15 +47,27 @@ const services = [
     title: "Cultura e Conscientização",
     items: [
       "Treinamentos especializados em segurança",
+  {
+    icon: GraduationCap,
+    title: "Cultura e Conscientização",
+    items: [
+      "Treinamentos especializados em segurança",
       "Programas de conscientização organizacional",
       "Fortalecimento da cultura de segurança",
     ],
   },
-];
+  {
+    icon: ClipboardCheck,
+    title: "Auditoria Independente ISO 27001",
+    badge: "exemplar-global",
+    items: [
+      "Auditores Líderes certificados",
+      "Acreditação Exemplar Global",
+      "Avaliação independente de conformidade",
+      "Relatórios técnicos detalhados",
+    ],
+  },
 
-const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <motion.div
