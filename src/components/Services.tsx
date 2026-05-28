@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap } from "lucide-react";
+import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap, ClipboardCheck } from "lucide-react";
+import exemplarGlobalLogo from "@/assets/exemplar-global.png";
 
 const services = [
   {
