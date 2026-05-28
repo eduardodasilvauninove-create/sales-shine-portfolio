@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap } from "lucide-react";
+import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap, ClipboardCheck } from "lucide-react";
+import exemplarGlobalLogo from "@/assets/exemplar-global.png";
 
 const services = [
   {
@@ -50,9 +51,20 @@ const services = [
       "Fortalecimento da cultura de segurança",
     ],
   },
+  {
+    icon: ClipboardCheck,
+    title: "Auditoria Independente ISO 27001",
+    badge: "exemplar-global" as const,
+    items: [
+      "Auditores Líderes certificados",
+      "Acreditação Exemplar Global",
+      "Avaliação independente de conformidade",
+      "Relatórios técnicos detalhados",
+    ],
+  },
 ];
 
-const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
+const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: string; items: string[]; badge?: string }; index: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -72,7 +84,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         <service.icon className="w-7 h-7 text-primary" />
       </motion.div>
       <h3 className="text-lg font-semibold mb-4 leading-snug">{service.title}</h3>
-      <ul className="space-y-2 text-sm text-muted-foreground">
+      <ul className="space-y-2 text-sm text-muted-foreground flex-1">
         {service.items.map((item, i) => (
           <li key={i} className="flex items-start gap-2">
             <span className="text-primary mt-1">›</span>
@@ -80,9 +92,23 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
           </li>
         ))}
       </ul>
+      {(service as { badge?: string }).badge === "exemplar-global" && (
+        <div className="mt-5 pt-5 border-t border-primary/15 flex items-center gap-3">
+          <img
+            src={exemplarGlobalLogo}
+            alt="Exemplar Global - Acreditação"
+            loading="lazy"
+            className="h-12 w-auto opacity-90"
+          />
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+            Acreditação<br />Exemplar Global
+          </span>
+        </div>
+      )}
     </motion.div>
   );
 };
+
 
 export const Services = () => {
   const ref = useRef(null);
