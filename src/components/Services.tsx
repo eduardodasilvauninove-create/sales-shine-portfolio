@@ -64,7 +64,7 @@ const services = [
   },
 ];
 
-const ServiceCard = ({ service, index }: { service: typeof services[0] & { badge?: string }; index: number }) => {
+const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: string; items: string[]; badge?: string }; index: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
