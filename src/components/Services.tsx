@@ -61,6 +61,7 @@ const services = [
       "Avaliação de riscos e controles de segurança em aplicações de IA",
     ],
   },
+  {
     icon: ClipboardCheck,
     title: "Auditoria Independente ISO 27001",
     badge: "exemplar-global" as const,
