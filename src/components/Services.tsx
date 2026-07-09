@@ -52,6 +52,15 @@ const services = [
     ],
   },
   {
+    icon: Brain,
+    title: "Governança de IA, Conscientização e Proteção contra Prompt Injection",
+    items: [
+      "Governança de IA e uso responsável de modelos generativos",
+      "Programas de conscientização em segurança e IA",
+      "Proteção contra prompt injection e engenharia de prompts maliciosos",
+      "Avaliação de riscos e controles de segurança em aplicações de IA",
+    ],
+  },
     icon: ClipboardCheck,
     title: "Auditoria Independente ISO 27001",
     badge: "exemplar-global" as const,
