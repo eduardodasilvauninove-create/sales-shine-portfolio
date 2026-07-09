@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { Mail, Phone, Linkedin } from "lucide-react";
 import { openPreferences } from "@/lib/cookieConsent";
 
 export const Footer = () => {
@@ -106,10 +106,6 @@ export const Footer = () => {
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4 text-primary shrink-0" />
                 (11) 96936-9888
-              </li>
-              <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4 text-primary shrink-0" />
-                São Paulo · SP
               </li>
             </ul>
           </div>
