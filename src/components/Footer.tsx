@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { Mail, Phone, Linkedin } from "lucide-react";
 import { openPreferences } from "@/lib/cookieConsent";
 
 export const Footer = () => {
