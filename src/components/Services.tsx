@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap, ClipboardCheck } from "lucide-react";
+import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap, ClipboardCheck, Brain } from "lucide-react";
 import exemplarGlobalLogo from "@/assets/exemplar-global.png";
 
 const services = [
@@ -49,6 +49,16 @@ const services = [
       "Treinamentos especializados em segurança",
       "Programas de conscientização organizacional",
       "Fortalecimento da cultura de segurança",
+    ],
+  },
+  {
+    icon: Brain,
+    title: "Governança de IA, Conscientização e Proteção contra Prompt Injection",
+    items: [
+      "Governança de IA e uso responsável de modelos generativos",
+      "Programas de conscientização em segurança e IA",
+      "Proteção contra prompt injection e engenharia de prompts maliciosos",
+      "Avaliação de riscos e controles de segurança em aplicações de IA",
     ],
   },
   {
