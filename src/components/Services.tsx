@@ -173,7 +173,7 @@ export const Services = () => {
             Soluções completas para <span className="text-gradient">proteger e gerar valor</span> ao seu negócio
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Atuamos em cinco frentes estratégicas para elevar a maturidade de segurança e compliance da sua organização.
+            Atuamos em diversas frentes estratégicas para elevar a maturidade de segurança e compliance da sua organização.
           </p>
         </motion.div>
 
