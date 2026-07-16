@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap, ClipboardCheck, Brain } from "lucide-react";
+import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap, ClipboardCheck, Brain, FileText, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import exemplarGlobalLogo from "@/assets/exemplar-global.png";
+import { openWhatsApp } from "@/lib/whatsapp";
 
 const services = [
   {
