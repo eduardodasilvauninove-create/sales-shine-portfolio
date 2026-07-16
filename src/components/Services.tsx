@@ -74,6 +74,17 @@ const services = [
       "Relatórios técnicos detalhados",
     ],
   },
+  {
+    icon: FileText,
+    title: "Proposta Comercial",
+    cta: true as const,
+    items: [
+      "Diagnóstico inicial sem compromisso",
+      "Proposta alinhada às necessidades do negócio",
+      "Cronograma e investimento detalhados",
+      "Atendimento personalizado com especialistas",
+    ],
+  },
 ];
 
 const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: string; items: string[]; badge?: string }; index: number }) => {
