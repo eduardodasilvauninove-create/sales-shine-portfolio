@@ -11,7 +11,7 @@ const navLinks = [
   { label: "Sobre", href: "#quem-somos" },
   { label: "Compliance", href: "#normas" },
   { label: "Contato", href: "whatsapp" },
-  { label: "Proposta Comercial", href: "/proposta-comercial.html" },
+  { label: "Proposta Comercial", href: "/proposta-comercial.html", external: true },
 ];
 
 export const Header = () => {
@@ -29,11 +29,6 @@ export const Header = () => {
 
     if (href === "whatsapp") {
       openWhatsApp();
-      return;
-    }
-
-    if (href === "/proposta-comercial.html") {
-      window.open("/proposta-comercial.html", "_blank");
       return;
     }
 
@@ -58,7 +53,9 @@ export const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
-          # {
+          <a
+            href="#"
+            onClick={(e) => {
               e.preventDefault();
               scrollToSection("#");
             }}
@@ -76,16 +73,31 @@ export const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
-              {link.href} {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(link.href);
+                  }}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </a>
+              )
+            )}
             <ThemeToggle />
             <Button variant="hero" size="sm" onClick={openWhatsApp}>
               <MessageCircle className="w-4 h-4" />
@@ -116,16 +128,31 @@ export const Header = () => {
             className="lg:hidden mt-4 pb-4 border-t border-border/50"
           >
             <div className="flex flex-col gap-4 pt-4">
-              {navLinks.map((link) => (
-                {link.href} {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.external ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(link.href);
+                    }}
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
               <Button
                 variant="hero"
                 size="sm"
