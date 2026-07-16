@@ -11,7 +11,7 @@ const navLinks = [
   { label: "Sobre", href: "#quem-somos" },
   { label: "Compliance", href: "#normas" },
   { label: "Contato", href: "whatsapp" },
-  { label: "Proposta Comercial", href: "#" },
+  { label: "Proposta Comercial", href: "/proposta-comercial.html" },
 ];
 
 export const Header = () => {
@@ -26,14 +26,23 @@ export const Header = () => {
 
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false);
+
     if (href === "whatsapp") {
       openWhatsApp();
       return;
     }
+
+    if (href === "/proposta-comercial.html") {
+      window.open("/proposta-comercial.html", "_blank");
+      return;
+    }
+
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      document.querySelector(href)?.scrollIntoView({
+        behavior: "smooth",
+      });
     }
   };
 
@@ -49,24 +58,29 @@ export const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
-          <a
-            href="#"
-            onClick={(e) => { e.preventDefault(); scrollToSection("#"); }}
+          # {
+              e.preventDefault();
+              scrollToSection("#");
+            }}
             className="flex items-baseline gap-2 shrink-0"
           >
-            <span className="text-3xl font-bold text-gradient leading-none">365s</span>
+            <span className="text-3xl font-bold text-gradient leading-none">
+              365s
+            </span>
             <span className="hidden lg:inline text-[10px] uppercase tracking-widest text-muted-foreground">
-              Governança · Riscos<br />Compliance
+              Governança · Riscos
+              <br />
+              Compliance
             </span>
           </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+              {link.href} {
+                  e.preventDefault();
+                  scrollToSection(link.href);
+                }}
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
@@ -82,8 +96,15 @@ export const Header = () => {
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
             <ThemeToggle />
-            <button className="p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <button
+              className="p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -96,16 +117,21 @@ export const Header = () => {
           >
             <div className="flex flex-col gap-4 pt-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                {link.href} {
+                    e.preventDefault();
+                    scrollToSection(link.href);
+                  }}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
-              <Button variant="hero" size="sm" onClick={openWhatsApp} className="w-fit">
+              <Button
+                variant="hero"
+                size="sm"
+                onClick={openWhatsApp}
+                className="w-fit"
+              >
                 Falar com Especialista
               </Button>
             </div>
