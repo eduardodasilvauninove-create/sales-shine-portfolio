@@ -87,7 +87,7 @@ const services = [
   },
 ];
 
-const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: string; items: string[]; badge?: string }; index: number }) => {
+const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: string; items: string[]; badge?: string; cta?: boolean }; index: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -98,10 +98,10 @@ const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: 
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.08 }}
       whileHover={{ y: -6 }}
-      className="group p-7 rounded-2xl glass hover:border-primary/40 transition-all duration-300 h-full flex flex-col"
+      className={`group p-7 rounded-2xl glass hover:border-primary/40 transition-all duration-300 h-full flex flex-col ${service.cta ? "border-primary/30 bg-primary/5" : ""}`}
     >
       <motion.div
-        className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors"
+        className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-colors ${service.cta ? "bg-primary/20 group-hover:bg-primary/30" : "bg-primary/10 group-hover:bg-primary/20"}`}
         whileHover={{ scale: 1.1, rotate: 5 }}
       >
         <service.icon className="w-7 h-7 text-primary" />
@@ -126,6 +126,19 @@ const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: 
           <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
             Acreditação<br />Exemplar Global
           </span>
+        </div>
+      )}
+      {service.cta && (
+        <div className="mt-5 pt-5 border-t border-primary/15">
+          <Button
+            variant="hero"
+            size="sm"
+            className="w-full"
+            onClick={openWhatsApp}
+          >
+            Solicitar Proposta Comercial
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
         </div>
       )}
     </motion.div>
