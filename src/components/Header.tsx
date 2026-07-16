@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Sobre", href: "#quem-somos" },
   { label: "Compliance", href: "#normas" },
   { label: "Contato", href: "whatsapp" },
+  { label: "Proposta Comercial", href: "#" },
 ];
 
 export const Header = () => {
