@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap, ClipboardCheck, Brain } from "lucide-react";
+import { Lock, ShieldAlert, FileCheck, Users2, GraduationCap, ClipboardCheck, Brain, FileText, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import exemplarGlobalLogo from "@/assets/exemplar-global.png";
+import { openWhatsApp } from "@/lib/whatsapp";
 
 const services = [
   {
@@ -72,9 +74,20 @@ const services = [
       "Relatórios técnicos detalhados",
     ],
   },
+  {
+    icon: FileText,
+    title: "Proposta Comercial",
+    cta: true as const,
+    items: [
+      "Diagnóstico inicial sem compromisso",
+      "Proposta alinhada às necessidades do negócio",
+      "Cronograma e investimento detalhados",
+      "Atendimento personalizado com especialistas",
+    ],
+  },
 ];
 
-const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: string; items: string[]; badge?: string }; index: number }) => {
+const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: string; items: string[]; badge?: string; cta?: boolean }; index: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -85,10 +98,10 @@ const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: 
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.08 }}
       whileHover={{ y: -6 }}
-      className="group p-7 rounded-2xl glass hover:border-primary/40 transition-all duration-300 h-full flex flex-col"
+      className={`group p-7 rounded-2xl glass hover:border-primary/40 transition-all duration-300 h-full flex flex-col ${service.cta ? "border-primary/30 bg-primary/5" : ""}`}
     >
       <motion.div
-        className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors"
+        className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-colors ${service.cta ? "bg-primary/20 group-hover:bg-primary/30" : "bg-primary/10 group-hover:bg-primary/20"}`}
         whileHover={{ scale: 1.1, rotate: 5 }}
       >
         <service.icon className="w-7 h-7 text-primary" />
@@ -113,6 +126,19 @@ const ServiceCard = ({ service, index }: { service: { icon: typeof Lock; title: 
           <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
             Acreditação<br />Exemplar Global
           </span>
+        </div>
+      )}
+      {service.cta && (
+        <div className="mt-5 pt-5 border-t border-primary/15">
+          <Button
+            variant="hero"
+            size="sm"
+            className="w-full"
+            onClick={openWhatsApp}
+          >
+            Solicitar Proposta Comercial
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
         </div>
       )}
     </motion.div>
@@ -147,7 +173,7 @@ export const Services = () => {
             Soluções completas para <span className="text-gradient">proteger e gerar valor</span> ao seu negócio
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Atuamos em cinco frentes estratégicas para elevar a maturidade de segurança e compliance da sua organização.
+            Atuamos em diversas frentes estratégicas para elevar a maturidade de segurança e compliance da sua organização.
           </p>
         </motion.div>
 
