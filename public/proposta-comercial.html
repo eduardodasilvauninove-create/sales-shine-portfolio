@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>365S - Apresentação Executiva GRC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#030712',
+                        card: 'rgba(17, 24, 39, 0.7)',
+                        neon: {
+                            blue: '#00f0ff',
+                            purple: '#8a2be2',
+                            green: '#00ff66'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Container de Rolagem Magnética */
+        .presentation-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Firefox */
+        }
+        .presentation-container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        /* Cada Slide */
+        .slide {
+            scroll-snap-align: start;
+            height: 100vh;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        /* Efeitos Glassmorphism */
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+
+        /* Classes para animação via JS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        /* Fundo animado global */
+        .bg-shapes {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0a0f1d 0%, #030712 100%);
+        }
+        .shape-1 {
+            position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(0,240,255,0.15) 0%, transparent 60%);
+            border-radius: 50%; filter: blur(40px);
+        }
+        .shape-2 {
+            position: absolute; bottom: -10%; right: -10%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(138,43,226,0.1) 0%, transparent 60%);
+            border-radius: 50%; filter: blur(60px);
+        }
+
+        /* Navegação Lateral (Dots) */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
+        }
+        .dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .dot.active {
+            background: #00f0ff;
+            border-color: #00f0ff;
+            box-shadow: 0 0 10px #00f0ff;
+            transform: scale(1.3);
+        }
+        .dot:hover::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 25px; top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.8);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fundo Dinâmico -->
+    <div class="bg-shapes">
+        <div class="shape-1 animate-blob"></div>
+        <div class="shape-2 animate-blob" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Navegação de Slides -->
+    <div class="nav-dots hidden lg:flex" id="dotNav">
+        <!-- Preenchido via JS -->
+    </div>
+
+    <!-- Marca d'água -->
+    <div class="fixed bottom-4 left-4 z-50 text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">
+        Classificação: Uso Interno
+    </div>
+    
+    <!-- Logo Flutuante -->
+    <div class="fixed top-6 left-6 z-50 flex items-center gap-3">
+        <div class="w-12 h-12 glass-panel flex items-center justify-center text-neon-blue font-bold text-2xl border-neon-blue/30 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <span class="font-black text-2xl tracking-widest text-white drop-shadow-md">365S</span>
+    </div>
+
+    <main class="presentation-container" id="presentation">
+        
+        <!-- SLIDE 1: Capa -->
+        <section class="slide" id="capa" data-label="Capa">
+            <div class="max-w-5xl mx-auto text-center z-10 w-full px-4">
+                <div class="reveal inline-block px-4 py-2 glass-panel text-neon-blue text-sm font-bold tracking-[0.3em] uppercase mb-8 border-neon-blue/20">
+                    Proposta Comercial • GRC
+                </div>
+                <h1 class="reveal delay-100 text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight tracking-tight">
+                    Mais que <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">segurança</span>.
+                </h1>
+                <h2 class="reveal delay-200 text-3xl md:text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
+                    Governança, risco e conformidade 365 dias.
+                </h2>
+                <p class="reveal delay-300 text-xl text-gray-400 font-light max-w-2xl mx-auto mb-12">
+                    Apresentando soluções eficientes para gestão corporativa segura e estratégica.
+                </p>
+                <div class="reveal delay-400 animate-bounce mt-12 text-gray-500">
+                    <p class="text-sm uppercase tracking-widest mb-2">Role para explorar ou use as setas</p>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Cenário e Riscos -->
+        <section class="slide" id="cenario" data-label="Cenário Atual">
+            <div class="max-w-7xl mx-auto w-full z-10">
+                <div class="reveal mb-12">
+                    <h3 class="text-neon-blue font-bold tracking-widest uppercase text-sm mb-2">Contexto Estratégico</h3>
+                    <h2 class="text-4xl md:text-5xl font-black text-white">O Cenário Atual de Riscos</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="reveal delay-100 glass-panel p-8 hover:-translate-y-2 transition-transform duration-300 border-t-2 border-red-500/50">
+                        <i class="fa-solid fa-arrow-trend-up text-4xl text-red-400 mb-6 drop-shadow-[0_0_10px_rgba(248,113,113,0.5)]"></i>
+                        <h4 class="text-xl font-bold text-white mb-4">Aumento dos Riscos</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">Riscos operacionais, regulatórios e cibernéticos aumentaram, tornando ataques e vazamentos mais comuns nas organizações.</p>
+                    </div>
+                    
+                    <div class="reveal delay-200 glass-panel p-8 hover:-translate-y-2 transition-transform duration-300 border-t-2 border-orange-500/50">
+                        <i class="fa-solid fa-scale-balanced text-4xl text-orange-400 mb-6 drop-shadow-[0_0_10px_rgba(251,146,60,0.5)]"></i>
+                        <h4 class="text-xl font-bold text-white mb-4">Exigências Regulamentares</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">LGPD e outras normas ampliaram a responsabilidade empresarial sobre tratamento de dados, exigindo governança e controles rigorosos.</p>
+                    </div>
+                    
+                    <div class="reveal delay-300 glass-panel p-8 hover:-translate-y-2 transition-transform duration-300 border-t-2 border-neon-blue/50">
+                        <i class="fa-solid fa-triangle-exclamation text-4xl text-neon-blue mb-6 drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]"></i>
+                        <h4 class="text-xl font-bold text-white mb-4">Impacto da Falta de GRC</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">Empresas sem governança de riscos enfrentam perdas financeiras, danos reputacionais e menos oportunidades comerciais.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: Proposta de Valor -->
+        <section class="slide" id="valor" data-label="Proposta de Valor">
+            <div class="max-w-7xl mx-auto w-full z-10">
+                <div class="reveal text-center mb-16">
+                    <h2 class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-white inline-block">
+                        Proposta de Valor
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <div class="reveal delay-100 flex items-start gap-6 group">
+                        <div class="w-16 h-16 rounded-2xl bg-gray-800/50 flex items-center justify-center border border-gray-700 group-hover:border-neon-blue group-hover:shadow-[0_0_20px_rgba(0,240,255,0.2)] transition-all flex-shrink-0">
+                            <i class="fa-solid fa-handshake-angle text-2xl text-neon-blue"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Parceria Estratégica em GRC</h3>
+                            <p class="text-gray-400">A 365s atua como parceira estratégica, integrando governança, riscos e compliance aos objetivos do negócio.</p>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-200 flex items-start gap-6 group">
+                        <div class="w-16 h-16 rounded-2xl bg-gray-800/50 flex items-center justify-center border border-gray-700 group-hover:border-neon-purple group-hover:shadow-[0_0_20px_rgba(138,43,226,0.2)] transition-all flex-shrink-0">
+                            <i class="fa-solid fa-clock-rotate-left text-2xl text-neon-purple"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Acompanhamento 365 Dias</h3>
+                            <p class="text-gray-400">A abordagem contínua garante acompanhamento permanente, promovendo previsibilidade e redução de riscos.</p>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-300 flex items-start gap-6 group">
+                        <div class="w-16 h-16 rounded-2xl bg-gray-800/50 flex items-center justify-center border border-gray-700 group-hover:border-neon-green group-hover:shadow-[0_0_20px_rgba(0,255,102,0.2)] transition-all flex-shrink-0">
+                            <i class="fa-solid fa-bolt text-2xl text-neon-green"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Transformação da Conformidade</h3>
+                            <p class="text-gray-400">Conformidade é transformada em vantagem competitiva conectando segurança, privacidade e gestão de riscos.</p>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-400 flex items-start gap-6 group">
+                        <div class="w-16 h-16 rounded-2xl bg-gray-800/50 flex items-center justify-center border border-gray-700 group-hover:border-white group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all flex-shrink-0">
+                            <i class="fa-solid fa-stairs text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Foco na Maturidade</h3>
+                            <p class="text-gray-400">Foco na governança eficaz, proteção de ativos críticos e resposta a regulamentos e auditorias.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: Bento Box - Empresa e Desafios -->
+        <section class="slide" id="empresa" data-label="A Empresa & Desafios">
+            <div class="max-w-7xl mx-auto w-full z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
+                    
+                    <!-- Bloco Quem Somos -->
+                    <div class="reveal lg:col-span-8 glass-panel p-8 md:p-10 flex flex-col justify-center border-l-4 border-l-neon-blue">
+                        <h3 class="text-neon-blue font-bold tracking-widest uppercase text-sm mb-2">Fundamentos</h3>
+                        <h2 class="text-4xl font-black text-white mb-6">Quem é a 365S</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div>
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-star text-neon-blue"></i> Especialização em GRC</h4>
+                                <p class="text-gray-400 text-sm">Abordagem estratégica focada e alinhada ao negócio.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-lock text-neon-blue"></i> Segurança e Privacidade</h4>
+                                <p class="text-gray-400 text-sm">Forte foco em segurança da informação (ISO 27001) e privacidade (LGPD).</p>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-sitemap text-neon-blue"></i> Maturidade Organizacional</h4>
+                                <p class="text-gray-400 text-sm">Desenvolve pessoas, processos e controles de ponta a ponta.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-certificate text-neon-blue"></i> Credibilidade</h4>
+                                <p class="text-gray-400 text-sm">Profissionais certificados e altamente experientes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloco Desafios -->
+                    <div class="reveal delay-200 lg:col-span-4 glass-panel p-8 flex flex-col justify-center bg-gray-900/80">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-700 pb-4">
+                            <i class="fa-solid fa-triangle-exclamation text-orange-500"></i>
+                            Desafios Reais
+                        </h2>
+                        <ul class="space-y-4 text-sm text-gray-400">
+                            <li class="flex gap-3"><span class="text-orange-500 mt-1">▪</span> Muitas organizações enfrentam políticas desatualizadas e processos incompletos de LGPD.</li>
+                            <li class="flex gap-3"><span class="text-orange-500 mt-1">▪</span> Dificuldades extremas para responder auditorias e demonstrar conformidade.</li>
+                            <li class="flex gap-3"><span class="text-orange-500 mt-1">▪</span> Falta de uma governança integrada, sendo esta a raiz dos problemas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Como gera valor (Métricas e Diferenciais) -->
+        <section class="slide" id="impacto" data-label="Impacto Real">
+            <div class="max-w-7xl mx-auto w-full z-10">
+                <div class="reveal mb-12 text-center">
+                    <h2 class="text-4xl md:text-5xl font-black text-white">Como a 365S Gera Valor</h2>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                    <div class="reveal delay-100 p-6 glass-panel text-center hover:bg-gray-800/50 transition-colors">
+                        <div class="text-3xl text-neon-blue mb-3"><i class="fa-solid fa-link"></i></div>
+                        <h4 class="font-bold text-white text-lg">Conexão</h4>
+                        <p class="text-xs text-gray-400 mt-2">Alinha GRC à estratégia do negócio.</p>
+                    </div>
+                    <div class="reveal delay-200 p-6 glass-panel text-center hover:bg-gray-800/50 transition-colors">
+                        <div class="text-3xl text-neon-purple mb-3"><i class="fa-solid fa-shield-virus"></i></div>
+                        <h4 class="font-bold text-white text-lg">Redução</h4>
+                        <p class="text-xs text-gray-400 mt-2">Diminui exposição a riscos críticos.</p>
+                    </div>
+                    <div class="reveal delay-300 p-6 glass-panel text-center hover:bg-gray-800/50 transition-colors">
+                        <div class="text-3xl text-neon-green mb-3"><i class="fa-solid fa-user-tie"></i></div>
+                        <h4 class="font-bold text-white text-lg">Previsibilidade</h4>
+                        <p class="text-xs text-gray-400 mt-2">Clareza para Executivos.</p>
+                    </div>
+                    <div class="reveal delay-400 p-6 glass-panel text-center hover:bg-gray-800/50 transition-colors">
+                        <div class="text-3xl text-yellow-500 mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                        <h4 class="font-bold text-white text-lg">ROI</h4>
+                        <p class="text-xs text-gray-400 mt-2">Investimento com retorno estratégico.</p>
+                    </div>
+                </div>
+
+                <div class="reveal delay-500 glass-panel p-8 border-t border-t-gray-600">
+                    <h3 class="text-xl font-bold text-white mb-6 text-center">Diferenciais Competitivos</h3>
+                    <div class="flex flex-col md:flex-row gap-6 justify-between text-center">
+                        <div class="flex-1">
+                            <h4 class="text-neon-blue font-bold mb-2">Abordagem Integrada</h4>
+                            <p class="text-sm text-gray-400">Apoio na implantação e evolução contínua dos controles organizacionais.</p>
+                        </div>
+                        <div class="hidden md:block w-px bg-gray-700"></div>
+                        <div class="flex-1">
+                            <h4 class="text-neon-purple font-bold mb-2">Especialização GRC</h4>
+                            <p class="text-sm text-gray-400">Foco exclusivo com certificações internacionais que atestam a qualidade.</p>
+                        </div>
+                        <div class="hidden md:block w-px bg-gray-700"></div>
+                        <div class="flex-1">
+                            <h4 class="text-neon-green font-bold mb-2">Atuação Personalizada</h4>
+                            <p class="text-sm text-gray-400">Atuação próxima, flexível e totalmente focada na realidade do cliente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: Portfólio de Serviços (3 Pilares) -->
+        <section class="slide" id="portfolio" data-label="Portfólio">
+            <div class="max-w-7xl mx-auto w-full z-10">
+                <div class="reveal mb-10 text-center">
+                    <h2 class="text-5xl font-black text-white">Nosso Portfólio</h2>
+                    <p class="text-gray-400 mt-3 max-w-2xl mx-auto">Cobertura abrangente, gestão focada e consistência metodológica em um único parceiro.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Privacidade -->
+                    <div class="reveal delay-100 glass-panel p-8 relative overflow-hidden group">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-neon-blue/20 rounded-full blur-2xl group-hover:bg-neon-blue/40 transition-all"></div>
+                        <i class="fa-solid fa-user-shield text-4xl text-neon-blue mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Privacidade e LGPD</h3>
+                        <ul class="space-y-3 text-sm text-gray-400">
+                            <li><strong class="text-white">Implementação:</strong> Suporte do diagnóstico à execução do programa.</li>
+                            <li><strong class="text-white">Cultura:</strong> Construção de uma cultura sustentável além da legislação.</li>
+                            <li><strong class="text-white">Benefícios:</strong> Redução de riscos, confiança e força reputacional.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Riscos -->
+                    <div class="reveal delay-200 glass-panel p-8 relative overflow-hidden group">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-neon-purple/20 rounded-full blur-2xl group-hover:bg-neon-purple/40 transition-all"></div>
+                        <i class="fa-solid fa-shield-halved text-4xl text-neon-purple mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Gestão de Riscos & SI</h3>
+                        <ul class="space-y-3 text-sm text-gray-400">
+                            <li><strong class="text-white">Identificação:</strong> Avaliação estruturada para proteger ativos críticos.</li>
+                            <li><strong class="text-white">Roadmaps:</strong> Implantação de controles alinhados ao negócio.</li>
+                            <li><strong class="text-white">Implantação:</strong> Criação e acompanhamento eficaz do SGSI.</li>
+                            <li><strong class="text-white">Estratégia:</strong> Segurança como pilar corporativo, não só técnico.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Governança -->
+                    <div class="reveal delay-300 glass-panel p-8 relative overflow-hidden group">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-neon-green/20 rounded-full blur-2xl group-hover:bg-neon-green/40 transition-all"></div>
+                        <i class="fa-solid fa-gavel text-4xl text-neon-green mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Governança e Compliance</h3>
+                        <ul class="space-y-3 text-sm text-gray-400">
+                            <li><strong class="text-white">Estruturas:</strong> Criação de transparência e responsabilidade.</li>
+                            <li><strong class="text-white">Auditorias:</strong> Apoio em auditorias internas e certificações.</li>
+                            <li><strong class="text-white">Gestão:</strong> Visibilidade total para reduzir riscos institucionais.</li>
+                            <li><strong class="text-white">Suporte:</strong> Atuação estratégica junto a conselhos e diretorias.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: Autoridade & Jornada -->
+        <section class="slide" id="jornada" data-label="Autoridade & Jornada">
+            <div class="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Autoridade -->
+                <div class="reveal">
+                    <h3 class="text-neon-blue font-bold tracking-widest uppercase text-sm mb-2">Autoridade Técnica</h3>
+                    <h2 class="text-4xl font-black text-white mb-8">Auditoria ISO 27001</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center text-white flex-shrink-0">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Auditores Certificados</h4>
+                                <p class="text-gray-400 text-sm">Garantia de avaliações imparciais e confiáveis do SGSI.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center text-white flex-shrink-0">
+                                <i class="fa-solid fa-file-signature"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Relatórios Claros</h4>
+                                <p class="text-gray-400 text-sm">Identificação exata de não conformidades e recomendações práticas.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center text-white flex-shrink-0">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Reconhecimento</h4>
+                                <p class="text-gray-400 text-sm">Aumenta a credibilidade perante clientes, parceiros e certificadoras.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jornada Gráfica -->
+                <div class="reveal delay-200 glass-panel p-8 border-r-4 border-neon-purple relative">
+                    <h3 class="text-2xl font-bold text-white mb-6">Jornada de Transformação</h3>
+                    
+                    <div class="relative border-l-2 border-gray-700 ml-4 pl-8 space-y-8 py-2">
+                        <!-- Etapa 1 -->
+                        <div class="relative">
+                            <div class="absolute w-4 h-4 bg-neon-purple rounded-full -left-[41px] top-1 shadow-[0_0_10px_#8a2be2]"></div>
+                            <h4 class="text-white font-bold">Etapas Integradas</h4>
+                            <p class="text-gray-400 text-sm mt-1">Diagnóstico, avaliação de riscos, definição de roadmap, implementação, auditoria e monitoramento.</p>
+                        </div>
+                        <!-- Etapa 2 -->
+                        <div class="relative">
+                            <div class="absolute w-4 h-4 bg-neon-blue rounded-full -left-[41px] top-1 shadow-[0_0_10px_#00f0ff]"></div>
+                            <h4 class="text-white font-bold">Acompanhamento Contínuo</h4>
+                            <p class="text-gray-400 text-sm mt-1">Acompanhamos a evolução da maturidade ao longo do tempo. Não entregamos apenas projetos isolados.</p>
+                        </div>
+                        <!-- Etapa 3 (CTA) -->
+                        <div class="relative">
+                            <div class="absolute w-4 h-4 bg-neon-green rounded-full -left-[41px] top-1 shadow-[0_0_10px_#00ff66]"></div>
+                            <h4 class="text-white font-bold text-xl mb-4">Próximos Passos</h4>
+                            <button class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-neon-green transition-colors w-full sm:w-auto shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                                Iniciar Transformação
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.slide');
+            const dotContainer = document.getElementById('dotNav');
+            const container = document.getElementById('presentation');
+
+            // 1. Criar Dots de Navegação Dinamicamente
+            sections.forEach((section, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if(index === 0) dot.classList.add('active');
+                dot.setAttribute('data-label', section.getAttribute('data-label'));
+                dot.setAttribute('data-index', index);
+                
+                // Clique no dot rola para a seção
+                dot.addEventListener('click', () => {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                dotContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll('.dot');
+
+            // 2. Intersection Observer para Ativar Animações (.reveal) e Atualizar Dots
+            const observerOptions = {
+                root: container,
+                threshold: 0.5 // Aciona quando 50% do slide está visível
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Atualizar navegação (Dots)
+                        const index = Array.from(sections).indexOf(entry.target);
+                        dots.forEach(d => d.classList.remove('active'));
+                        if(dots[index]) dots[index].classList.add('active');
+
+                        // Disparar animações (.reveal) dos elementos internos deste slide
+                        const reveals = entry.target.querySelectorAll('.reveal');
+                        reveals.forEach(el => el.classList.add('active'));
+                    } else {
+                        // Opcional: Resetar animações quando o slide sai da tela (para repetir ao voltar)
+                        const reveals = entry.target.querySelectorAll('.reveal');
+                        reveals.forEach(el => el.classList.remove('active'));
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // 3. Suporte a Navegação por Teclado (Setas)
+            document.addEventListener('keydown', (e) => {
+                // Descobrir qual slide está ativo atualmente
+                let activeIndex = -1;
+                dots.forEach((dot, index) => {
+                    if (dot.classList.contains('active')) activeIndex = index;
+                });
+
+                if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                    if (activeIndex < sections.length - 1) {
+                        sections[activeIndex + 1].scrollIntoView({ behavior: 'smooth' });
+                    }
+                } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                    if (activeIndex > 0) {
+                        sections[activeIndex - 1].scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
