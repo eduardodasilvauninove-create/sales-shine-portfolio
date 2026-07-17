@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { openWhatsApp } from "@/lib/whatsapp";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { label: "Início", href: "#" },
@@ -11,7 +12,7 @@ const navLinks = [
   { label: "Sobre", href: "#quem-somos" },
   { label: "Compliance", href: "#normas" },
   { label: "Contato", href: "whatsapp" },
-  { label: "Proposta Comercial", href: "/proposta-comercial.html", external: true },
+  { label: "Proposta Comercial", href: "/proposta-comercial", route: true },
 ];
 
 export const Header = () => {
@@ -74,16 +75,14 @@ export const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) =>
-              link.external ? (
-                <a
+              link.route ? (
+                <Link
                   key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  to={link.href}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               ) : (
                 <a
                   key={link.label}
@@ -129,16 +128,15 @@ export const Header = () => {
           >
             <div className="flex flex-col gap-4 pt-4">
               {navLinks.map((link) =>
-                link.external ? (
-                  <a
+                link.route ? (
+                  <Link
                     key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    to={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ) : (
                   <a
                     key={link.label}
