@@ -128,16 +128,15 @@ export const Header = () => {
           >
             <div className="flex flex-col gap-4 pt-4">
               {navLinks.map((link) =>
-                link.external ? (
-                  <a
+                link.route ? (
+                  <Link
                     key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    to={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ) : (
                   <a
                     key={link.label}
