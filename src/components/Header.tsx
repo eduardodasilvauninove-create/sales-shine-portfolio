@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { openWhatsApp } from "@/lib/whatsapp";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { label: "Início", href: "#" },
