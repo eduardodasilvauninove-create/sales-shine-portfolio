@@ -74,16 +74,14 @@ export const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) =>
-              link.external ? (
-                <a
+              link.route ? (
+                <Link
                   key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  to={link.href}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               ) : (
                 <a
                   key={link.label}
