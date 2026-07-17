@@ -8,6 +8,7 @@ import { CookieConsent } from "@/components/CookieConsent";
 import Index from "./pages/Index";
 import PoliticaSeguranca from "./pages/PoliticaSeguranca";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
+import PropostaComercial from "./pages/PropostaComercial";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
