@@ -128,10 +128,10 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="font-extrabold tracking-tight leading-none text-white text-7xl md:text-8xl lg:text-[9rem]"
-              style={{ textShadow: "0 0 40px rgba(47,91,255,0.35)" }}
+              className="font-extrabold tracking-tighter leading-none text-white text-7xl md:text-8xl lg:text-[9rem] whitespace-nowrap"
+              style={{ textShadow: "0 0 40px rgba(47,91,255,0.35)", letterSpacing: "-0.04em" }}
             >
-              365<span style={{ color: "#39FF14", textShadow: "0 0 25px rgba(57,255,20,0.6)" }}>s</span>
+              365<span style={{ color: "#39FF14", textShadow: "0 0 25px rgba(57,255,20,0.6)", marginLeft: "-0.02em" }}>s</span>
             </motion.h1>
 
             <motion.p
