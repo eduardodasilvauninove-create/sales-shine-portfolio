@@ -6,8 +6,8 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { openWhatsApp } from "@/lib/whatsapp";
 import { Link } from "react-router-dom";
 
-const navLinks = [
-  { label: "Início", href: "#" },
+const navLinks: { label: string; href: string; route?: boolean }[] = [
+  { label: "Início", href: "/", route: true },
   { label: "Serviços", href: "#servicos" },
   { label: "Sobre", href: "#quem-somos" },
   { label: "Compliance", href: "#normas" },
@@ -54,14 +54,7 @@ export const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#");
-            }}
-            className="flex items-baseline gap-2 shrink-0"
-          >
+          <Link to="/" className="flex items-baseline gap-2 shrink-0">
             <span className="text-3xl font-bold text-gradient leading-none">
               365s
             </span>
@@ -70,7 +63,7 @@ export const Header = () => {
               <br />
               Compliance
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6">
