@@ -118,6 +118,10 @@ export const Footer = () => {
           </div>
           <p>365s.com.br · Governança · Riscos · Compliance</p>
         </div>
+
+        <div className="pt-6 text-center">
+          <p className="text-xs text-muted-foreground/60 tracking-wide">Deus seja louvado</p>
+        </div>
       </div>
     </footer>
   );
