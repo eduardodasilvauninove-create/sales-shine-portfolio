@@ -46,11 +46,23 @@ const services = [
   },
   {
     icon: GraduationCap,
-    title: "Cultura e Conscientização",
+    title: "Treinamento e Conscientização",
     items: [
-      "Treinamentos especializados em segurança",
+      "Treinamentos especializados em segurança da informação",
       "Programas de conscientização organizacional",
+      "Treinamentos sobre LGPD e proteção de dados",
       "Fortalecimento da cultura de segurança",
+    ],
+  },
+  {
+    icon: MailWarning,
+    title: "Campanhas de Phishing",
+    items: [
+      "Simulações de phishing controladas",
+      "Avaliação do nível de exposição dos colaboradores",
+      "Treinamento para detecção de phishing e engenharia social",
+      "Programas de conscientização contínua",
+      "Métricas, indicadores",
     ],
   },
   {
