@@ -6,13 +6,14 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { openWhatsApp } from "@/lib/whatsapp";
 import { Link } from "react-router-dom";
 
-const navLinks: { label: string; href: string; route?: boolean }[] = [
+const navLinks: { label: string; href: string; route?: boolean; external?: boolean }[] = [
   { label: "Início", href: "/", route: true },
   { label: "Serviços", href: "#servicos" },
   { label: "Sobre", href: "#quem-somos" },
   { label: "Compliance", href: "#normas" },
   { label: "Contato", href: "whatsapp" },
   { label: "Proposta Comercial", href: "/proposta-comercial", route: true },
+  { label: "Anonimizador", href: "/anonimizador.html", external: true },
 ];
 
 export const Header = () => {
@@ -66,9 +67,20 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-5">
             {navLinks.map((link) =>
-              link.route ? (
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : link.route ? (
                 <Link
                   key={link.label}
                   to={link.href}
@@ -121,7 +133,18 @@ export const Header = () => {
           >
             <div className="flex flex-col gap-4 pt-4">
               {navLinks.map((link) =>
-                link.route ? (
+                link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : link.route ? (
                   <Link
                     key={link.label}
                     to={link.href}
