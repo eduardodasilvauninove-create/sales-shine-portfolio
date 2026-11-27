@@ -17,6 +17,7 @@
   --blue:#2f6bff;--blue2:#3b82f6;--sky:#38a6ff;--green:#39ff3c;--green2:#22c55e;
   --pessoal:#4f8cff;--pessoal-bg:rgba(79,140,255,.16);
   --sensivel:#ffa53a;--sensivel-bg:rgba(255,165,58,.16);
+  --corp:#b48cff;--corp-bg:rgba(180,140,255,.16);
   --danger:#ff5c6c;--ok-bg:rgba(57,255,60,.1);
   --shadow:0 20px 60px rgba(0,0,0,.35);--radius:18px;
   --mark-bg:rgba(79,140,255,.28);
@@ -28,7 +29,7 @@
   --line:rgba(30,60,150,.12);--line2:rgba(30,60,150,.24);
   --text:#0b1433;--muted:#4b5a80;--subtle:#7b88aa;
   --green:#12b81a;--ok-bg:rgba(18,184,26,.1);
-  --pessoal-bg:rgba(47,107,255,.1);--sensivel:#d97706;--sensivel-bg:rgba(217,119,6,.12);
+  --pessoal-bg:rgba(47,107,255,.1);--sensivel:#d97706;--sensivel-bg:rgba(217,119,6,.12);--corp:#7c3aed;--corp-bg:rgba(124,58,237,.1);
   --shadow:0 14px 40px rgba(20,40,110,.1);--mark-bg:rgba(47,107,255,.16);
 }
 *{box-sizing:border-box}
@@ -102,7 +103,7 @@ h1 .g{color:var(--green);text-shadow:0 0 26px rgba(57,255,60,.45)}
 
 /* workspace */
 #workspace{padding-bottom:40px;scroll-margin-top:84px}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 16px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:8px 0 16px}
 .kpi{padding:16px 18px;border-radius:16px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden}
 .kpi:after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(var(--glow,rgba(47,107,255,.25)),transparent 70%)}
 .kpi-l{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
@@ -110,6 +111,7 @@ h1 .g{color:var(--green);text-shadow:0 0 26px rgba(57,255,60,.45)}
 .kpi-f{font-size:12px;color:var(--subtle)}
 .kpi.p .kpi-v{color:var(--pessoal)}.kpi.p{--glow:rgba(79,140,255,.3)}
 .kpi.s .kpi-v{color:var(--sensivel)}.kpi.s{--glow:rgba(255,165,58,.28)}
+.kpi.c .kpi-v{color:var(--corp)}.kpi.c{--glow:rgba(180,140,255,.26)}
 .kpi.a .kpi-v{color:var(--green)}.kpi.a{--glow:rgba(57,255,60,.22)}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 .live{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--green);text-transform:uppercase}
@@ -140,7 +142,7 @@ h1 .g{color:var(--green);text-shadow:0 0 26px rgba(57,255,60,.45)}
 .feed div{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;padding:7px 9px;border-radius:9px;background:rgba(110,150,255,.06);animation:fadeIn .25s ease}
 .feed time{font-family:var(--mono);font-size:10.5px;color:var(--subtle);padding-top:1px}
 .feed b{font-weight:700}
-.feed .s b{color:var(--sensivel)}.feed .p b{color:var(--pessoal)}.feed .ok b{color:var(--green)}.feed .er b{color:var(--danger)}
+.feed .s b{color:var(--sensivel)}.feed .c b{color:var(--corp)}.feed .p b{color:var(--pessoal)}.feed .ok b{color:var(--green)}.feed .er b{color:var(--danger)}
 .empty{color:var(--subtle);text-align:center;padding:26px 10px;font-size:12.5px}
 
 /* preview */
@@ -157,6 +159,7 @@ h1 .g{color:var(--green);text-shadow:0 0 26px rgba(57,255,60,.45)}
 mark{border-radius:4px;padding:0 2px;color:inherit;cursor:help}
 mark.p{background:var(--pessoal-bg);box-shadow:inset 0 -2px 0 var(--pessoal)}
 mark.s{background:var(--sensivel-bg);box-shadow:inset 0 -2px 0 var(--sensivel)}
+mark.c{background:var(--corp-bg);box-shadow:inset 0 -2px 0 var(--corp)}
 mark.off{background:transparent;box-shadow:inset 0 -1px 0 var(--subtle);opacity:.65}
 mark.new{animation:flash 1.2s ease}
 .anon b{font-weight:800;color:var(--text);background:var(--ok-bg);border-radius:3px;padding:0 1px;box-shadow:inset 0 -2px 0 var(--green)}
@@ -178,6 +181,30 @@ mark.new{animation:flash 1.2s ease}
 .anon .facechip{background:var(--ok-bg);color:var(--green)}
 .pv-note.warn{border-color:rgba(255,165,58,.45);background:var(--sensivel-bg);color:var(--text)}
 @media (max-width:700px){.actionbar{flex-direction:column;align-items:stretch}}
+/* janela: o que anonimizar */
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(2,6,20,.72);backdrop-filter:blur(6px)}
+.modal-card{width:min(760px,100%);max-height:calc(100vh - 40px);overflow:auto;background:var(--card-solid);border:1px solid var(--line2);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.5);padding:26px}
+.modal-card h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}
+.modal-card>p{margin:0 0 18px;color:var(--muted)}
+.pf-opt{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line2);background:var(--card2);cursor:pointer;margin-bottom:10px}
+.pf-opt:has(input:checked){border-color:var(--sky);box-shadow:0 0 0 3px rgba(56,166,255,.12)}
+.pf-opt input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--blue)}
+.pf-opt b{font-size:15px}.pf-opt small{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
+.pf-sub{margin:4px 0 0 32px;display:grid;gap:8px}
+.pf-sub .pf-opt{margin:0;padding:10px 12px}
+.pf-sub.disabled{opacity:.45}
+.pf-terms textarea{width:100%;min-height:70px;resize:vertical;border:1px solid var(--line2);background:rgba(110,150,255,.06);border-radius:10px;padding:9px 11px;outline:none;font:inherit;color:inherit}
+.pf-terms label{display:block;font-weight:700;font-size:13px;margin-bottom:4px}
+.pf-terms small{display:block;color:var(--subtle);font-size:11.5px;margin-bottom:6px}
+.modal-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px}
+.pf-summary{display:flex;flex-wrap:wrap;gap:6px}
+.pchip{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--pessoal-bg);color:var(--pessoal)}
+.pchip.c{background:var(--corp-bg);color:var(--corp)}
+.pf-suggest{margin-top:8px}
+.sug-t{font-size:11.5px;color:var(--muted);margin-bottom:6px}
+.sugbtn{border:1px dashed var(--corp);background:var(--corp-bg);color:var(--corp);font-weight:800;font-size:12px;padding:4px 9px;border-radius:999px;margin:0 6px 6px 0}
+.sugbtn small{opacity:.7;font-weight:700}
+.sugbtn:hover{border-style:solid}
 /* planilha */
 .sheet-name{font:800 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--subtle);margin:16px 18px 6px}
 .grid-wrap{overflow:auto;margin:0 18px 8px;border:1px solid var(--line);border-radius:10px}
@@ -198,6 +225,7 @@ table.sheet td{padding:6px 10px;border-bottom:1px solid var(--line);border-right
 .cat .ct{font:800 12px var(--mono);padding:2px 8px;border-radius:999px}
 .cat.p .ct{background:var(--pessoal-bg);color:var(--pessoal)}
 .cat.s .ct{background:var(--sensivel-bg);color:var(--sensivel)}
+.cat.c .ct{background:var(--corp-bg);color:var(--corp)}.cat.c .mini i{background:var(--corp)}
 .cat.off{opacity:.5}
 .cat .mini{grid-column:2/4;height:3px;border-radius:3px;background:rgba(110,150,255,.12);overflow:hidden}
 .cat .mini i{display:block;height:100%}
@@ -242,7 +270,7 @@ td.m{font-family:var(--mono);font-size:12px;font-weight:800;color:var(--green);w
 td.ctx{color:var(--muted);max-width:360px}
 td.ctx em{font-style:normal;color:var(--text);font-weight:700}
 .badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap}
-.badge.p{background:var(--pessoal-bg);color:var(--pessoal)}.badge.s{background:var(--sensivel-bg);color:var(--sensivel)}
+.badge.p{background:var(--pessoal-bg);color:var(--pessoal)}.badge.c{background:var(--corp-bg);color:var(--corp)}.badge.s{background:var(--sensivel-bg);color:var(--sensivel)}
 .conf{font-size:11px;font-weight:700;color:var(--subtle)}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .toolbar .input{max-width:320px}
@@ -276,6 +304,7 @@ footer a{color:var(--sky);text-decoration:none;font-weight:700}
 @keyframes flash{0%{background:rgba(57,255,60,.55)}100%{}}
 @keyframes scan{from{top:-60px}to{top:100%}}
 @media (max-width:1240px){.grid{grid-template-columns:280px minmax(0,1fr)}.grid>.col:last-child{grid-column:1/-1}.action{position:static}}
+@media (max-width:1240px){.kpis{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:900px){.hero{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.how{grid-template-columns:1fr 1fr}.nav-links a{display:none}}
 @media (max-width:560px){.wrap{padding:0 16px}.kpi-v{font-size:26px}.how{grid-template-columns:1fr}.logo-sub{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -308,11 +337,12 @@ footer a{color:var(--sky);text-decoration:none;font-weight:700}
     <div>
       <span class="eyebrow"><i></i>Ferramenta de Anonimização de dados em documentos</span>
       <h1>Anonimize dados pessoais <span class="g">antes de compartilhar.</span></h1>
-      <p class="lead">Envie um <strong>Word, Excel, PowerPoint, LibreOffice, PDF ou imagem</strong>. A ferramenta localiza <strong>dados pessoais e dados pessoais sensíveis</strong> em tempo real e devolve uma cópia mascarada, com os trechos anonimizados em negrito, como em <strong>CPF 111.<b class="g">xxx.xxx</b>-44</strong>.</p>
+      <p class="lead">Envie um <strong>Word, Excel, PowerPoint, LibreOffice, PDF ou imagem</strong> e escolha o que proteger: <strong>dados pessoais e sensíveis (LGPD)</strong> e/ou <strong>informações corporativas confidenciais</strong>, como nomes de empresas em políticas internas, vulnerabilidades de relatórios de pentest e valores de relatórios contábeis. A ferramenta analisa em tempo real e devolve uma cópia mascarada, com os trechos anonimizados em negrito, como em <strong>CPF 111.<b class="g">xxx.xxx</b>-44</strong>.</p>
       <div class="trust">
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3 20 6v6c0 4.6-3.2 7.9-8 9-4.8-1.1-8-4.4-8-9V6l8-3Z" stroke="currentColor" stroke-width="2"/><path d="m8.5 12 2.4 2.4 4.6-4.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Processado no seu navegador</span>
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="2" transform="rotate(45 12 12)" stroke-linecap="round"/></svg>Nenhum arquivo é enviado</span>
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12.5 10 17 19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Dados sensíveis (art. 11)</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12.5 10 17 19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Pentest, políticas e relatórios</span>
       </div>
     </div>
     <div class="drop" id="drop" tabindex="0" role="button" aria-label="Selecionar documentos">
@@ -333,8 +363,9 @@ footer a{color:var(--sky);text-decoration:none;font-weight:700}
   <section id="workspace" class="hidden">
     <div class="kpis">
       <div class="kpi"><div class="kpi-l">Arquivos <span class="live idle" id="liveTag"><i></i><span>aguardando</span></span></div><div class="kpi-v" id="kFiles">0</div><div class="kpi-f" id="kFilesF">na fila</div></div>
-      <div class="kpi p"><div class="kpi-l"><span class="dot" style="background:var(--pessoal)"></span>Dados pessoais encontrados</div><div class="kpi-v" id="kPessoal">0</div><div class="kpi-f">identificadores e contatos</div></div>
+      <div class="kpi p"><div class="kpi-l"><span class="dot" style="background:var(--pessoal)"></span>Dados pessoais encontrados</div><div class="kpi-v" id="kPessoal">0</div><div class="kpi-f" id="kPessoalF">identificadores e contatos</div></div>
       <div class="kpi s"><div class="kpi-l"><span class="dot" style="background:var(--sensivel)"></span>Dados sensíveis encontrados</div><div class="kpi-v" id="kSensivel">0</div><div class="kpi-f">LGPD art. 5º, II e art. 11</div></div>
+      <div class="kpi c"><div class="kpi-l"><span class="dot" style="background:var(--corp)"></span>Informações corporativas</div><div class="kpi-v" id="kCorp">0</div><div class="kpi-f" id="kCorpF">perfil não selecionado</div></div>
       <div class="kpi a"><div class="kpi-l"><span class="dot" style="background:var(--green)"></span>Dados anonimizados</div><div class="kpi-v" id="kAnon">0</div><div class="kpi-f" id="kAnonF">aguardando o botão Anonimizar</div></div>
     </div>
 
@@ -372,6 +403,7 @@ footer a{color:var(--sky);text-decoration:none;font-weight:700}
         <div class="card action">
           <div class="card-h"><div><h3>Anonimização</h3><p>Escolha o que mascarar</p></div></div>
           <div class="card-b">
+            <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)">Perfil escolhido</span><button class="linkbtn" id="pfEdit" type="button">Alterar</button></div><div class="pf-summary" id="pfSummary"></div><div class="pf-suggest" id="pfSuggest"></div></div>
             <div class="cats" id="cats"><div class="empty">As categorias aparecem durante a análise.</div></div>
             <div class="opt">
               <label class="row"><span>Modo de máscara<small id="modeHint">Parcial: mantém início e fim</small></span>
@@ -421,7 +453,7 @@ footer a{color:var(--sky);text-decoration:none;font-weight:700}
 
   <section id="como">
     <div class="how">
-      <div class="card"><div class="n">1</div><h4>Envie</h4><p>Arraste Word, Excel, PowerPoint, PDF, imagens ou arquivos de texto. Tudo fica no seu navegador.</p></div>
+      <div class="card"><div class="n">1</div><h4>Envie e escolha</h4><p>Arraste Word, Excel, PowerPoint, PDF, imagens ou textos e diga o que proteger: dados pessoais e/ou informações corporativas (políticas, pentest, relatórios contábeis).</p></div>
       <div class="card"><div class="n">2</div><h4>Acompanhe</h4><p>A leitura acontece em tempo real: cada CPF, nome, endereço ou dado de saúde aparece destacado.</p></div>
       <div class="card"><div class="n">3</div><h4>Revise</h4><p>Ligue ou desligue categorias, desmarque falsos positivos e escolha máscara parcial ou total.</p></div>
       <div class="card"><div class="n">4</div><h4>Baixe</h4><p>Receba a cópia no mesmo formato, com os trechos anonimizados em negrito, e um relatório da operação.</p></div>
@@ -438,6 +470,22 @@ footer a{color:var(--sky);text-decoration:none;font-weight:700}
   <div>© <span id="yr"></span> 365s · Governança, Riscos e Compliance · <a href="https://365s.com.br" target="_blank" rel="noopener">365s.com.br</a></div>
   <div style="margin-top:6px;font-size:12px">Ferramenta de Anonimização de dados em documentos · <span id="ver" style="font-family:var(--mono)"></span></div>
 </footer>
+
+<div class="modal hidden" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="pfTitle">
+  <div class="modal-card">
+    <h2 id="pfTitle">O que você quer anonimizar?</h2>
+    <p>Escolha uma ou mais opções. Você pode mudar depois, e a análise é refeita na hora.</p>
+    <label class="pf-opt"><input type="checkbox" id="pfPessoal" checked><span><b>Dados pessoais e dados pessoais sensíveis (LGPD)</b><small>Nomes, CPF, RG, contatos, endereços, rostos em fotos, saúde, religião, origem racial, orientação sexual, biometria e demais dados da LGPD.</small></span></label>
+    <label class="pf-opt"><input type="checkbox" id="pfCorp"><span><b>Informações corporativas confidenciais</b><small>Para documentos internos que vão para auditor, due diligence, cliente ou parceiro.</small></span></label>
+    <div class="pf-sub" id="pfCorpBox">
+      <label class="pf-opt"><input type="checkbox" id="pf_empresa" checked><span><b>Políticas e documentos internos</b><small>Razão social, nome fantasia, marcas, CNPJ, inscrições, domínios e sites, contratos, endereços e contatos corporativos.</small></span></label>
+      <label class="pf-opt"><input type="checkbox" id="pf_seguranca"><span><b>Relatório de pentest e segurança</b><small>Vulnerabilidades, CVE/CVSS, ativos e hostnames, IPs e redes, URLs e endpoints, versões de software, credenciais, hashes e chaves, payloads, ferramentas de segurança usadas.</small></span></label>
+      <label class="pf-opt"><input type="checkbox" id="pf_financeiro"><span><b>Relatórios contábeis e financeiros</b><small>Valores em reais e moedas, percentuais e indicadores, contas contábeis, notas fiscais, contratos e dados bancários.</small></span></label>
+      <div class="pf-terms"><label for="pfCorpTerms">Nomes da empresa, clientes ou marcas a ocultar (recomendado)</label><small>Um por linha. Ex.: 365s, Service IT Security, Projeto Orion. Nomes sem "Ltda" ou "S.A." só são encontrados com certeza se forem informados aqui.</small><textarea id="pfCorpTerms" placeholder="365s&#10;Service IT Security"></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn btn-ghost" id="pfCancel" type="button">Cancelar</button><span id="pfHint" style="color:var(--sensivel);font-size:12.5px"></span><button class="btn btn-primary btn-lg" id="pfStart" type="button">Iniciar análise →</button></div>
+  </div>
+</div>
 
 <div class="toast-stack" id="toasts" aria-live="polite"></div>
 
@@ -745,6 +793,120 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     R("Nome", `${B}(?:Sr\\.?|Sra\\.?|Srta\\.?|Dr\\.?|Dra\\.?|Prof\\.?|Profa\\.?|${ci("senhor[a]?|doutor[a]?")})\\s+(${NAME})`, "g", "Alta", 104, { group: 1 })
   ];
 
+
+  /* =====================================================================
+     INFORMAÇÕES CORPORATIVAS CONFIDENCIAIS
+     perfis: "empresa" (empresas e documentos internos), "seguranca" (pentest),
+             "financeiro" (relatórios contábeis/financeiros)
+     ===================================================================== */
+  const CORP_CATEGORIES = {
+    "Empresa/organização":          { mask: "words", profiles: ["empresa"] },
+    "Domínio/URL":                  { mask: "url",   profiles: ["empresa", "seguranca"] },
+    "Contrato/documento fiscal":    { mask: "all",   profiles: ["empresa", "financeiro"] },
+    "Inscrição estadual/municipal": { mask: "all",   profiles: ["empresa", "financeiro"] },
+    "Host/servidor":                { mask: "all",   profiles: ["seguranca"] },
+    "Rede/IP interno":              { mask: "all",   profiles: ["seguranca"] },
+    "Porta/serviço":                { mask: "all",   profiles: ["seguranca"] },
+    "Caminho/endpoint":             { mask: "all",   profiles: ["seguranca"] },
+    "Versão de software":           { mask: "all",   profiles: ["seguranca"] },
+    "Vulnerabilidade":              { mask: "all",   profiles: ["seguranca"] },
+    "CVE/CWE/CVSS":                 { mask: "all",   profiles: ["seguranca"] },
+    "Segredo/credencial técnica":   { mask: "all",   profiles: ["seguranca"] },
+    "Payload/requisição":           { mask: "all",   profiles: ["seguranca"] },
+    "Identificador de nuvem":       { mask: "all",   profiles: ["seguranca"] },
+    "Conta de sistema":             { mask: "all",   profiles: ["seguranca"] },
+    "Tecnologia de segurança":      { mask: "all",   profiles: ["seguranca"] },
+    "Valor financeiro":             { mask: "digits", profiles: ["financeiro"] },
+    "Percentual/indicador":         { mask: "digits", profiles: ["financeiro"] },
+    "Conta contábil":               { mask: "digits", profiles: ["financeiro"] }
+  };
+  for (const [k, v] of Object.entries(CORP_CATEGORIES)) CATEGORIES[k] = { group: "corporativo", mask: v.mask, profiles: v.profiles };
+  // categorias pessoais que também fazem sentido nos perfis corporativos
+  const SHARED = {
+    "CNPJ": ["empresa", "financeiro"], "E-mail": ["empresa", "seguranca"], "Telefone": ["empresa"], "Endereço": ["empresa"], "CEP": ["empresa"],
+    "Endereço IP": ["seguranca"], "Dados bancários": ["financeiro"], "Chave PIX": ["financeiro"], "Credencial/login": ["seguranca"],
+    "Identificador de dispositivo": ["seguranca"], "Termo personalizado": ["empresa", "seguranca", "financeiro"], "Coluna marcada": ["empresa", "seguranca", "financeiro"]
+  };
+  for (const k of Object.keys(CATEGORIES)) if (!CATEGORIES[k].profiles) CATEGORIES[k].profiles = ["pessoal"].concat(SHARED[k] || []);
+  const PROFILES = ["pessoal", "empresa", "seguranca", "financeiro"];
+  const catActive = (cat, prof) => (CATEGORIES[cat] ? CATEGORIES[cat].profiles.some((p) => prof.has(p)) : false);
+
+  // domínios de referência pública: não são segredo da empresa
+  const PUBLIC_DOMAINS = /(^|\.)(owasp\.org|mitre\.org|nist\.gov|first\.org|cisa\.gov|microsoft\.com|google\.com|github\.com|gitlab\.com|gov\.br|iso\.org|w3\.org|mozilla\.org|apache\.org|openssl\.org|exploit-db\.com|cvedetails\.com|portswigger\.net|cisecurity\.org|sans\.org|wikipedia\.org|ietf\.org|rfc-editor\.org|cert\.br|nic\.br|anpd\.gov\.br|linkedin\.com|youtube\.com|whatsapp\.com|schema\.org|openxmlformats\.org|purl\.org|example\.com|example\.org)$/i;
+  const hostOf = (v) => String(v).replace(/^[a-z]+:\/\//i, "").split(/[\/:?#]/)[0].toLowerCase();
+  const notPublic = (v) => !PUBLIC_DOMAINS.test(hostOf(v));
+  const COMPANY_SUFFIX = "(?:Ltda\\.?|LTDA\\.?|S\\.\\s?A\\.?|S\\/A|SA(?=\\s|$|[,.;])|EIRELI|Eireli|ME(?=\\s|$|[,.;])|EPP(?=\\s|$|[,.;])|Ltd\\.?|Inc\\.?|LLC|Corp\\.?|GmbH|S\\.L\\.)";
+  const CORPW = `[${UP}0-9][\\p{L}\\p{N}&.'’-]*`;
+  const CORPNAME = `${CORPW}(?:[ \\u00a0](?:${CORPW}|d[aeo]s?|e|&|of|and|em|para)){0,7}`;
+  const VULN_WORDS = "sql\\s*injection|inje[çc][ãa]o\\s+(?:de\\s+)?(?:sql|comandos?|c[óo]digo|ldap|xpath|nosql|html|template|cabe[çc]alho)|cross[- ]site\\s+scripting|XSS(?:\\s+(?:refletido|armazenado|persistente|reflected|stored|dom))?|cross[- ]site\\s+request\\s+forgery|CSRF|SSRF|server[- ]side\\s+request\\s+forgery|remote\\s+code\\s+execution|execu[çc][ãa]o\\s+remota\\s+de\\s+c[óo]digo|RCE|IDOR|insecure\\s+direct\\s+object\\s+references?|refer[êe]ncia\\s+direta\\s+insegura|path\\s+traversal|directory\\s+traversal|LFI|RFI|local\\s+file\\s+inclusion|remote\\s+file\\s+inclusion|XXE|xml\\s+external\\s+entit(?:y|ies)|command\\s+injection|os\\s+command\\s+injection|desserializa[çc][ãa]o\\s+insegura|insecure\\s+deserialization|open\\s+redirect|redirecionamento\\s+aberto|broken\\s+(?:authentication|access\\s+control|object\\s+level\\s+authorization)|BOLA|quebra\\s+de\\s+(?:autentica[çc][ãa]o|controle\\s+de\\s+acesso)|controle\\s+de\\s+acesso\\s+quebrado|escala[çc][ãa]o\\s+de\\s+privil[ée]gios?|eleva[çc][ãa]o\\s+de\\s+privil[ée]gios?|privilege\\s+escalation|credenciais?\\s+(?:padr[ãa]o|default|fracas?|expostas?|em\\s+texto\\s+claro|vazadas?)|default\\s+credentials|senhas?\\s+(?:fracas?|padr[ãa]o|em\\s+texto\\s+claro)|weak\\s+passwords?|smb\\s+signing(?:\\s+(?:disabled|not\\s+required))?|assinatura\\s+smb\\s+(?:desabilitada|n[ãa]o\\s+exigida)|eternalblue|bluekeep|heartbleed|log4shell|shellshock|poodle|zerologon|printnightmare|proxylogon|proxyshell|petitpotam|kerberoasting|as-rep\\s+roasting|pass[- ]the[- ](?:hash|ticket)|golden\\s+ticket|silver\\s+ticket|dcsync|llmnr(?:\\/nbt-ns)?(?:\\s+poisoning)?|nbt-ns\\s+poisoning|man[- ]in[- ]the[- ]middle|MITM|directory\\s+listing|listagem\\s+de\\s+diret[óo]rios?|information\\s+disclosure|exposi[çc][ãa]o\\s+de\\s+informa[çc][õo]es(?:\\s+sens[íi]veis)?|vazamento\\s+de\\s+informa[çc][õo]es|clickjacking|cors\\s+(?:misconfiguration|mal\\s+configurado|permissivo)|session\\s+fixation|fixa[çc][ãa]o\\s+de\\s+sess[ãa]o|sequestro\\s+de\\s+sess[ãa]o|session\\s+hijacking|brute[- ]?force|ataque\\s+de\\s+for[çc]a\\s+bruta|enumera[çc][ãa]o\\s+de\\s+usu[áa]rios|user\\s+enumeration|SSLv[23]|TLS\\s*1\\.[01]|cifras?\\s+fracas?|weak\\s+ciphers?|certificado\\s+(?:expirado|autoassinado|auto-assinado|inv[áa]lido)|self[- ]signed\\s+certificate|missing\\s+(?:security\\s+headers|patch(?:es)?|http\\s+security\\s+headers)|aus[êe]ncia\\s+de\\s+(?:cabe[çc]alhos\\s+de\\s+seguran[çc]a|patch(?:es)?|atualiza[çc][õo]es\\s+de\\s+seguran[çc]a|mfa|autentica[çc][ãa]o\\s+multifator|rate\\s+limit(?:ing)?|bloqueio\\s+de\\s+conta)|software\\s+desatualizado|vers[ãa]o\\s+(?:desatualizada|vulner[áa]vel)|outdated\\s+software|upload\\s+(?:irrestrito|de\\s+arquivos?\\s+sem\\s+valida[çc][ãa]o)|unrestricted\\s+file\\s+upload|race\\s+condition|buffer\\s+overflow|estouro\\s+de\\s+buffer|prototype\\s+pollution|subdomain\\s+takeover|dns\\s+zone\\s+transfer|transfer[êe]ncia\\s+de\\s+zona\\s+dns|snmp\\s+(?:community\\s+)?(?:public|private)|rdp\\s+expost[oa](?:\\s+[àa]\\s+internet)?|SMBv1|NTLMv1|MS17-010|anonymous\\s+(?:ftp|bind|login)|acesso\\s+an[ôo]nimo|ftp\\s+an[ôo]nimo|hardcoded\\s+(?:credentials|secrets?|passwords?)|credenciais\\s+(?:hardcoded|embutidas\\s+no\\s+c[óo]digo)|stack\\s+trace\\s+exposto|mensagens?\\s+de\\s+erro\\s+detalhadas?|verbose\\s+errors?|webshell|reverse\\s+shell|shell\\s+reversa|backdoor|jwt\\s+(?:none|sem\\s+assinatura)|algoritmo\\s+none";
+  const SEC_TECH = "fortinet|fortigate|fortios|forticlient|fortianalyzer|palo\\s+alto(?:\\s+networks)?|pan-os|globalprotect|check\\s+point|sonicwall|sophos|crowdstrike(?:\\s+falcon)?|sentinelone|cortex\\s+xdr|carbon\\s+black|microsoft\\s+defender(?:\\s+for\\s+endpoint)?|defender\\s+for\\s+endpoint|microsoft\\s+sentinel|trend\\s+micro|kaspersky|symantec|mcafee|trellix|bitdefender|splunk|qradar|arcsight|wazuh|darktrace|tenable|nessus|qualys|rapid7|nexpose|insightvm|cyberark|thycotic|delinea|beyondtrust|okta|duo\\s+security|zscaler|netskope|imperva|f5\\s+big-?ip|cisco\\s+(?:asa|firepower|ise|umbrella|anyconnect)|meraki|aruba\\s+clearpass|veeam|acronis|commvault|rubrik|knowbe4|proofpoint|mimecast|barracuda|tanium|jamf|varonis|hashicorp\\s+vault|keepass|lastpass|1password|bitwarden|pfsense|opnsense|snort|suricata|zabbix|graylog";
+  const SOFTWARE = "Apache(?:\\s+(?:httpd|Tomcat|Struts))?|nginx|Microsoft[- ]IIS|IIS|OpenSSH|OpenSSL|PHP|MySQL|MariaDB|PostgreSQL|Microsoft\\s+SQL\\s+Server|SQL\\s+Server|MongoDB|Redis|Elasticsearch|Tomcat|JBoss|WildFly|WebLogic|WebSphere|WordPress|Joomla|Drupal|Magento|jQuery|Bootstrap|AngularJS|React|Vue\\.?js|Node\\.?js|Express|Django|Flask|Laravel|Spring(?:\\s+Boot)?|Log4j|Exchange(?:\\s+Server)?|SharePoint(?:\\s+Server)?|Windows\\s+Server|Windows|Ubuntu|Debian|CentOS|Red\\s*Hat(?:\\s+Enterprise\\s+Linux)?|RHEL|Oracle(?:\\s+Database)?|Java|OpenJDK|\\.NET(?:\\s+Framework)?|ASP\\.NET|vsftpd|ProFTPD|FileZilla(?:\\s+Server)?|Samba|Jenkins|GitLab|Grafana|Kibana|Confluence|Jira|Citrix(?:\\s+ADC|\\s+Gateway)?|VMware(?:\\s+(?:ESXi|vCenter|Horizon))?|ESXi|vCenter|FortiOS|PAN-OS|Cisco\\s+IOS(?:\\s+XE)?|Zimbra|Roundcube|phpMyAdmin|Moodle|Liferay|SAP\\s+NetWeaver|Totvs|Protheus|Kubernetes|Docker|OpenVPN|Squid|Postfix|Exim|Dovecot|Bind|BIND|Sendmail|Microsoft\\s+Office|Outlook";
+  const HOSTNAME_RE = "(?:SRV|SVR|SERVER|DC|AD|ADDS|FS|FILE|SQL|DB|BD|WEB|WWW|APP|APL|EXCH|MAIL|MX|FW|FWL|VPN|PRX|PROXY|HOST|WS|PC|NB|NTB|NOTE|DESK|WIN|LNX|LINUX|ESX|ESXI|VM|VCENTER|BKP|BACKUP|NAS|SAN|PRT|PRINT|RDS|TS|CTX|SAP|ERP|CRM|GIT|JENKINS|K8S|NODE|DEV|HML|PRD|PROD|QA|TST)[-_]?[A-Z0-9]{0,12}\\d[A-Z0-9]{0,12}(?:[-_][A-Z0-9]{1,12})*";
+  const CORP_RULES = [
+    // empresas
+    R("Empresa/organização", `${B}(?:raz[ãa]o\\s+social|nome\\s+fantasia|nome\\s+empresarial|empresa|companhia|contratante|contratada|fornecedor[a]?|prestador[a]?(?:\\s+de\\s+servi[çc]os?)?|parceir[oa]|organiza[çc][ãa]o|institui[çc][ãa]o|patrocinador[a]?|auditad[oa]|entidade|grupo\\s+econ[ôo]mico|controladora|subsidi[áa]ria|cliente)${SEPC}${LINE(2, 100)}`, "gi", "Alta", 202, { group: 1, validate: (v) => /[\p{Lu}\d]/u.test(v) && !/^(sim|n[ãa]o|n\/a)$/i.test(v) }),
+    R("Empresa/organização", `(${CORPNAME}[ ,]+${COMPANY_SUFFIX})(?![\\p{L}])`, "g", "Alta", 103, { group: 1 }),
+    R("Empresa/organização", `${B}(?:${ci("a empresa|da empresa|na empresa|pela empresa|à empresa|para a empresa|com a empresa|o grupo|do grupo|no grupo|a organização|da organização|na organização|a companhia|da companhia|a instituição|da instituição|o cliente|do cliente|a contratante|da contratante|a contratada|da contratada|o fornecedor|do fornecedor|a consultoria|da consultoria|pela consultoria|com a consultoria|a parceira|da parceira|o parceiro|do parceiro|a operadora|da operadora|a seguradora|da seguradora|a plataforma|da plataforma|a marca|da marca|a startup|da startup|a fintech|da fintech|a agência|da agência|o escritório|do escritório|a prestadora|da prestadora|a fornecedora|da fornecedora|em parceria com a|em parceria com o|em parceria com|contratou a|contratou o|contratada pela|contratado pela")})\\s+(${CORPNAME})`, "g", "Média", 64, { group: 1, validate: (v) => !/^(de|da|do|e|que|para|com|em)$/i.test(v) }),
+    R("Inscrição estadual/municipal", `${B}(?:inscri[çc][ãa]o\\s+(?:estadual|municipal)|I\\.?E\\.?|I\\.?M\\.?|CCM)${SEP}(\\d[\\d.\\/-]{4,20}\\d)`, "gi", "Alta", 102, { group: 1 }),
+    R("Contrato/documento fiscal", `${B}(?:contrato|n[º°o.]?\\s*do\\s+contrato|nota\\s+fiscal|NF-?e?|NFS-?e|pedido(?:\\s+de\\s+compra)?|ordem\\s+de\\s+compra|purchase\\s+order|PO|proposta(?:\\s+comercial)?|fatura|invoice)\\s*(?:n[º°o.]?\\s*)?[:#-]?\\s*([A-Z]{0,4}[\\d][\\w.\\/-]{2,30})`, "gi", "Alta", 101, { group: 1, validate: (v) => /\d{2}/.test(v) }),
+    R("Contrato/documento fiscal", `(?<!\\d)(?:\\d{4}\\s?){10}\\d{4}(?!\\d)`, "g", "Alta", 100),
+    R("Domínio/URL", `https?:\\/\\/[^\\s"'<>)\\]]+`, "gi", "Alta", 99, { validate: notPublic }),
+    R("Domínio/URL", `(?<![@\\w.\\/-])(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+(?:com|net|org|io|br|local|corp|lan|internal|intranet|int|cloud|app|dev|info|biz|co|gov|edu|tech|online|site|xyz|ai|me)(?:\\.[a-z]{2})?(?![\\w-])`, "gi", "Alta", 98, { validate: (v) => notPublic(v) && !/^\d+(\.\d+)+$/.test(v) }),
+    // segurança / pentest
+    R("Segredo/credencial técnica", `-----BEGIN [A-Z ]+-----[\\s\\S]{10,6000}?-----END [A-Z ]+-----`, "g", "Alta", 160),
+    R("Segredo/credencial técnica", `(?<![A-Z0-9])(?:AKIA|ASIA)[A-Z0-9]{16}(?![A-Z0-9])`, "g", "Alta", 159),
+    R("Segredo/credencial técnica", `eyJ[\\w-]{8,}\\.[\\w-]{8,}\\.[\\w-]{8,}`, "g", "Alta", 158),
+    R("Segredo/credencial técnica", `${B}(?:api[_ -]?key|apikey|access[_ -]?key(?:[_ -]?id)?|secret(?:[_ -]?key)?|client[_ -]?secret|token|bearer|authorization|private[_ -]?key|senha|password|passwd|pwd|pass|connection\\s*string|string\\s+de\\s+conex[ãa]o|hash(?:\\s+ntlm)?|chave(?:\\s+(?:de\\s+api|privada|secreta))?)\\s*[:=]\\s*["']?([^\\s"',;]{4,300})`, "gi", "Alta", 157, { group: 1 }),
+    R("Segredo/credencial técnica", `(?<![a-fA-F0-9])[a-fA-F0-9]{32}:[a-fA-F0-9]{32}(?![a-fA-F0-9])`, "g", "Alta", 156),
+    R("Segredo/credencial técnica", `(?<![\\w$])\\$(?:2[aby]?|1|5|6|apr1)\\$[^\\s:]{8,120}`, "g", "Alta", 155),
+    R("Segredo/credencial técnica", `(?<![a-fA-F0-9])(?:[a-fA-F0-9]{64}|[a-fA-F0-9]{40}|[a-fA-F0-9]{32})(?![a-fA-F0-9])`, "g", "Média", 63),
+    R("Payload/requisição", `(?<![\\w])(?:GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\s+\\S+\\s+HTTP\\/[\\d.]+`, "g", "Alta", 154),
+    R("Payload/requisição", `(?<![\\w-])(?:Host|Cookie|Set-Cookie|Authorization|X-Api-Key|X-Auth-Token|X-Forwarded-For|Referer|Origin)\\s*:\\s*([^\\n]{2,300})`, "g", "Alta", 153, { group: 1 }),
+    R("Payload/requisição", `<script\\b[^>]*>[\\s\\S]{0,300}?<\\/script>|(?:'|%27)\\s*(?:OR|AND)\\s+['"]?\\w+['"]?\\s*=\\s*['"]?\\w+['"]?(?:\\s*--)?|UNION(?:\\s+ALL)?\\s+SELECT[^\\n;]{0,200}|\\$\\{jndi:[^}]{0,200}\\}|(?:\\.\\.\\/|\\.\\.\\\\){2,}[^\\s"'<>]*|<!ENTITY[^>]{0,200}>|javascript:[^\\s"'<>]{1,200}|on(?:error|load|mouseover)\\s*=\\s*[^\\s>]{1,120}|;\\s*(?:cat|ls|id|whoami|uname|wget|curl)\\b[^\\n]{0,80}`, "gi", "Alta", 152),
+    R("Vulnerabilidade", `${B}(?:vulnerabilidade|achado|finding|t[íi]tulo(?:\\s+da\\s+vulnerabilidade)?|descri[çc][ãa]o(?:\\s+t[ée]cnica|\\s+da\\s+vulnerabilidade)?|evid[êe]ncias?|prova\\s+de\\s+conceito|PoC|payload|requisi[çc][ãa]o|request|resposta|response|endpoint|par[âa]metro(?:\\s+vulner[áa]vel)?|ativos?\\s+afetados?|hosts?\\s+afetados?|urls?\\s+afetadas?|componentes?\\s+afetados?|sistemas?\\s+afetados?|aplica[çc][ãa]o\\s+afetada|explora[çc][ãa]o|exploit|passos\\s+(?:para|de)\\s+reprodu[çc][ãa]o|reprodu[çc][ãa]o|impacto\\s+t[ée]cnico|vetor\\s+de\\s+ataque|credenciais\\s+obtidas|usu[áa]rios?\\s+comprometidos?)${SEPC}${LINE(2, 400, false)}`, "gi", "Alta", 151, { group: 1 }),
+    R("Vulnerabilidade", `${B}(?:${VULN_WORDS})(?![\\p{L}\\d])`, "gi", "Alta", 97),
+    R("CVE/CWE/CVSS", `${B}(?:CVE-\\d{4}-\\d{4,7}|CWE-\\d{1,4}|MS\\d{2}-\\d{3}|KB\\d{6,8}|GHSA(?:-[\\w]{4}){3}|CVSS:\\d\\.\\d\\/[A-Z]{1,3}:[A-Z](?:\\/[A-Z]{1,3}:[A-Z])+)`, "gi", "Alta", 150),
+    R("Rede/IP interno", `(?<![\\d.])(?:\\d{1,3}\\.){3}\\d{1,3}\\/\\d{1,2}(?!\\d)`, "g", "Alta", 149, { validate: (v) => validIpv4(v.split("/")[0]) }),
+    R("Rede/IP interno", `(?<![\\d.])(?:\\d{1,3}\\.){3}\\d{1,3}(?!\\d|\\.\\d)`, "g", "Alta", 72, { validate: validIpv4 }),
+    R("Rede/IP interno", `(?<![\\w:])(?:[0-9a-fA-F]{1,4}:){3,7}[0-9a-fA-F]{1,4}(?![\\w:])|(?<![\\w:])(?:[0-9a-fA-F]{1,4}:){1,6}:(?:[0-9a-fA-F]{1,4}(?::[0-9a-fA-F]{1,4}){0,5})?(?![\\w:])`, "g", "Média", 71, { validate: (v) => (v.match(/:/g) || []).length >= 3 || v.includes("::") }),
+    R("Host/servidor", `${B}(?:host(?:name)?|nome\\s+do\\s+host|servidor|server|m[áa]quina|esta[çc][ãa]o|ativo|asset|alvo|target|dispositivo|equipamento|appliance|FQDN|controlador\\s+de\\s+dom[íi]nio|domain\\s+controller|dom[íi]nio(?:\\s+ad)?)\\s*[:=–-]\\s*([^\\s,;()]{2,80})`, "gi", "Alta", 148, { group: 1 }),
+    R("Host/servidor", `(?<![\\w.-])${HOSTNAME_RE}(?:\\.[a-z0-9-]+)*(?![\\w-])`, "g", "Alta", 96, { validate: (v) => !/^(ISO|PSI|RFC|TLS|SSL|NBR|ABNT|COVID|SHA|MD|AES|RSA|PCI|SOC|NIST|LGPD|GDPR)/.test(v) }),
+    R("Conta de sistema", `(?<![\\w\\\\])[A-Z][A-Z0-9-]{1,14}\\\\[A-Za-z0-9._$-]{2,40}`, "g", "Alta", 95),
+    R("Caminho/endpoint", `(?<![\\w])[A-Za-z]:\\\\(?:[^\\s\\\\"'<>|:*?]+\\\\?)+|\\\\\\\\[\\w.$-]+(?:\\\\[^\\s\\\\"'<>|]+)+`, "g", "Alta", 94),
+    R("Caminho/endpoint", `(?<![\\w.:\\/])\\/(?:etc|var|usr|home|opt|root|srv|tmp|bin|sbin|proc|mnt|boot|dev|lib|api|admin|administrator|wp-admin|wp-content|wp-json|wp-login\\.php|cgi-bin|login|logout|users?|accounts?|auth|oauth|graphql|swagger(?:-ui)?|actuator|console|manager|phpmyadmin|backups?|uploads?|debug|v\\d+|\\.git|\\.env|server-status|portal|intranet|painel|dashboard)(?:\\/[^\\s"'<>),;]*)?`, "g", "Alta", 93),
+    R("Porta/serviço", `(?<![\\w.])\\d{1,5}\\/(?:tcp|udp)(?![\\w])|${B}(?:porta|port)s?\\s*[:=]?\\s*\\d{2,5}(?:\\s*[,e]\\s*\\d{2,5})*`, "gi", "Alta", 92),
+    R("Versão de software", `${B}(?:${SOFTWARE})(?:(?:\\s*[\\/-]?\\s*v?|\\s+(?:vers[ãa]o|version)\\s+)\\d+(?:\\.\\d+)+[\\w.-]*|\\s+(?:v(?:ers[ãa]o)?\\s*)?(?:19|20)\\d{2}|\\s+v?\\d{1,2}(?![\\d.,]))(?:\\s+(?:R2|SP\\d|p\\d+|LTS|Update\\s+\\d+))?|${B}Windows\\s+(?:Server\\s+)?(?:20\\d\\d|XP|7|8(?:\\.1)?|10|11|NT)(?:\\s+R2)?`, "g", "Alta", 91),
+    R("Identificador de nuvem", `arn:aws[\\w-]*:[\\w-]+:[\\w-]*:\\d{0,12}:[^\\s"'<>,;]+|${B}(?:account\\s*id|conta\\s+aws|aws\\s+account|subscription(?:\\s+id)?|assinatura(?:\\s+azure)?|tenant(?:\\s+id)?|project\\s+id|projeto\\s+gcp)\\s*[:=]?\\s*([\\w-]{6,64})`, "gi", "Alta", 90),
+    R("Identificador de nuvem", `(?<![\\w-])[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?![\\w-])`, "gi", "Alta", 89),
+    R("Tecnologia de segurança", `${B}(?:${SEC_TECH})(?![\\p{L}\\d])`, "gi", "Alta", 88),
+    // financeiro
+    R("Valor financeiro", `(?:R\\$|US\\$|U\\$|USD|EUR|BRL|€|£|\\$)\\s?-?\\(?\\d{1,3}(?:[.\\s]\\d{3})*(?:,\\d{1,2})?\\)?(?:\\s?(?:mil|milh(?:ão|ões)|bilh(?:ão|ões)|mi|bi|MM|k))?(?![\\d])|(?:R\\$|US\\$|USD|€|\\$)\\s?-?\\d+(?:[.,]\\d+)?(?:\\s?(?:mil|milh(?:ão|ões)|bilh(?:ão|ões)|mi|bi|MM|k))?(?![\\d])`, "g", "Alta", 87),
+    R("Valor financeiro", `(?<![\\d.,\\/-])-?\\d+(?:[.,]\\d+)?\\s?(?:milh(?:ão|ões)|bilh(?:ão|ões)|mil\\s+reais|MM)(?![\\p{L}])`, "gi", "Alta", 86),
+    R("Valor financeiro", `(?<![\\d.,\\/-]|(?:[Ll]ei|[Dd]ecreto|[Rr]esolu[çc][ãa]o|[Pp]ortaria|[Nn]orma|n[º°o]\\.?|[Aa]rt\\.?)\\s{1,3})\\(?-?\\d{1,3}(?:\\.\\d{3})+(?:,\\d{1,2})?\\)?(?![\\d,\\/]|\\.\\d)|(?<![\\d.,\\/-])\\(?-?\\d+,\\d{2}\\)?(?![\\d,])`, "g", "Média", 62),
+    R("Percentual/indicador", `(?<![\\d.,])-?\\d{1,3}(?:[.,]\\d+)?\\s?%`, "g", "Alta", 85),
+    R("Conta contábil", `${B}(?:conta\\s+cont[áa]bil|c[óo]digo\\s+(?:da\\s+)?conta|plano\\s+de\\s+contas|centro\\s+de\\s+custos?|CC)${SEP}(\\d[\\d.]{2,20}\\d)`, "gi", "Alta", 84, { group: 1 }),
+    R("Conta contábil", `(?<![\\d.])\\d\\.\\d{1,2}\\.\\d{2}\\.\\d{2,4}(?:\\.\\d{1,4})?(?![\\d.])`, "g", "Alta", 83)
+  ];
+  RULES.push(...CORP_RULES);
+  // regras pessoais pré-existentes: perfil derivado da categoria; regras novas acima já usam categorias corporativas
+  const CORP_FIELD_RULES = [
+    ["Empresa/organização", /\b(razao social|nome fantasia|nome empresarial|empresa|empresas|fornecedor|fornecedores|parceiro|parceiros|contratante|contratada|organizacao|companhia|instituicao|cliente|clientes|grupo economico|holding)\b/],
+    ["Host/servidor", /\b(host|hosts|hostname|servidor|servidores|server|ativo|ativos|asset|assets|alvo|target|fqdn|dispositivo|equipamento|maquina)\b/],
+    ["Rede/IP interno", /\b(ip|ips|endereco ip|ip address|rede|subnet|sub rede|cidr|vlan)\b/],
+    ["Domínio/URL", /\b(url|urls|endpoint|endpoints|uri|dominio|domain|site|website|aplicacao web)\b/],
+    ["Porta/serviço", /\b(porta|portas|port|ports|servico|service|protocolo)\b/],
+    ["Versão de software", /\b(versao|version|software|produto|banner|tecnologia)\b/],
+    ["CVE/CWE/CVSS", /\b(cve|cwe|cvss|vetor cvss|referencia cve)\b/],
+    ["Vulnerabilidade", /\b(vulnerabilidade|vulnerabilidades|achado|achados|finding|findings|titulo da vulnerabilidade|descricao da vulnerabilidade|descricao tecnica|evidencia|evidencias|payload|parametro vulneravel|poc|prova de conceito|request|requisicao http|impacto tecnico|exploit|vetor de ataque)\b/],
+    ["Segredo/credencial técnica", /\b(senha|password|hash|token|chave|secret|credencial|credenciais|api key)\b/],
+    ["Conta de sistema", /\b(usuario|usuarios|user|username|login|conta)\b/],
+    ["Contrato/documento fiscal", /\b(contrato|n contrato|numero do contrato|nota fiscal|nf|nfe|pedido|ordem de compra|po|fatura|invoice|proposta)\b/],
+    ["Inscrição estadual/municipal", /\b(inscricao estadual|inscricao municipal|ie|im|ccm)\b/],
+    ["Conta contábil", /\b(conta contabil|codigo da conta|cod conta|plano de contas|centro de custo|centro de custos)\b/],
+    ["Valor financeiro", /\b(valor|valores|saldo|total|subtotal|receita|receitas|despesa|despesas|custo|custos|lucro|prejuizo|faturamento|orcamento|previsto|realizado|debito|credito|montante|preco|ebitda|ebit|resultado|patrimonio|caixa|investimento|capex|opex|salario|remuneracao|honorarios|multa|juros)\b|^(19|20)\d{2}$|^\d{1,2}t ?\d{2,4}$|^q[1-4]|^(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)[a-z]*( ?\d{2,4})?$|^(dez|jun) ?\d{2,4}$|^\d{2} \d{2} \d{4}$|exercicio|acumulado|ytd|mtd/],
+    ["Percentual/indicador", /\b(percentual|margem|indice|taxa|variacao|crescimento|share|participacao|%)\b/]
+  ];
+
   /* ------------- nomes sem rótulo ------------- */
   const NAME_SEQ = new RegExp(`${B}${CAP}(?:[ \\u00a0](?:${CONN}[ \\u00a0])?${CAP})+`, "gu");
   const WORD = new RegExp(`${CAP}|${CONN}`, "gu");
@@ -792,7 +954,14 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     const content = String(text ?? "");
     if (!content.trim()) return [];
     const disabled = new Set(opts.disabled || []);
+    const prof = new Set(opts.profiles || ["pessoal"]);
     const cands = [];
+    for (const raw of opts.corpTerms || []) {
+      const term = String(raw).trim();
+      if (term.length < 2) continue;
+      const re = new RegExp(`(?<![\\p{L}\\p{N}])${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}\\p{N}])`, "giu");
+      for (const m of content.matchAll(re)) cands.push({ category: "Empresa/organização", start: m.index, end: m.index + m[0].length, value: m[0], confidence: "Alta", priority: 201 });
+    }
     for (const raw of opts.terms || []) {
       const term = String(raw).trim();
       if (term.length < 2) continue;
@@ -800,7 +969,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
       for (const m of content.matchAll(re)) cands.push({ category: "Termo personalizado", start: m.index, end: m.index + m[0].length, value: m[0], confidence: "Alta", priority: 200 });
     }
     for (const rule of RULES) {
-      if (disabled.has(rule.category)) continue;
+      if (disabled.has(rule.category) || !catActive(rule.category, prof)) continue;
       rule.re.lastIndex = 0;
       for (const m of content.matchAll(rule.re)) {
         const g = rule.group || 0;
@@ -824,15 +993,33 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
           const fw = strip(v.split(/\s+/)[0]);
           if (!FIRST_NAMES.has(fw) && (NOUNISH.test(fw) || NOT_NAME_PREFIX.has(fw))) continue;
         }
+        if (rule.category === "Empresa/organização") {
+          while (/\s(?:d[aeo]s?|e|&|em|para|of|and)$/i.test(v)) v = v.replace(/\s\S+$/, "");
+          if (v.length < 2) continue;
+        }
         cands.push({ category: rule.category, start, end: start + v.length, value: v, confidence: rule.confidence, priority: rule.priority });
       }
     }
-    if (!disabled.has("Nome")) unlabeledNames(content, cands);
+    if (!disabled.has("Nome") && prof.has("pessoal")) unlabeledNames(content, cands);
     cands.sort((a, b) => b.priority - a.priority || (b.end - b.start) - (a.end - a.start) || a.start - b.start);
     const acc = [];
+    const corpMode = [...prof].some((p) => p !== "pessoal");
     for (const c of cands) {
-      if (acc.some((x) => c.start < x.end && c.end > x.start)) continue;
-      acc.push(c);
+      const hits = acc.filter((x) => c.start < x.end && c.end > x.start);
+      if (!hits.length) { acc.push(c); continue; }
+      if (!corpMode) continue;
+      // modo corporativo: o que sobrou fora dos achados já aceitos também é mascarado (nada encontrado fica exposto)
+      hits.sort((a, b) => a.start - b.start);
+      let cur = c.start;
+      for (const h of hits.concat([{ start: c.end, end: c.end }])) {
+        if (h.start > cur) {
+          const piece = content.slice(cur, h.start);
+          const lead = piece.length - piece.trimStart().length, trail = piece.length - piece.trimEnd().length;
+          const st = cur + lead, en = h.start - trail;
+          if (en > st && /[\p{L}\p{N}]/u.test(content.slice(st, en))) acc.push(Object.assign({}, c, { start: st, end: en, value: content.slice(st, en) }));
+        }
+        cur = Math.max(cur, h.end);
+      }
     }
     return acc.sort((a, b) => a.start - b.start).map(({ priority, ...x }) => Object.assign(x, { group: CATEGORIES[x.category].group }));
   }
@@ -882,6 +1069,8 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     if (opts.mode === "total") return v.replace(/[\p{L}\p{N}]/gu, c);
     const spec = (CATEGORIES[category] || {}).mask || [2, 2];
     if (spec === "all") return v.replace(/[\p{L}\p{N}]/gu, c);
+    if (spec === "digits") return v.replace(/\d/g, c);
+    if (spec === "url") { const m = /^([a-z]+:\/\/)/i.exec(v); const pre = m ? m[1] : ""; return pre + v.slice(pre.length).replace(/[\p{L}\p{N}]/gu, c); }
     if (spec === "words") return maskWords(v, c, category === "Endereço");
     if (spec === "email") return maskEmail(v, c);
     if (spec === "phone") return maskPhone(v, c);
@@ -965,14 +1154,23 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
   ];
   const NOT_PERSON_NAME = /(empresa|razao social|fantasia|produto|arquivo|projeto|sistema|servico|fornecedor|setor|departamento|unidade|filial|banco|cidade|rua|time|clube|curso|escola|plano|documento|campo|coluna|tabela)/;
   const normHeader = (h) => strip(h).replace(/[^a-z0-9]+/g, " ").trim();
-  function fieldCategory(header) {
+  function fieldCategory(header, profiles) {
+    const prof = new Set(profiles || ["pessoal"]);
     const h = normHeader(header);
-    if (!h || h.length > 60 || /^\d+$/.test(h)) return null;
-    for (const [cat, re] of FIELD_RULES) {
-      if (!re.test(h)) continue;
-      if (cat === "Nome" && NOT_PERSON_NAME.test(h)) return null;
-      return cat;
+    if (!h || h.length > 60) return null;
+    const yearLike = /^(19|20)\d{2}$/.test(h);
+    if (/^\d+$/.test(h) && !yearLike) return null;
+    // específicos de empresa têm prioridade sobre "Nome" (ex.: "Nome da empresa", "Razão social")
+    if (prof.has("empresa") && /\b(razao social|nome fantasia|nome empresarial|nome da empresa|empresa|fornecedor)\b/.test(h)) return "Empresa/organização";
+    if (prof.has("pessoal") && !yearLike) {
+      for (const [cat, re] of FIELD_RULES) {
+        if (!re.test(h)) continue;
+        if (cat === "Nome" && NOT_PERSON_NAME.test(h)) break;
+        return cat;
+      }
     }
+    for (const [cat, re] of CORP_FIELD_RULES) if (catActive(cat, prof) && re.test(h)) return cat;
+    if (!prof.has("pessoal")) for (const [cat, re] of FIELD_RULES) if (catActive(cat, prof) && re.test(h)) return cat;
     return null;
   }
   const BLANKS = new Set(["", "-", "--", "---", "n a", "na", "nd", "n d", "null", "none", "nao informado", "nao se aplica", "sem informacao", "nao consta", "x"]);
@@ -986,7 +1184,31 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     return [{ category, start, end: start + v.length, value: v, confidence, group: CATEGORIES[category].group }];
   }
 
-  return { isRoleOrOrg, fieldCategory, fieldFinding, isBlankValue, normHeader, CATEGORIES, RULES, detect, maskValue, applyMasks, context, validCpf, validCnpj, luhn, validIpv4 };
+  /** prováveis nomes de empresa/marca repetidos no texto (sugestão; nunca mascarados sem confirmação) */
+  const KNOWN_ACRONYMS = new Set("ISO IEC ABNT NBR LGPD GDPR ANPD PSI POP SGSI SGPI TI IT RH CEO CFO CIO CISO CTO DPO SOC NOC GRC RTO RPO SLA KPI MFA VPN EDR XDR SIEM DLP IAM PAM AD DNS DHCP HTTP HTTPS TLS SSL SSH SQL API URL PDF CPF CNPJ RG CEP UF SP RJ MG PR RS SC BA PE DF LTDA ME EPP SA NIST CIS PCI DSS SOX COBIT ITIL OWASP CVE CVSS CWE BCP DRP BIA PDCA RACI TCP UDP IP LAN WAN WIFI QR PIX NF NFE OK EUA USA EU UE EBITDA EBIT DRE DFC DMPL DVA BP PL CAPEX OPEX ROI ROE ROA LAIR IR IRPJ CSLL PIS COFINS ICMS ISS IPI INSS FGTS SPED ECD ECF CPC IFRS GAAP BRL USD EUR KPIS MSSQL MYSQL NTLM LDAP LDAPS RDP SNMP SMTP IMAP POP3 SFTP WINRM VNC NFS ICMP ARP DC EDR AV WAF IDS IPS NAC CASB SASE ZTNA".split(" "));
+  const CODE_WORDS = new Set("OR AND NOT SELECT UNION FROM WHERE INSERT UPDATE DELETE DROP TABLE GET POST PUT PATCH HEAD OPTIONS HTTP HTTPS HOST PORT STATE SERVICE VERSION OPEN CLOSED FILTERED TCP UDP NULL TRUE FALSE ID OS PID UID GID CVE CWE CVSS AWS AZURE GCP KEY TOKEN HASH NTLM SMB RDP SSH FTP SQL XSS CSRF SSRF RCE IDOR LFI RFI XXE JWT API URL URI JSON XML HTML JS PHP ASP ASPX JSP CHAVE".split(" "));
+  function suggestCompanies(texts, already = []) {
+    const have = new Set(already.map((x) => x.toLowerCase()));
+    const counts = new Map();
+    const seqRe = new RegExp(`(?<![\\p{L}\\p{N}])(?:[${UP}0-9][\\p{L}\\p{N}&'’-]*)(?:[ ](?:[${UP}0-9&][\\p{L}\\p{N}&'’-]*)){0,4}`, "gu");
+    for (const t of texts) for (const m of String(t).matchAll(seqRe)) {
+      let words = m[0].split(" ");
+      while (words.length && /^(a|o|as|os|e|da|do|das|dos|na|no|nas|nos|em|para|pela|pelo|com|por|que|um|uma|este|esta|esse|essa|the|of)$/i.test(words[0])) words.shift();
+      while (words.length && (NOT_NAME_PREFIX.has(strip(words[0])) || ROLE_WORDS.has(strip(words[0])) || /^[\p{Lu}][\p{Ll}]+$/u.test(words[0]) && words.length > 1 && !/^[A-Z0-9]/.test(words[1]))) words.shift();
+      if (!words.length) continue;
+      const cand = words.join(" ").replace(/[.,;:]+$/, "");
+      const distinctive = words.some((w) => (/^[A-Z]{2,6}$/.test(w) && !KNOWN_ACRONYMS.has(w)) || /^(?=.*\d)(?=.*[a-zA-Z])[\w-]{3,}$/.test(w) && !/^(ISO|CVE|CWE|PSI|NBR|MS\d|KB\d|V-\d)/i.test(w)) || (words.length >= 2 && words.some((w) => /^[A-Z]{2,}$/.test(w)) && words.some((w) => /^[\p{Lu}][\p{Ll}]{2,}$/u.test(w)));
+      if (words.some((w) => /^\d{1,4}[-:\/.]\d/.test(w) || /^\d+[A-Z]$/.test(w))) continue;
+      if (words.length > 1 && words.every((w) => /^[^\p{Ll}]+$/u.test(w))) continue; // CABEÇALHO EM MAIÚSCULAS
+      if (words.some((w) => CODE_WORDS.has(w) || /^(AKIA|ASIA|eyJ)/.test(w))) continue;
+      if (!distinctive || cand.length < 3 || cand.length > 60 || have.has(cand.toLowerCase())) continue;
+      if (words.every((w) => KNOWN_ACRONYMS.has(w) || /^\d+$/.test(w))) continue;
+      counts.set(cand, (counts.get(cand) || 0) + 1);
+    }
+    return [...counts].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1] || b[0].length - a[0].length).slice(0, 8).map(([v, n]) => ({ value: v, count: n }));
+  }
+
+  return { suggestCompanies, PROFILES, catActive, isRoleOrOrg, fieldCategory, fieldFinding, isBlankValue, normHeader, CATEGORIES, RULES, detect, maskValue, applyMasks, context, validCpf, validCnpj, luhn, validIpv4 };
 });
 
 </script>
@@ -1966,7 +2188,8 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
             const t = c.data;
             if (t.trim().length < 2 || !/[\p{L}\p{N}]/u.test(t)) continue;
             const meta = META_TEXT.has(el.localName) || el.localName === "author";
-            segments.push({ text: t, loc: `${meta ? "Metadados" : "Conteúdo interno"} · ${n}`, meta, hidden: true, textNode: c }); used = true;
+            const metaCorp = el.localName === "Company";
+            segments.push({ text: t, loc: `${meta || metaCorp ? "Metadados" : "Conteúdo interno"} · ${n}`, meta, metaCorp, hidden: true, textNode: c }); used = true;
           }
         }
       };
@@ -2327,13 +2550,14 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
   const now = () => new Date().toLocaleTimeString("pt-BR", { hour12: false });
   const MAX = 50 * 1024 * 1024;
   const OOXML = new Set(["docx", "xlsx", "pptx", "odf"]);
-  const VERSION = "v3.0 · 25/11/2026";
+  const VERSION = "v4.0 · 27/11/2026";
   const KIND_STYLE = { docx: ["DOC", "#2b5cff"], xlsx: ["XLS", "#16a34a"], pptx: ["PPT", "#ea580c"], pdf: ["PDF", "#dc2626"], image: ["IMG", "#9333ea"], text: ["TXT", "#0891b2"], odf: ["ODF", "#0e7490"] };
 
   const S = {
     files: [], findings: [], terms: [], seq: 0, fseq: 0,
     disabledCats: new Set(),
     opts: { mode: "parcial", char: "x", highlight: false, cleanMeta: true, faceMode: "pixel" },
+    profiles: new Set(["pessoal"]), profileChosen: false, corpTerms: [], dismissed: new Set(),
     view: "orig", selected: null, running: false, busy: false, dirty: true,
     anonCount: 0, pdfjs: null, lastSeen: new Set()
   };
@@ -2386,7 +2610,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     rafPending = true;
     setTimeout(() => {
       rafPending = false;
-      renderKpis(); renderFiles(); renderCats();
+      renderKpis(); renderFiles(); renderCats(); if (scheduleRender.all) renderSuggestions();
       renderPreview();
       if (scheduleRender.all) { renderTable(); scheduleRender.all = false; }
     }, 120);
@@ -2425,7 +2649,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
   /** categoria efetiva de um campo/coluna: automática pelo cabeçalho ou definida pelo usuário */
   function fieldCat(file, seg) {
     if (!seg.fieldKey) return null;
-    const auto = C.fieldCategory(seg.field || "");
+    const auto = C.fieldCategory(seg.field || "", P());
     const manual = file.colState ? file.colState.get(seg.fieldKey) : undefined;
     if (manual === false) return null;
     if (manual === true) return auto || "Coluna marcada";
@@ -2435,19 +2659,36 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     try { return detectSegInner(file, seg); }
     catch (err) { console.error("falha na detecção", seg.loc, err); return []; }
   }
+  const P = () => [...S.profiles];
+  const hasP = (p) => S.profiles.has(p);
+  const detectOpts = () => ({ terms: S.terms, corpTerms: S.corpTerms, profiles: P() });
+  /** grupo exibido: categorias compartilhadas (CNPJ, e-mail…) contam como corporativas quando o perfil pessoal está desligado */
+  function displayGroup(cat) {
+    const c = C.CATEGORIES[cat];
+    if (!c) return "pessoal";
+    if (c.group === "corporativo") return "corporativo";
+    return hasP("pessoal") ? c.group : "corporativo";
+  }
+  const gcls = (g) => (g === "sensivel" ? "s" : g === "corporativo" ? "c" : "p");
   function detectSegInner(file, seg) {
-    if (seg.face) return C.fieldFinding("Rosto em imagem", seg.text, "Alta");
-    if (seg.meta) return C.fieldFinding("Nome", seg.text, "Alta");
-    if (seg.isHeader || seg.isLabel) return C.detect(seg.text, { terms: S.terms }).filter((x) => x.category === "Termo personalizado" || x.confidence === "Alta" && !["Nome"].includes(x.category) && x.end - x.start > 6);
+    if (seg.face) return hasP("pessoal") ? C.fieldFinding("Rosto em imagem", seg.text, "Alta") : [];
+    if (seg.metaCorp) return hasP("empresa") ? C.fieldFinding("Empresa/organização", seg.text, "Alta") : [];
+    if (seg.meta) return hasP("pessoal") ? C.fieldFinding("Nome", seg.text, "Alta") : [];
+    if (seg.isHeader || seg.isLabel) return C.detect(seg.text, detectOpts()).filter((x) => x.category === "Termo personalizado" || x.category === "Empresa/organização" || x.confidence === "Alta" && !["Nome", "Vulnerabilidade", "Valor financeiro", "Percentual/indicador"].includes(x.category) && x.end - x.start > 6);
     const cat = fieldCat(file, seg);
     if (cat) return C.fieldFinding(cat, seg.text, "Alta");
-    return C.detect(seg.text, { terms: S.terms });
+    // relatórios financeiros: números de planilha sem cabeçalho reconhecido também são valores
+    if (hasP("financeiro") && seg.kind === "num") {
+      const n = Number(seg.text);
+      if (isFinite(n) && !(Number.isInteger(n) && n >= 1900 && n <= 2100) && (Math.abs(n) >= 100 || !Number.isInteger(n))) return C.fieldFinding("Valor financeiro", seg.text, "Alta");
+    }
+    return C.detect(seg.text, detectOpts());
   }
   function addSegFindings(file, i, dets, prev) {
     const arr = [];
     for (const d of dets) {
       const key = `${i}:${d.start}:${d.end}`;
-      const f = Object.assign(d, { id: ++S.fseq, fileId: file.id, seg: i, on: prev && prev.has(key) ? prev.get(key) : true });
+      const f = Object.assign(d, { id: ++S.fseq, fileId: file.id, seg: i, group: displayGroup(d.category), on: prev && prev.has(key) ? prev.get(key) : true });
       S.findings.push(f); arr.push(f);
     }
     if (arr.length) file.bySeg[i] = arr;
@@ -2469,6 +2710,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
   // nomes/sobrenomes que também são palavras comuns: não são propagados isoladamente
   const COMMON_WORDS = new Set("rosa luz paz cruz vitoria vitória gloria glória graça graca aurora clara flor flores dias lima costa campos reis prado rocha ramos leite fontes rios matos pinto neves moura santos santo sales vale valle porto serra mata branco preto bispo freire monte barros brito nunes rosas silva souza sousa ribeiro martins castro mendes nogueira machado alves pereira carvalho".split(" "));
   const PLACE_PREFIX = new Set("sao santo santa sta sto dom dona padre frei rua r av avenida travessa alameda praca largo rodovia estrada vila jardim parque bairro cidade porto rio lagoa fazenda escola colegio hospital instituto universidade faculdade edificio condominio igreja paroquia capela hotel shopping clube estadio arena ponte estacao aeroporto".split(" "));
+  const CORP_GENERIC = new Set("banco grupo companhia empresa instituto associacao cooperativa tecnologia tecnologias servicos solucoes consultoria sistemas comercio industria holding participacoes brasil brasileira nacional global digital seguranca informacao hospital clinica escola universidade fundacao centro rede casa super mega nova novo the sao santa".split(" "));
   function propagateAll() {
     S.findings = S.findings.filter((x) => !x.propagated);
     for (const f of S.files) { f.bySeg = {}; }
@@ -2480,6 +2722,15 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
       if (x.category === "Rosto em imagem" || known.has(v)) continue;
       if (C.fieldCategory(v) && v.split(/\s+/).length <= 2) continue;
       if (v.length >= 5 && /[\p{L}\p{N}]{3}/u.test(v)) known.set(v, x);
+      if (x.category === "Empresa/organização") {
+        // nome curto ("365s") e nome sem o sufixo ("Acme Tecnologia" de "Acme Tecnologia Ltda")
+        if (v.length >= 3 && !known.has(v)) known.set(v, x);
+        const base = v.replace(/[ ,]+(?:Ltda\.?|LTDA\.?|S\.?\s?A\.?|S\/A|EIRELI|ME|EPP|Ltd\.?|Inc\.?|LLC|Corp\.?|GmbH)$/, "").trim();
+        if (base !== v && base.length >= 4 && !known.has(base)) known.set(base, Object.assign({}, x, { value: base }));
+        const first = base.split(/\s+/)[0] || "";
+        const fn = first.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        if (base.split(/\s+/).length > 1 && first.length >= 4 && /^[\p{Lu}\d]/u.test(first) && !CORP_GENERIC.has(fn) && !COMMON_WORDS.has(fn) && !known.has(first)) known.set(first, Object.assign({}, x, { value: first }));
+      }
       // partes do nome (ex.: "Mariana" sozinha numa legenda) também identificam o titular
       if (x.category === "Nome" || x.category === "Termo personalizado") {
         for (const tok of v.split(/\s+/)) {
@@ -2547,7 +2798,8 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     if (rejected.length) toast("Arquivo(s) não adicionado(s)", rejected.join(" · "), true);
     if (S.files.length) $("workspace").classList.remove("hidden");
     scheduleRender(true);
-    pump();
+    if (!S.profileChosen && S.files.some((f) => f.status === "fila")) openProfile(true);
+    else pump();
     if (S.files.length && list.length) setTimeout(() => $("workspace").scrollIntoView({ behavior: "smooth", block: "start" }), 60);
   }
   async function pump() {
@@ -2578,7 +2830,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
       file.boldSupport = ex.boldSupport;
       file.outExt = ex.outExt;
       file.warnings = ex.warnings || [];
-      file.segments = ex.segments.map((s) => ({ text: s.text, loc: s.loc, meta: !!s.meta, hidden: !!s.hidden, face: !!s.face, field: s.field || null, fieldKey: s.fieldKey || null, isHeader: !!s.isHeader, isLabel: !!s.isLabel, sheet: s.sheet, row: s.row, col: s.col }));
+      file.segments = ex.segments.map((s) => ({ text: s.text, loc: s.loc, meta: !!s.meta, metaCorp: !!s.metaCorp, kind: s.kind, hidden: !!s.hidden, face: !!s.face, field: s.field || null, fieldKey: s.fieldKey || null, isHeader: !!s.isHeader, isLabel: !!s.isLabel, sheet: s.sheet, row: s.row, col: s.col }));
       file.tabular = file.segments.some((s) => s.row != null && s.sheet);
       (ex.warnings || []).forEach((w) => { feed("er", `<b>Atenção</b> · ${esc(file.name)}: ${esc(w)}`); toast("Atenção", `${file.name}: ${w}`, true); });
       if (file.kind === "image") file.imgUrl = URL.createObjectURL(file.file);
@@ -2587,7 +2839,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
       for (let i = 0; i < file.segments.length; i++) {
         const found = addSegFindings(file, i, detectSeg(file, file.segments[i]));
         for (const x of found) {
-          if (shown < 120) feed(x.group === "sensivel" ? "s" : "p", `<b>${esc(x.category)}</b> em ${esc(file.name)} · ${esc(file.segments[i].loc)}`);
+          if (shown < 120) feed(gcls(x.group), `<b>${esc(x.category)}</b> em ${esc(file.name)} · ${esc(file.segments[i].loc)}`);
           shown++;
         }
         if (performance.now() - t0 > 35) {
@@ -2624,6 +2876,9 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     $("kFilesF").textContent = S.files.length ? `${ready} analisado(s)` : "na fila";
     animateTo("kPessoal", S.findings.filter((x) => x.group === "pessoal").length);
     animateTo("kSensivel", S.findings.filter((x) => x.group === "sensivel").length);
+    animateTo("kCorp", S.findings.filter((x) => x.group === "corporativo").length);
+    $("kCorpF").textContent = [...S.profiles].filter((p) => p !== "pessoal").length ? "empresas, segurança e finanças" : "perfil não selecionado";
+    $("kPessoalF").textContent = hasP("pessoal") ? "identificadores e contatos" : "perfil não selecionado";
     animateTo("kAnon", S.anonCount);
   }
   function renderFiles() {
@@ -2644,14 +2899,14 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     S.findings.forEach((x) => counts.set(x.category, (counts.get(x.category) || 0) + 1));
     if (!counts.size) { $("cats").innerHTML = `<div class="empty">${S.running ? "Procurando…" : "Nenhum dado pessoal encontrado até agora."}</div>`; return; }
     const max = Math.max(...counts.values());
-    const groups = [["pessoal", "Dados pessoais"], ["sensivel", "Dados sensíveis · art. 11"]];
+    const groups = [["pessoal", "Dados pessoais"], ["sensivel", "Dados sensíveis · art. 11"], ["corporativo", "Informações corporativas"]];
     $("cats").innerHTML = groups.map(([g, title]) => {
-      const cats = [...counts].filter(([c]) => C.CATEGORIES[c].group === g).sort((a, b) => b[1] - a[1]);
+      const cats = [...counts].filter(([c]) => displayGroup(c) === g).sort((a, b) => b[1] - a[1]);
       if (!cats.length) return "";
       const total = cats.reduce((a, [, n]) => a + n, 0);
       return `<div class="cat-group"><span>${title}</span><span>${total}</span></div>` + cats.map(([c, n]) => {
         const on = !S.disabledCats.has(c);
-        const cl = g === "sensivel" ? "s" : "p";
+        const cl = gcls(g);
         return `<label class="cat ${cl}${on ? "" : " off"}"><input type="checkbox" data-cat="${esc(c)}" ${on ? "checked" : ""}><span class="nm">${esc(c)}</span><span class="ct">${n}</span><span class="mini"><i style="width:${Math.max(4, (n / max) * 100)}%"></i></span></label>`;
       }).join("");
     }).join("");
@@ -2673,7 +2928,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     }
     let h = "", cur = 0;
     for (const x of [...list].sort((a, b) => a.start - b.start)) {
-      const cls = `${x.group === "sensivel" ? "s" : "p"}${isOn(x) ? "" : " off"}${S.lastSeen.has(x.id) ? "" : " new"}`;
+      const cls = `${gcls(x.group)}${isOn(x) ? "" : " off"}${S.lastSeen.has(x.id) ? "" : " new"}`;
       S.lastSeen.add(x.id);
       h += esc(text.slice(cur, x.start)) + `<mark class="${cls}" title="${esc(x.category)} · confiança ${esc(x.confidence)}">${esc(text.slice(x.start, x.end))}</mark>`;
       cur = x.end;
@@ -2730,7 +2985,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     pv.scrollTop = scrollTop;
   }
   function colInfo(file, fieldKey, header) {
-    const auto = C.fieldCategory(header || "");
+    const auto = C.fieldCategory(header || "", P());
     const manual = file.colState.get(fieldKey);
     const on = manual === true || (manual === undefined && !!auto);
     const cat = on ? (auto || "Coluna marcada") : null;
@@ -2789,7 +3044,7 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
       const seg = file.segments[x.seg];
       const cx = C.context(seg.text, x.start, x.end);
       const masked = C.maskValue(x.category, x.value, S.opts);
-      const g = x.group === "sensivel" ? "s" : "p";
+      const g = gcls(x.group);
       const catOff = S.disabledCats.has(x.category);
       return `<tr${catOff ? ' style="opacity:.45"' : ""}><td><input type="checkbox" data-fid="${x.id}" ${x.on ? "checked" : ""} ${catOff ? "disabled title=\"Categoria desligada\"" : ""} style="accent-color:var(--blue);width:16px;height:16px"></td>
         <td><span class="badge ${g}">${esc(x.category)}</span><div class="conf">confiança ${esc(x.confidence.toLowerCase())}</div></td>
@@ -2808,7 +3063,11 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     });
   }
   function renderSample() {
-    const ex = [["CPF", "111.222.333-44"], ["Nome", "Maria Souza"], ["Telefone", "(11) 98765-4321"]];
+    const ex = [];
+    if (hasP("pessoal")) ex.push(["CPF", "111.222.333-44"], ["Nome", "Maria Souza"]);
+    if (hasP("empresa")) ex.push(["Empresa/organização", "Acme Tecnologia Ltda"]);
+    if (hasP("seguranca")) ex.push(["Rede/IP interno", "10.10.5.20"]);
+    if (hasP("financeiro")) ex.push(["Valor financeiro", "R$ 12.345,67"]);
     $("sample").innerHTML = ex.map(([c, v]) => `${esc(v)} → <b>${esc(C.maskValue(c, v, S.opts))}</b>`).join("<br>");
     $("modeHint").textContent = S.opts.mode === "total" ? "Anonimização: oculta todos os caracteres (recomendado para LGPD, art. 12)" : "Pseudonimização: mantém início e fim (ex.: 111.xxx.xxx-44)";
   }
@@ -2946,12 +3205,14 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     }).join("");
     const pess = S.findings.filter((x) => isOn(x) && x.group === "pessoal").length;
     const sens = S.findings.filter((x) => isOn(x) && x.group === "sensivel").length;
+    const corp = S.findings.filter((x) => isOn(x) && x.group === "corporativo").length;
     return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatório de anonimização · 365s</title>
 <style>body{font-family:Segoe UI,Arial,sans-serif;color:#0b1433;margin:40px;max-width:980px}h1{font-size:24px;margin:0}.b{color:#2f6bff;font-weight:900;font-size:28px}table{border-collapse:collapse;width:100%;margin-top:18px;font-size:13px}td,th{border:1px solid #d7deef;padding:8px;text-align:left;vertical-align:top}th{background:#eef3ff}.k{display:inline-block;margin:16px 16px 0 0;padding:12px 16px;border-radius:10px;background:#eef3ff}.k b{display:block;font-size:22px}small{color:#5a6788}</style></head><body>
 <div class="b">365s</div><h1>Relatório de anonimização de documentos</h1>
 <small>Gerado em ${date.toLocaleString("pt-BR")} · processamento local no navegador · nenhum valor original consta neste relatório</small>
-<div><span class="k">Arquivos<b>${S.files.filter((f) => f.out).length}</b></span><span class="k">Dados pessoais anonimizados<b>${pess}</b></span><span class="k">Dados sensíveis anonimizados<b>${sens}</b></span></div>
-<p><b>Parâmetros:</b> máscara ${S.opts.mode === "total" ? "total (anonimização)" : "parcial (pseudonimização: mantém início e fim)"} · rostos ${S.opts.faceMode === "solid" ? "tarjados" : "pixelizados"} · caractere "${esc(S.opts.char)}" · metadados de autoria ${S.opts.cleanMeta ? "mascarados" : "mantidos"} · categorias desativadas: ${[...S.disabledCats].map(esc).join(", ") || "nenhuma"} · termos personalizados: ${S.terms.length}</p>
+<div><span class="k">Arquivos<b>${S.files.filter((f) => f.out).length}</b></span><span class="k">Dados pessoais anonimizados<b>${pess}</b></span><span class="k">Dados sensíveis anonimizados<b>${sens}</b></span><span class="k">Informações corporativas anonimizadas<b>${corp}</b></span></div>
+<p><b>O que foi anonimizado:</b> ${profileLabels().map(esc).join(" · ")}</p>
+<p><b>Parâmetros:</b> máscara ${S.opts.mode === "total" ? "total (anonimização)" : "parcial (pseudonimização: mantém início e fim)"} · rostos ${S.opts.faceMode === "solid" ? "tarjados" : "pixelizados"} · caractere "${esc(S.opts.char)}" · metadados de autoria ${S.opts.cleanMeta ? "mascarados" : "mantidos"} · categorias desativadas: ${[...S.disabledCats].map(esc).join(", ") || "nenhuma"} · termos personalizados: ${S.terms.length} · nomes de empresas/marcas informados: ${S.corpTerms.length}</p>
 <table><thead><tr><th>Arquivo original</th><th>Arquivo gerado</th><th>Ocorrências</th><th>Por categoria</th></tr></thead><tbody>${rows}</tbody></table>
 <p><small>A detecção é automatizada e deve ser revisada por uma pessoa antes do compartilhamento. Mascaramento parcial pode não caracterizar dado anonimizado nos termos do art. 12 da LGPD quando houver meios razoáveis de reidentificação.</small></p>
 </body></html>`;
@@ -2966,6 +3227,59 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     a.download = `documentos_anonimizados_${new Date().toISOString().slice(0, 10)}.zip`;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }
+
+  /* ---------------- perfil: o que anonimizar ---------------- */
+  const PROFILE_LABEL = { pessoal: "Dados pessoais e sensíveis (LGPD)", empresa: "Empresas e documentos internos", seguranca: "Pentest e segurança", financeiro: "Contábil e financeiro" };
+  const profileLabels = () => ["pessoal", "empresa", "seguranca", "financeiro"].filter(hasP).map((p) => PROFILE_LABEL[p]);
+  let pendingAfterProfile = false;
+  function openProfile(fromUpload) {
+    pendingAfterProfile = !!fromUpload;
+    const corpOn = ["empresa", "seguranca", "financeiro"].some(hasP);
+    $("pfPessoal").checked = hasP("pessoal");
+    $("pfCorp").checked = corpOn;
+    for (const p of ["empresa", "seguranca", "financeiro"]) $(`pf_${p}`).checked = corpOn ? hasP(p) : p === "empresa";
+    $("pfCorpTerms").value = S.corpTerms.join("\n");
+    syncProfileForm();
+    $("profileModal").classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => $("pfStart").focus(), 50);
+  }
+  function syncProfileForm() {
+    const corp = $("pfCorp").checked;
+    $("pfCorpBox").classList.toggle("disabled", !corp);
+    $("pfCorpBox").querySelectorAll("input,textarea").forEach((el) => { el.disabled = !corp; });
+    const any = $("pfPessoal").checked || (corp && ["empresa", "seguranca", "financeiro"].some((p) => $(`pf_${p}`).checked));
+    $("pfStart").disabled = !any;
+    $("pfHint").textContent = any ? "" : "Selecione ao menos uma opção.";
+  }
+  function confirmProfile() {
+    const next = new Set();
+    if ($("pfPessoal").checked) next.add("pessoal");
+    if ($("pfCorp").checked) for (const p of ["empresa", "seguranca", "financeiro"]) if ($(`pf_${p}`).checked) next.add(p);
+    if (!next.size) return;
+    const terms = [...new Set($("pfCorpTerms").value.split(/[\n;]+/).map((t) => t.trim()).filter((t) => t.length >= 2))];
+    const changed = [...next].join() !== [...S.profiles].join() || terms.join("|") !== S.corpTerms.join("|");
+    S.profiles = next; S.corpTerms = terms; S.profileChosen = true;
+    $("profileModal").classList.add("hidden");
+    document.body.style.overflow = "";
+    renderProfileSummary(); renderSample();
+    feed("p", `<b>O que será anonimizado:</b> ${esc(profileLabels().join(" · "))}`);
+    if (changed && S.files.some((f) => f.segments.length)) redetectAll();
+    if (pendingAfterProfile) { pendingAfterProfile = false; pump(); }
+    scheduleRender(true);
+  }
+  function renderSuggestions() {
+    const box = $("pfSuggest");
+    if (!hasP("empresa") || S.running || !S.files.some((f) => f.segments.length)) { box.innerHTML = ""; return; }
+    const found = new Set(S.findings.map((x) => x.value.toLowerCase()));
+    const texts = []; S.files.forEach((f) => f.segments.forEach((sg) => { if (!sg.face && !sg.hidden && !sg.meta) texts.push(sg.text); }));
+    const foundArr = [...found].filter((v) => v.length >= 3);
+    const sug = C.suggestCompanies(texts, S.corpTerms).filter((x) => { const v = x.value.toLowerCase(); return !found.has(v) && !S.dismissed.has(x.value) && !foundArr.some((f) => f.includes(v) || v.includes(f)); });
+    box.innerHTML = sug.length ? `<div class="sug-t">Possíveis nomes de empresa/marca no documento. Clique para ocultar:</div>` + sug.map((x) => `<button type="button" class="sugbtn" data-sug="${esc(x.value)}" title="Aparece ${x.count} vez(es)">+ ${esc(x.value)} <small>${x.count}×</small></button>`).join("") : "";
+  }
+  function renderProfileSummary() {
+    $("pfSummary").innerHTML = profileLabels().map((l) => `<span class="pchip">${esc(l)}</span>`).join("") + (S.corpTerms.length ? `<span class="pchip c">${S.corpTerms.length} nome(s) de empresa/marca</span>` : "");
   }
 
   /* ---------------- eventos ---------------- */
@@ -3059,6 +3373,18 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
     S.terms.splice(Number(b.dataset.term), 1); renderTerms(); redetectAll();
   });
   $("anonBtn").addEventListener("click", anonymize);
+  $("pfStart").addEventListener("click", confirmProfile);
+  $("pfSuggest").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-sug]"); if (!b) return;
+    const v = b.dataset.sug;
+    if (!S.corpTerms.includes(v)) S.corpTerms.push(v);
+    feed("c", `<b>Nome adicionado para ocultar:</b> ${esc(v)}`);
+    renderProfileSummary(); redetectAll(); renderSuggestions();
+  });
+  $("pfEdit").addEventListener("click", () => openProfile(false));
+  ["pfPessoal", "pfCorp", "pf_empresa", "pf_seguranca", "pf_financeiro"].forEach((id) => $(id).addEventListener("change", syncProfileForm));
+  $("pfCancel").addEventListener("click", () => { if (!S.profileChosen) confirmProfile(); else { $("profileModal").classList.add("hidden"); document.body.style.overflow = ""; } });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("profileModal").classList.contains("hidden")) $("pfCancel").click(); });
   $("anonBtn2").addEventListener("click", anonymize);
   $("faceCtl").addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b) return;
@@ -3075,8 +3401,8 @@ t)).default()}catch(e){warn(`JpxImage#getJsModule: ${e}`)}e(n)}static async#N(e,
   try { const t = localStorage.getItem("365s-theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
   $("yr").textContent = new Date().getFullYear();
   $("ver").textContent = VERSION;
-  renderSample(); updateAnonBtn();
-  globalThis.__anon365 = { S, addFiles, VERSION };
+  renderSample(); updateAnonBtn(); renderProfileSummary();
+  globalThis.__anon365 = { S, addFiles, VERSION, setProfiles: (arr, terms) => { S.profiles = new Set(arr); S.corpTerms = terms || []; S.profileChosen = true; renderProfileSummary(); renderSample(); } };
 })();
 
 </script>
